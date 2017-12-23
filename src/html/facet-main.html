@@ -1,0 +1,14 @@
+<div>
+    {{#each this}}
+    <div>
+        <div class="header">
+            {{facetMeta.name}}
+        </div>
+        <div class="body">
+            {{#each facetValues}}
+                {{lable}} {{count}}
+            {{/each}}
+        </div>
+    </div>
+    {{/each}}
+</div>

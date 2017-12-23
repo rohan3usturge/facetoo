@@ -11,5 +11,4 @@ export class FacetTemplateService implements IFacetTemplateService {
         this.tempateFunctionForFacet = Handlebars.compile(FacetMain);
         return this.tempateFunctionForFacet();
     }
-
 }
