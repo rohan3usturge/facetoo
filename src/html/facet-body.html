@@ -1,0 +1,31 @@
+<div class="content">
+<h4 class="ui sub header">Select</h4>
+<div class="ui tiny hidden clearing divider"></div>
+<div class="ui list facet-list">
+    {{#each this}}
+    <div class="item facet-item">
+        <div class="content">
+            <div class="header facet-item-header">
+                <i class="right triangle icon"></i>
+                <span>{{facetMeta.name}}</span>
+            </div>
+            <div class="description facet-item-description" style="margin:10px;display:none;">
+                <div class="ui mini input">
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="ui list">
+                    {{#each facetValues}}
+                    <div class="item">
+                        <div class="ui checkbox">
+                            <input id="{{label}}-{{@index}}" {{isChecked selected}} class="facet-value-checkbox" value="{{../facetMeta.id}}:{{label}}" type="checkbox">
+                            <label for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+</div>

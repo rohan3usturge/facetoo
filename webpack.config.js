@@ -11,11 +11,12 @@ module.exports = {
     library: "Facetoo",
     libraryTarget: "umd"
   },
-  externals: {
-  },
   resolve: {
     modules: [path.resolve("./src"), "node_modules"], // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+    alias: {
+      'handlebars' : 'handlebars/dist/handlebars.min.js'
+    }
   },
   node: {
     fs: "empty"

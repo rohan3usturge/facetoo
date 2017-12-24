@@ -1,16 +1,38 @@
-import * as HandleBars from "handlebars";
+import * as Handlebars from "handlebars";
 import { IFacet } from "../models/IFacet";
+import { IFilter } from "../models/IFilter";
+import * as FacetSubHeader from "./../../html/facet-applied-filters.html";
+import * as FacetBody from "./../../html/facet-body.html";
+import * as FacetHeader from "./../../html/facet-header.html";
 import * as FacetMain from "./../../html/facet-main.html";
 import { IFacetTemplateService } from "./IFacetTemplateService";
 
 export class FacetTemplateService implements IFacetTemplateService {
     private data: IFacet[];
-    private tempateFunctionForFacet: any;
+    private tempateFunctionForFacetMain: any;
+    private tempateFunctionForFacetHeader: any;
+    private tempateFunctionForFacetSubHeader: any;
+    private tempateFunctionForFacetBody: any;
     constructor() {
-        this.tempateFunctionForFacet = Handlebars.compile(FacetMain);
+        this.tempateFunctionForFacetMain = Handlebars.compile(FacetMain);
+        this.tempateFunctionForFacetHeader = Handlebars.compile(FacetHeader);
+        this.tempateFunctionForFacetSubHeader = Handlebars.compile(FacetSubHeader);
+        this.tempateFunctionForFacetBody = Handlebars.compile(FacetBody);
     }
-    public BindData(data: IFacet[]): string {
-        this.data = data;
-        return this.tempateFunctionForFacet(data);
+    public Bind(facets: IFacet[], filters: IFilter[]): string {
+        const headerContent =  this.tempateFunctionForFacetHeader();
+        const subHeaderContent = this.tempateFunctionForFacetSubHeader(filters);
+        const bodyContent = this.tempateFunctionForFacetBody(facets);
+        return this.tempateFunctionForFacetMain({headerContent, subHeaderContent, bodyContent});
+    }
+
+    public BindOnlyFacets(facets: IFacet[]): string {
+        // throw new Error("Not implemented yet.");
+        return "";
+    }
+
+    public BindOnlyAppliedFilters(filters: IFilter[]): string {
+        // throw new Error("Not implemented yet.");
+        return "";
     }
 }
