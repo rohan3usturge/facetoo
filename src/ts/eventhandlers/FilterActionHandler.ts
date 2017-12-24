@@ -24,7 +24,10 @@ export class FilterActionHandler implements IEventHandler {
             // }
         });
         this.element.on("click", ".facet-subheader .facet-labels .label", (event) => {
-            const element = jQuery(event.target);
+            let element = jQuery(event.target);
+            if (!element.is(".label")) {
+                element = element.parents(".label");
+            }
             const valStr = element.attr("data-filter-entry").toString();
             const value = valStr.split(":");
             this.configStore.Options.onFilterChange(value[0], value[1], FilterActionType.Minus);
