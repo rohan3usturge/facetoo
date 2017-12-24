@@ -1,19 +1,20 @@
 <html>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
-<script src="dist/facetoo-bundle.js"></script>
+<script src="facetoo-bundle.js"></script>
 <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
     crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 
 <body style="margin: 0px;">
     <!-- <div>
         <button onclick="hideRequest()">hide RequestId</button>
         <button onclick="showRequest()">Show RequestId</button>
     </div> -->
-    <div id="hi" style="height: 70%"></div>
+    <div id="hi" style="height:50%;width:50%;margin:auto;"></div>
     <span id="scroll"></span>
     <script>
         var facets = [
@@ -46,7 +47,7 @@
             alert('hi on click filter - ' + pageIndex + ' ' + pageSize);
         }
         var options = {
-            facets: columns,
+            facets: facets,
             hybridFunction: renderFunction,
             onClickHeader: onClickHeader,
             onClickFilter: onClickFilter,
@@ -55,31 +56,6 @@
         }
         var grid = new Facetoo.Facet(options);
         grid.BindData();
-        // var data = [];
-        // for (var i = 0; i < 1000; i++) {
-        //     data.push({
-        //         ProjectId: "ProjectId" + i,
-        //         ResourceRequestId: "" + i,
-        //         CBTFlag: "CBTFlag" + i,
-        //         DeliveryCountryName: "DeliveryCountryName" + i,
-        //         ScheduledEndDate: "ScheduledEndDate" + i,
-        //         DeliveryCity: "DeliveryCity" + i,
-        //         ScheduledStartDate: "ScheduledStartDate" + i,
-        //         FundingTypeEnum: "FundingTypeEnum" + i,
-        //     })
-        // }
-        // var html = grid.bindData(data, {
-        //     totalCount: 34345,
-        //     pageSize: 1000,
-        //     pageIndex: 4,
-        //     pageSizes: [50, 100, 200, 500, 1000]
-        // });
-        // var hideRequest = function () {
-        //     grid.hideAllColumns('ResourceRequestId');
-        // }
-        // var showRequest = function () {
-        //     grid.showAllColumns('ResourceRequestId');
-        // }
     </script>
 </body>
 

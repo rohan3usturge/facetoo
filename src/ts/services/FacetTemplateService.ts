@@ -6,9 +6,11 @@ import { IFacetTemplateService } from "./IFacetTemplateService";
 export class FacetTemplateService implements IFacetTemplateService {
     private data: IFacet[];
     private tempateFunctionForFacet: any;
+    constructor() {
+        this.tempateFunctionForFacet = Handlebars.compile(FacetMain);
+    }
     public BindData(data: IFacet[]): string {
         this.data = data;
-        this.tempateFunctionForFacet = Handlebars.compile(FacetMain);
-        return this.tempateFunctionForFacet();
+        return this.tempateFunctionForFacet(data);
     }
 }

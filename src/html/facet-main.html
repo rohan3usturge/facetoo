@@ -1,14 +1,79 @@
-<div>
-    {{#each this}}
-    <div>
-        <div class="header">
-            {{facetMeta.name}}
+<div class="ui fluid card" style="padding-top : 0px;height:100%;overflow:hidden;">
+    <div class="content facet-header">
+        <div class="ui floated left header">Filters Section</div>
+        <div class="ui mini right floated buttons">
+            <button class="ui mini compact labeled icon button expand-all">
+                <i class="plus icon"></i>
+                Expand All
+            </button>
+            <div class="or"></div>
+            <button class="ui mini right labeled icon button collapse-all">
+                Collapse All
+                <i class="right minus icon"></i>
+            </button>
         </div>
-        <div class="body">
-            {{#each facetValues}}
-                {{lable}} {{count}}
+    </div>
+    <div class="content facet-subheader">
+        <h4 class="ui sub floated left header">Applied Filters</h4>
+        <div class="ui mini right floated buttons">
+            <button class="ui mini right labeled icon button">
+                Remove All
+                <i class="right close icon"></i>
+            </button>
+        </div>
+        <div class="ui tiny hidden clearing divider"></div>
+        <span class="ui blue labels facet-labels">
+            Role:
+            <span class="ui label">
+                Fun
+                <i class="icon close"></i>
+            </span>
+            <span class="ui label">
+                Fun
+                <i class="icon close"></i>
+            </span>
+        </span>
+        <span class="ui blue labels">
+            Role:
+            <span class="ui label">
+                Fun
+                <i class="icon close"></i>
+            </span>
+            <span class="ui label">
+                Fun
+                <i class="icon close"></i>
+            </span>
+        </span>
+    </div>
+    <div class="content facet-body" style="height: 100%;overflow:auto;">
+        <h4 class="ui sub header">Select</h4>
+        <div class="ui tiny hidden clearing divider"></div>
+        <div class="ui list facet-list">
+            {{#each this}}
+            <div class="item facet-item">
+                <div class="content">
+                    <div class="header facet-item-header">
+                        <i class="right triangle icon"></i>
+                        <span>{{facetMeta.name}}</span>
+                    </div>
+                    <div class="description facet-item-description" style="margin:10px;display:none;">
+                        <div class="ui mini input">
+                            <input type="text" placeholder="Search...">
+                        </div>
+                        <div class="ui list">
+                            {{#each facetValues}}
+                            <div class="item">
+                                <div class="ui checkbox">
+                                    <input id="{{label}}-{{@index}}" class="facet-value-checkbox" value="{{../facetMeta.id}}:{{label}}" type="checkbox" checked="{{selected}}">
+                                    <label for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
+                                </div>
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{/each}}
         </div>
     </div>
-    {{/each}}
 </div>
