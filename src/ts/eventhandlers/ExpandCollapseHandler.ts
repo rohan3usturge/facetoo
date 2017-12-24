@@ -11,25 +11,25 @@ export class ExpandCollapseHandler implements IEventHandler {
     constructor(private element: JQuery, private configStore: ConfigStore) {}
 
     public RegisterDomHandler(): void {
-        this.element.on("click", ".facet-header .expand-all", (event) => {
+        this.element.on("click", ".facet-body .expand-all", (event) => {
             this.element.find(".facet-item-header").each((index, element) => {
                 this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Show);
             });
-            jQuery(event.target).parents("button")
-            .attr("disabled", "true")
-            .siblings("button")
-            .removeAttr("disabled");
+            // jQuery(event.target).parents("button")
+            // .attr("disabled", "true")
+            // .siblings("button")
+            // .removeAttr("disabled");
             event.stopPropagation();
         });
-        this.element.on("click", ".facet-header .collapse-all", (event) => {
+        this.element.on("click", ".facet-body .collapse-all", (event) => {
             this.element.find(".facet-item-header").each((index, element) => {
                 this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Hide);
             });
-            jQuery(event.target)
-            .parents("button")
-            .attr("disabled", "true")
-            .siblings("button")
-            .removeAttr("disabled");
+            // jQuery(event.target)
+            // .parents("button")
+            // .attr("disabled", "true")
+            // .siblings("button")
+            // .removeAttr("disabled");
             event.stopPropagation();
         });
         this.element.on("click", ".facet-body .facet-item .facet-item-header", (event) => {

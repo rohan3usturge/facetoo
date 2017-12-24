@@ -1,23 +1,28 @@
 <div class="content">
-    <h4 class="ui sub floated left header">Applied Filters</h4>
+    <h5 class="ui sub blue floated left header">Applied Filters</h5>
     <div class="ui mini right floated buttons">
-        <button class="ui mini right labeled icon button remove-all">
-            Remove All
+        <button class="ui mini grey right icon button remove-all">
             <i class="right close icon"></i>
         </button>
     </div>
     <div class="ui tiny hidden clearing divider"></div>
-    {{#each this}}
-    <div>
-        <span class="ui blue subheader">{{filterName}} : </span>
-        <span class="ui mini blue labels facet-labels">
-            {{#each filterValues}}
-            <span class="ui label remove-label" data-filter-entry="{{../filterKey}}:{{this}}">
-                {{this}}
-                <i class="icon close"></i>
-            </span>
+    <table class="ui very compact small collapsing table" style="border: none;">
+        <tbod>
+            {{#each this}}
+            <tr class="top aligned">
+                <td>{{filterName}}</td>
+                <td>
+                    <span class="ui mini blue labels facet-labels">
+                        {{#each filterValues}}
+                        <span class="ui label remove-label" data-filter-entry="{{../filterKey}}:{{this}}">
+                            {{this}}
+                            <i class="icon close"></i>
+                        </span>
+                        {{/each}}
+                    </span>
+                </td>
+            </tr>
             {{/each}}
-        </span>
-    </div>
-    {{/each}}
+        </tbod>
+    </table>
 </div>

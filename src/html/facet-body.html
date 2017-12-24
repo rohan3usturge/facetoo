@@ -1,25 +1,31 @@
 <div class="content">
-<h4 class="ui sub header">Select</h4>
+<h5 class="ui sub blue left floated header">Select Filters</h5>
+<div class="ui mini right floated buttons">
+    <button class="ui mini grey compact icon button expand-all">
+        <i class="plus icon"></i>
+    </button>
+    <button class="ui mini grey right icon button collapse-all">
+        <i class="right minus icon"></i>
+    </button>
+</div>
 <div class="ui tiny hidden clearing divider"></div>
-<div class="ui list facet-list">
+<div class="ui medium list facet-list">
     {{#each this}}
     <div class="item facet-item">
         <div class="content">
-            <div class="header facet-item-header">
+            <div class="facet-item-header cursor-pointer">
                 <i class="right triangle icon"></i>
                 <span>{{facetMeta.name}}</span>
             </div>
             <div class="description facet-item-description" style="margin:10px;display:none;">
-                <div class="ui mini input">
+                <!-- <div class="ui mini input">
                     <input type="text" placeholder="Search...">
-                </div>
-                <div class="ui list">
+                </div> -->
+                <div class="ui small list">
                     {{#each facetValues}}
                     <div class="item">
-                        <div class="ui checkbox">
-                            <input id="{{label}}-{{@index}}" {{isChecked selected}} class="facet-value-checkbox" value="{{../facetMeta.id}}:{{label}}" type="checkbox">
-                            <label for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
-                        </div>
+                        <input id="{{label}}-{{@index}}" {{isChecked selected}} class="facet-value-checkbox cursor-pointer" value="{{../facetMeta.id}}:{{label}}" type="checkbox"/>
+                        <label class="ui mini item cursor-pointer" for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
                     </div>
                     {{/each}}
                 </div>
