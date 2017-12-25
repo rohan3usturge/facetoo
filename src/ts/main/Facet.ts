@@ -5,7 +5,6 @@ import { IEventHandler } from "../eventhandlers/IEventHandler";
 import { IFacet } from "../models/IFacet";
 import { IFacetMeta } from "../models/IFacetMeta";
 import { IFacetValue } from "../models/IFacetValue";
-import { IFilter } from "../models/IFilter";
 import { FacetTemplateService } from "../services/FacetTemplateService";
 import { IFacetTemplateService } from "../services/IFacetTemplateService";
 import { ConfigStore } from "./../config/ConfigStore";
@@ -43,7 +42,7 @@ export class Facet {
             const facetSubHeader = this.templateService.BindOnlyFacets(facets);
             this.parentElement.find(".facet-body").html(facetSubHeader);
         }    }
-    public BindOnlyAppliedFilters =  (filters: IFilter[]): void => {
+    public BindOnlyAppliedFilters =  (filters: IFacet[]): void => {
         if (!this.bindFinished) {
             const fullFacet = this.templateService.Bind([], filters);
         } else {
@@ -51,7 +50,7 @@ export class Facet {
             this.parentElement.find(".facet-subheader").html(facetSubHeader);
         }
     }
-    public Bind =  (facets: IFacet[], filters: IFilter[]): void => {
+    public Bind =  (facets: IFacet[], filters: IFacet[]): void => {
         this.parentElement.html(this.templateService.Bind(facets, filters));
         this.bindFinished = true;
     }

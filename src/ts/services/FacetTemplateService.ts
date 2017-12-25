@@ -1,6 +1,5 @@
 import * as Handlebars from "handlebars";
 import { IFacet } from "../models/IFacet";
-import { IFilter } from "../models/IFilter";
 import * as FacetSubHeader from "./../../html/facet-applied-filters.html";
 import * as FacetBody from "./../../html/facet-body.html";
 import * as FacetHeader from "./../../html/facet-header.html";
@@ -19,7 +18,7 @@ export class FacetTemplateService implements IFacetTemplateService {
         this.tempateFunctionForFacetSubHeader = Handlebars.compile(FacetSubHeader);
         this.tempateFunctionForFacetBody = Handlebars.compile(FacetBody);
     }
-    public Bind(facets: IFacet[], filters: IFilter[]): string {
+    public Bind(facets: IFacet[], filters: IFacet[]): string {
         const headerContent =  this.tempateFunctionForFacetHeader();
         const subHeaderContent = this.tempateFunctionForFacetSubHeader(filters);
         const bodyContent = this.tempateFunctionForFacetBody(facets);
@@ -30,7 +29,7 @@ export class FacetTemplateService implements IFacetTemplateService {
         return this.tempateFunctionForFacetBody(facets);
     }
 
-    public BindOnlyAppliedFilters(filters: IFilter[]): string {
+    public BindOnlyAppliedFilters(filters: IFacet[]): string {
         return this.tempateFunctionForFacetSubHeader(filters);
     }
 }
