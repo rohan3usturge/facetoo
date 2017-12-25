@@ -30,6 +30,12 @@ export class Facet {
             handler.RegisterDomHandler();
         });
     }
+    public showLoader = (): void => {
+        jQuery(this.configStore.Options.containerElement).find(".facet-loader").addClass("active");
+    }
+    public hideLoader = (): void => {
+        jQuery(this.configStore.Options.containerElement).find(".facet-loader").remove("active");
+    }
     public BindOnlyFacets =  (facets: IFacet[]): void => {
         if (!this.bindFinished) {
             const fullFacet = this.templateService.Bind(facets, []);

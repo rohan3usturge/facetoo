@@ -27,12 +27,10 @@ export class FacetTemplateService implements IFacetTemplateService {
     }
 
     public BindOnlyFacets(facets: IFacet[]): string {
-        // throw new Error("Not implemented yet.");
-        return "";
+        return this.tempateFunctionForFacetBody(facets);
     }
 
     public BindOnlyAppliedFilters(filters: IFilter[]): string {
-        // throw new Error("Not implemented yet.");
-        return "";
+        return this.tempateFunctionForFacetSubHeader(filters);
     }
 }
