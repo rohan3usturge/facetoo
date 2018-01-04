@@ -1,6 +1,22 @@
 var path = require("path");
 var webpack = require("webpack");
-var DeclarationBundlerPlugin = require('./plugins/declaration-bundler');
+
+var libraryName = "Facetoo";
+function DtsBundlePlugin(){}
+  DtsBundlePlugin.prototype.apply = function (compiler) {
+    compiler.plugin('done', function(){
+      var dts = require('dts-bundle');
+
+      dts.bundle({
+        name: libraryName,
+        main: 'dist/src/ts/main/Facet.d.ts',
+        out: '../index.d.ts',
+        baseDir: "dist",
+        removeSource: true,
+        outputAsModuleFolder: true // to use npm in-package typings
+      });
+    });
+};
 
 module.exports = {
   target: "web",
@@ -48,10 +64,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-      new DeclarationBundlerPlugin({
-          moduleName:'Facetoo',
-          out:'./facetoo-index.d.ts',
-      })
-  ]
+  plugins: [new DtsBundlePlugin()]
 };
