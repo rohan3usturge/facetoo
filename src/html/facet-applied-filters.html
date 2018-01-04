@@ -11,11 +11,11 @@
         <tbod>
             {{#each this}}
             <tr class="top aligned">
-                <td>{{facetMeta.id}}</td>
+                <td>{{id}}</td>
                 <td>
                     <span class="ui mini blue labels facet-labels">
                         {{#each facetValues}}
-                        <span class="ui label remove-label" data-filter-entry="{{../facetMeta.id}}:{{this.label}}">
+                        <span class="ui label remove-label" data-filter-entry="{{../id}}:{{this.label}}">
                             {{this.label}}
                             <i class="icon close"></i>
                         </span>

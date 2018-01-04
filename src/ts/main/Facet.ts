@@ -3,7 +3,6 @@ import { ExpandCollapseHandler } from "../eventhandlers/ExpandCollapseHandler";
 import { FilterActionHandler } from "../eventhandlers/FilterActionHandler";
 import { IEventHandler } from "../eventhandlers/IEventHandler";
 import { IFacet } from "../models/IFacet";
-import { IFacetMeta } from "../models/IFacetMeta";
 import { IFacetValue } from "../models/IFacetValue";
 import { FacetTemplateService } from "../services/FacetTemplateService";
 import { IFacetTemplateService } from "../services/IFacetTemplateService";

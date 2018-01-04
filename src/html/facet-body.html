@@ -15,7 +15,7 @@
             <div class="content">
                 <div class="facet-item-header cursor-pointer">
                     <i class="right triangle icon"></i>
-                    <span>{{facetMeta.name}}</span>
+                    <span>{{name}}</span>
                 </div>
                 <div class="description facet-item-description" style="display:none;">
                     <!-- <div class="ui mini input">
@@ -24,7 +24,7 @@
                     <div class="ui small list">
                         {{#each facetValues}}
                         <div class="item">
-                            <input style="height:0.85em;" id="{{label}}-{{@index}}" {{isChecked selected}} class="facet-value-checkbox cursor-pointer" value="{{../facetMeta.id}}:{{label}}" type="checkbox"/>
+                            <input style="height:0.85em;" id="{{label}}-{{@index}}" {{isChecked selected}} class="facet-value-checkbox cursor-pointer" value="{{../id}}:{{label}}" type="checkbox"/>
                             <label style="font-size:0.85em;" class="cursor-pointer" for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
                         </div>
                         {{/each}}

@@ -10,7 +10,9 @@ export class Facet {
 }
 
 export interface IFacet {
-    facetMeta: IFacetMeta;
+    id: string;
+    name: string;
+    type: DataType;
     facetValues: IFacetValue[];
     facetRange: IFacetRange;
 }
@@ -22,10 +24,12 @@ export interface IFacetOptions {
     onAllFilterRemove: IAllFilterRemoveDelegate;
 }
 
-export interface IFacetMeta {
-    id: string;
-    name: string;
-    type: string;
+export enum DataType {
+    String = "String",
+    Date = "Date",
+    Number = "Number",
+    Boolean = "Boolean",
+    Collection = "Collection",
 }
 
 export interface IFacetRange {
@@ -44,6 +48,12 @@ export interface IFacetValue {
 export type IAllFilterRemoveDelegate = () => void;
 
 export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType) => void;
+
+export interface IFacetMeta {
+    id: string;
+    name: string;
+    type: string;
+}
 
 export enum FilterActionType {
     Add = "Add",
