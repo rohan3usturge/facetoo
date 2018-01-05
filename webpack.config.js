@@ -1,5 +1,6 @@
 var path = require("path");
 var webpack = require("webpack");
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var libraryName = "Facetoo";
 function DtsBundlePlugin(){}
@@ -28,12 +29,16 @@ module.exports = {
     library: "Facetoo",
     libraryTarget: "umd"
   },
+  externals: {
+    jquery : 'jQuery',
+    handlebars: 'Handlebars'
+  },
   resolve: {
     modules: [path.resolve("./src"), "node_modules"], // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
-    alias: {
-      'handlebars' : 'handlebars/dist/handlebars.min.js'
-    }
+    extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    // alias: {
+    //   'handlebars' : 'handlebars/dist/handlebars.min.js'
+    // }
   },
   node: {
     fs: "empty"
@@ -66,5 +71,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [new DtsBundlePlugin()]
+  plugins: [
+    new DtsBundlePlugin(),
+  ]
 };
