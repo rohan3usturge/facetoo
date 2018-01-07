@@ -1,5 +1,5 @@
-{{#if this.length}}
-<div class="content facet-subheader">
+{{#if filters.length}}
+<div class="content">
     <h5 class="ui sub blue floated left header">Applied Filters</h5>
     <div class="ui mini right floated buttons">
         <button class="ui mini icon button remove-all">
@@ -9,7 +9,7 @@
     <div class="ui tiny hidden clearing divider"></div>
     <table class="ui very compact small collapsing border-less table" style="border: none;">
         <tbod>
-            {{#each this}}
+            {{#each filters}}
             <tr class="top aligned">
                 <td>{{id}}</td>
                 <td>

@@ -1,9 +1,8 @@
 import * as Handlebars from "handlebars";
 import { IFacet } from "../models/IFacet";
-import * as FacetSubHeader from "./../../html/facet-applied-filters.html";
-import * as FacetBody from "./../../html/facet-body.html";
-import * as FacetHeader from "./../../html/facet-header.html";
-import * as FacetMain from "./../../html/facet-main.html";
+import * as FacetSubHeader from "./../../html/facet-applied-filters.handlebars";
+import * as FacetBody from "./../../html/facet-body.handlebars";
+import * as FacetMain from "./../../html/facet-main.handlebars";
 import { IFacetTemplateService } from "./IFacetTemplateService";
 
 export class FacetTemplateService implements IFacetTemplateService {
@@ -13,23 +12,19 @@ export class FacetTemplateService implements IFacetTemplateService {
     private tempateFunctionForFacetSubHeader: any;
     private tempateFunctionForFacetBody: any;
     constructor() {
-        this.tempateFunctionForFacetMain = Handlebars.compile(FacetMain);
-        this.tempateFunctionForFacetHeader = Handlebars.compile(FacetHeader);
-        this.tempateFunctionForFacetSubHeader = Handlebars.compile(FacetSubHeader);
-        this.tempateFunctionForFacetBody = Handlebars.compile(FacetBody);
+        this.tempateFunctionForFacetMain = FacetMain;
+        this.tempateFunctionForFacetSubHeader = FacetSubHeader;
+        this.tempateFunctionForFacetBody = FacetBody;
     }
     public Bind(facets: IFacet[], filters: IFacet[]): string {
-        const headerContent =  this.tempateFunctionForFacetHeader();
-        const subHeaderContent = this.tempateFunctionForFacetSubHeader(filters);
-        const bodyContent = this.tempateFunctionForFacetBody(facets);
-        return this.tempateFunctionForFacetMain({headerContent, subHeaderContent, bodyContent});
+        return this.tempateFunctionForFacetMain({facets, filters});
     }
 
     public BindOnlyFacets(facets: IFacet[]): string {
-        return this.tempateFunctionForFacetBody(facets);
+        return this.tempateFunctionForFacetBody({facets});
     }
 
     public BindOnlyAppliedFilters(filters: IFacet[]): string {
-        return this.tempateFunctionForFacetSubHeader(filters);
+        return this.tempateFunctionForFacetSubHeader({filters});
     }
 }

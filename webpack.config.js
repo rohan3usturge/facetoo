@@ -1,22 +1,23 @@
 var path = require("path");
 var webpack = require("webpack");
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 var libraryName = "Facetoo";
-function DtsBundlePlugin(){}
-  DtsBundlePlugin.prototype.apply = function (compiler) {
-    compiler.plugin('done', function(){
-      var dts = require('dts-bundle');
+function DtsBundlePlugin() {}
+DtsBundlePlugin.prototype.apply = function(compiler) {
+  compiler.plugin("done", function() {
+    var dts = require("dts-bundle");
 
-      dts.bundle({
-        name: libraryName,
-        main: 'dist/src/ts/main/Facet.d.ts',
-        out: '../index.d.ts',
-        baseDir: "dist",
-        removeSource: true,
-        outputAsModuleFolder: true // to use npm in-package typings
-      });
+    dts.bundle({
+      name: libraryName,
+      main: "dist/src/ts/main/Facet.d.ts",
+      out: "../index.d.ts",
+      baseDir: "dist",
+      removeSource: true,
+      outputAsModuleFolder: true // to use npm in-package typings
     });
+  });
 };
 
 module.exports = {
@@ -30,8 +31,8 @@ module.exports = {
     libraryTarget: "umd"
   },
   externals: {
-    jquery : 'jQuery',
-    handlebars: 'Handlebars'
+    jquery: "jQuery",
+    handlebars: "Handlebars"
   },
   resolve: {
     modules: [path.resolve("./src"), "node_modules"], // Add `.ts` and `.tsx` as a resolvable extension.
@@ -45,6 +46,14 @@ module.exports = {
   },
   module: {
     rules: [
+      { test: /\.handlebars$/,
+        loader: "handlebars-loader",
+        options: {
+            helperDirs: [
+              __dirname + "/src/html/helpers",
+            ]
+        }
+      },
       {
         test: /\.tsx?$/,
         enforce: "pre",
@@ -71,7 +80,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new DtsBundlePlugin(),
-  ]
+  plugins: [new DtsBundlePlugin()]
 };

@@ -1,4 +1,4 @@
-<div class="content facet-body" style="height: 100%;overflow:hidden;">
+<div class="content" style="height: 100%;overflow:hidden;">
     <h5 class="ui sub blue left floated header">Select Filters</h5>
     <div class="ui mini right floated buttons">
         <button class="ui mini icon button expand-all">
@@ -10,7 +10,7 @@
     </div>
     <div class="ui tiny hidden clearing divider"></div>
     <div class="ui medium list facet-list" style="height: 100%;overflow: auto;">
-        {{#each this}}
+        {{#each facets}}
         <div class="item facet-item">
             <div class="content">
                 <div class="facet-item-header cursor-pointer">
@@ -18,13 +18,10 @@
                     <span>{{name}}</span>
                 </div>
                 <div class="description facet-item-description" style="display:none;">
-                    <!-- <div class="ui mini input">
-                        <input type="text" placeholder="Search...">
-                    </div> -->
                     <div class="ui small list">
                         {{#each facetValues}}
                         <div class="item">
-                            <input style="height:0.85em;" id="{{label}}-{{@index}}" {{isChecked selected}} class="facet-value-checkbox cursor-pointer" value="{{../id}}:{{label}}" type="checkbox"/>
+                            <input style="height:0.85em;" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} class="facet-value-checkbox cursor-pointer" value="{{../id}}:{{label}}" type="checkbox"/>
                             <label style="font-size:0.85em;" class="cursor-pointer" for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
                         </div>
                         {{/each}}
