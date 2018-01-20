@@ -67,9 +67,10 @@ module.exports = (env = {}) => {
       library: "Facetoo",
       libraryTarget: "umd"
     },
-    externals: [
-      /handlebars.runtime/
-    ],
+    externals: {
+      "jquery" :  "jQuery",
+      "handlebars/runtime" : "Handlebars"
+    },
     resolve: {
       modules: [PATHS.src, PATHS.nodeModules], // Add `.ts` and `.tsx` as a resolvable extension.
       extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
@@ -83,7 +84,8 @@ module.exports = (env = {}) => {
           test: /\.hbs$/,
           loader: "handlebars-loader",
           options: {
-            helperDirs: path.join(PATHS.src, "hbs/helpers")
+            helperDirs: path.join(PATHS.src, "hbs/helpers"),
+            runtime: 'handlebars/runtime'
           }
         },
         {
