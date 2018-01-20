@@ -1,13 +1,15 @@
-var path = require("path");
-var webpack = require("webpack");
-var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+const path = require("path");
+const webpack = require("webpack");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const DashboardPlugin = require("webpack-dashboard/plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-var libraryName = "Facetoo";
+const libraryName = "Facetoo";
 function DtsBundlePlugin() {}
 DtsBundlePlugin.prototype.apply = function(compiler) {
   compiler.plugin("done", function() {
-    var dts = require("dts-bundle");
+    const dts = require("dts-bundle");
 
     dts.bundle({
       name: libraryName,
@@ -20,65 +22,147 @@ DtsBundlePlugin.prototype.apply = function(compiler) {
   });
 };
 
-module.exports = {
-  target: "web",
-  entry: __dirname + "/src/ts/main/Facet.ts",
-  devtool: "inline-source-map",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "facetoo-bundle.js",
-    library: "Facetoo",
-    libraryTarget: "umd"
+const PATHS = {
+  root: path.resolve(__dirname),
+  nodeModules: path.resolve(__dirname, "node_modules"),
+  src: path.resolve(__dirname, "src"),
+  dist: path.resolve(__dirname, "dist")
+};
+
+const DEV_SERVER = {
+  hot: true,
+  hotOnly: true,
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*"
   },
-  externals: {
-    jquery: "jQuery",
-    handlebars: "Handlebars"
-  },
-  resolve: {
-    modules: [path.resolve("./src"), "node_modules"], // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
-    // alias: {
-    //   'handlebars' : 'handlebars/dist/handlebars.min.js'
-    // }
-  },
-  node: {
-    fs: "empty"
-  },
-  module: {
-    rules: [
-      { test: /\.handlebars$/,
-        loader: "handlebars-loader",
-        options: {
-            helperDirs: [
-              __dirname + "/src/html/helpers",
-            ]
-        }
-      },
-      {
-        test: /\.tsx?$/,
-        enforce: "pre",
-        loader: "tslint-loader",
-        options: {
-          emitErrors: true,
-          failOnHint: true
-        }
-      },
-      {
-        test: /\.tsx?$/,
-        loader: "ts-loader"
-      },
-      {
-        test: /\.(html)$/,
-        use: {
-          loader: "html-loader",
+  historyApiFallback: true,
+  overlay: true,
+  stats: "verbose",
+  contentBase: PATHS.dist,
+  inline: true,
+  port: 8081
+};
+
+module.exports = (env = {}) => {
+  console.log({ env });
+  const isAnalyze = !!env.analyze;
+  const isBuild = !!env.build;
+  const isDev = !env.build;
+  const isSourceMap = !!env.sourceMap || isDev;
+  console.log({ isDev, isBuild, isSourceMap, isAnalyze });
+  return {
+    cache: true,
+    target: "web",
+    devtool: isDev ? "inline-source-map" : "inline-source-map",
+    devServer: DEV_SERVER,
+    context: PATHS.root,
+    entry: {
+      facetoo: path.join(PATHS.src, "ts/main/Facet.ts"),
+      "facetoo.min": path.join(PATHS.src, "ts/main/Facet.ts")
+    },
+    output: {
+      path: PATHS.dist,
+      filename: "[name].js",
+      library: "Facetoo",
+      libraryTarget: "umd"
+    },
+    externals: [
+      /handlebars.runtime/
+    ],
+    resolve: {
+      modules: [PATHS.src, PATHS.nodeModules], // Add `.ts` and `.tsx` as a resolvable extension.
+      extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    },
+    node: {
+      fs: "empty"
+    },
+    module: {
+      rules: [
+        {
+          test: /\.hbs$/,
+          loader: "handlebars-loader",
           options: {
-            minimize: false,
-            removeComments: true,
-            collapseWhitespace: true
+            helperDirs: path.join(PATHS.src, "hbs/helpers")
+          }
+        },
+        {
+          test: /\.tsx?$/,
+          enforce: "pre",
+          loader: "tslint-loader",
+          options: {
+            emitErrors: true,
+            failOnHint: true
+          }
+        },
+        {
+          test: /\.tsx?$/,
+          include: PATHS.src,
+          use: env.awesome
+            ? [
+                {
+                  loader: "awesome-typescript-loader",
+                  options: {
+                    transpileOnly: false,
+                    useTranspileModule: false,
+                    sourceMap: isSourceMap
+                  }
+                }
+              ]
+            : [
+                {
+                  loader: "ts-loader",
+                  options: {
+                    transpileOnly: false,
+                    compilerOptions: {
+                      sourceMap: isSourceMap,
+                      noEmitOnError: true
+                    }
+                  }
+                }
+              ]
+        },
+        {
+          test: /\.(html)$/,
+          use: {
+            loader: "html-loader",
+            options: {
+              minimize: true,
+              removeComments: true,
+              collapseWhitespace: true
+            }
           }
         }
-      }
+      ]
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env": {
+          NODE_ENV: JSON.stringify(isDev ? "development" : "production")
+        }
+      }),
+      new webpack.IgnorePlugin(new RegExp("^(handlebars)$")),
+      ...(isDev ? [new DashboardPlugin()] : []),
+      ...(isDev
+        ? [
+            new webpack.HotModuleReplacementPlugin({
+              // multiStep: true, // better performance with many files
+            }),
+            new webpack.NamedModulesPlugin()
+          ]
+        : []),
+      new webpack.LoaderOptionsPlugin({ debug: false }),
+      new webpack.optimize.UglifyJsPlugin({
+        include: /\.min\.js$/,
+        beautify: false,
+        compress: {
+          screw_ie8: true
+        },
+        comments: false,
+        sourceMap: isSourceMap
+      }),
+      ...(isAnalyze ? [new BundleAnalyzerPlugin()] : []),
+      ...(isBuild ? [new DtsBundlePlugin()] : [])
     ]
-  },
-  plugins: [new DtsBundlePlugin()]
+  };
 };

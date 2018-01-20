@@ -1,8 +1,8 @@
 import * as Handlebars from "handlebars";
 import { IFacet } from "../models/IFacet";
-import * as FacetSubHeader from "./../../html/facet-applied-filters.handlebars";
-import * as FacetBody from "./../../html/facet-body.handlebars";
-import * as FacetMain from "./../../html/facet-main.handlebars";
+import * as FacetSubHeader from "./../../hbs/facet-applied-filters.hbs";
+import * as FacetBody from "./../../hbs/facet-body.hbs";
+import * as FacetMain from "./../../hbs/facet-main.hbs";
 import { IFacetTemplateService } from "./IFacetTemplateService";
 
 export class FacetTemplateService implements IFacetTemplateService {

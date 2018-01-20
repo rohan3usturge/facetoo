@@ -1,0 +1,30 @@
+{{#if filters.length}}
+<div class="content">
+    <h5 class="gui sub blue floated left header">Applied Filters</h5>
+    <div class="gui mini right floated buttons">
+        <button class="gui mini icon button remove-all">
+            <i class="icon icon-close"></i>
+        </button>
+    </div>
+    <div class="gui tiny hidden clearing divider"></div>
+    <table class="gui very compact small collapsing border-less table" style="border: none;;clear:both;">
+        <tbod>
+            {{#each filters}}
+            <tr class="top aligned">
+                <td>{{id}}</td>
+                <td>
+                    <span class="gui mini blue labels facet-labels">
+                        {{#each facetValues}}
+                        <span class="gui label remove-label" data-filter-entry="{{../id}}:{{this.label}}">
+                            {{this.label}}
+                            <i class="icon icon-close"></i>
+                        </span>
+                        {{/each}}
+                    </span>
+                </td>
+            </tr>
+            {{/each}}
+        </tbod>
+    </table>
+</div>
+{{/if}}

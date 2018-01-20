@@ -1,4 +1,3 @@
-import * as Handlebars from "handlebars";
 import { ExpandCollapseHandler } from "../eventhandlers/ExpandCollapseHandler";
 import { FilterActionHandler } from "../eventhandlers/FilterActionHandler";
 import { IEventHandler } from "../eventhandlers/IEventHandler";
@@ -16,9 +15,6 @@ export class Facet {
     private bindFinished: boolean;
     private handlerChain: IEventHandler[] = [];
     constructor(options: IFacetOptions) {
-        Handlebars.registerHelper("isChecked", (bool: boolean): string => {
-            return bool ? "checked" : "";
-        });
         this.configStore =  new ConfigStore(options);
         this.parentElement = jQuery(options.containerElement);
         this.templateService = new FacetTemplateService();
