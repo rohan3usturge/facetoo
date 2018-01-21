@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+    <link href="http://localhost:5000/bundles/site-min.css?v=we5nMKhhmKQypODEAZaSmc-yaCDb5FQrc3fx86cFudM" rel="stylesheet" />
+
+    <link rel="stylesheet" href="http://localhost:8080/assignment-search/asgn-search.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="facetoo.js"></script>
+    <script>
+        const filters = [
+            {
+                "id": "Facet1",
+                "name": null,
+                "type": "Edm.String",
+                "facetValues": [
+                    { "label": "377884", "count": 10 },
+                    { "label": "377887", "count": 10 },
+                    { "label": "377890", "count": 10 },
+                    { "label": "377881", "count": 5 },
+                    { "label": "377888", "count": 5 },
+                    { "label": "377895", "count": 5 },
+                    { "label": "377892", "count": 3 },
+                    { "label": "377894", "count": 3 },
+                    { "label": "377902", "count": 3 },
+                    { "label": "377904", "count": 3 }
+                ]
+            }];
+
+        const facets = [];
+        const facetValues = [];
+        for (let index = 0; index < 10; index++) {
+            facetValues.push({
+                "label": "Label " + index, "count": 23 * index, "selected": index % 5 == 2
+            });
+        }
+        for (let index = 0; index < 30; index++) {
+            facets.push({
+                "id": "Facet" + index,
+                "name": "Mostly Used Filters " + index,
+                "type": "Edm.String",
+                "facetValues": facetValues,
+                "facetRanges": [
+                    {
+                        "min": null,
+                        "max": null,
+                        "isMinIncluded": false,
+                        "isMaxIncluded": false
+                    }
+                ]
+            });
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <button onclick="addFilters()">Add Filters</button>
+    <button onclick="addFilters1()">Add Filters 1</button>
+    <div style="height: 90%; width:30%;" id="hi"></div>
+    <script>
+
+        var options = {
+            containerElement: document.getElementById("hi")
+        };
+        var facet = new Facetoo.Facet(options);
+        facet.Bind(facets, []);
+        function addFilters() {
+            facet.BindOnlyAppliedFilters(filters);
+        }
+        function addFilters1() {
+            facet.BindOnlyAppliedFilters(filters.concat(filters1));
+        }
+    </script>
+</body>
+
+</html>
