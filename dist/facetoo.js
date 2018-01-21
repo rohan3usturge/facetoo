@@ -98,11 +98,11 @@ function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj);
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return "        <div class=\"item facet-item m-b-10\">\n            <div class=\"content\">\n                <div class=\"facet-item-header cursor-pointer\">\n                    <i class=\"icon icon-accordion-expand\"></i>\n                    <span class=\"gui gui-subheading-1 bold primary\">\n                        "
+  return "        <div class=\"item facet-item m-b-10\">\n            <div class=\"content\">\n                <div class=\"facet-item-header fluid cursor-pointer\">\n                    <span class=\"gui gui-subheading-1 bold primary\">\n                        "
     + container.escapeExpression(container.lambda((depth0 != null ? depth0.name : depth0), depth0))
     + " "
     + ((stack1 = __default(__webpack_require__(/*! ./src/hbs/helpers/SelectedFiltersCount.ts */ 8)).call(alias1,(depth0 != null ? depth0.facetValues : depth0),{"name":"SelectedFiltersCount","hash":{},"data":data})) != null ? stack1 : "")
-    + "\n                    </span>\n                </div>\n                <div class=\"description facet-item-description m-t-5\">\n                    <div class=\"gui small list m-0 p-0\">\n                        "
+    + "\n                    </span>\n                    <i class=\"gui gui-icon gui-icon-chevron-up right m-r-10\"></i>\n                </div>\n                <div class=\"clear\"></div>\n                <div class=\"description facet-item-description m-t-5\">\n                    <div class=\"gui small list m-0 p-0\">\n                        "
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.facetValues : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "                    </div>\n                </div>\n            </div>\n        </div>\n";
 },"2":function(container,depth0,helpers,partials,data,blockParams,depths) {
@@ -150,7 +150,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return "<div class=\"gui container of-hidden\">\n    <div class=\"gui mini right floated buttons\">\n        <button class=\"gui mini icon button expand-all\">\n            Expand All\n        </button>\n        <button class=\"gui mini icon button collapse-all\">\n            Collapse All\n        </button>\n    </div>\n    <div class=\"gui p-t-10 p-r-10 p-b-10\">\n        <input class=\"gui input fluidw gui-subheading-2\" placeholder=\"Search Filters 1\" />\n    </div>\n    <div class=\"gui fluid container facet-list of-auto\">\n"
+  return "<div class=\"gui container of-hidden\">\n    <div class=\"gui right m-b-10 gui-body-2\">\n        <a class=\"gui cursor-pointer expand-all\">\n            <i class=\"gui-icon gui-icon-plus\"></i>\n            Expand All\n        </a>\n        <a class=\"gui cursor-pointer m-l-10 collapse-all\">\n            <i class=\"gui-icon  gui-icon-minus\"></i>\n            Collapse All\n        </a>\n    </div>\n    <div class=\"gui p-t-10 p-r-10 p-b-10 clear\">\n        <input class=\"gui input fluidw gui-subheading-2\" placeholder=\"Search Filters\" />\n    </div>\n    <div class=\"gui fluid container facet-list of-auto\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.facets : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </div>\n</div>";
 },"useData":true,"useDepths":true});
@@ -241,39 +241,40 @@ var ExpandCollapseHandler = /** @class */ (function () {
         this.configStore = configStore;
         this.ControlVisibilityOfFilter = function (element, showHide) {
             var iconElement = element.children("i");
-            var currentlyVisible = iconElement.hasClass("icon-accordion-expand");
+            var currentlyVisible = iconElement.hasClass("gui-icon-chevron-up");
             if (ShowHide.Toggle !== showHide && ((currentlyVisible && showHide === ShowHide.Show) ||
                 (!currentlyVisible && showHide === ShowHide.Hide))) {
                 return;
             }
             if (!currentlyVisible) {
                 element.parents(".facet-item").find(".facet-item-description").slideDown();
-                iconElement.removeClass("icon-accordion-expand");
-                iconElement.addClass("icon-accordion-collapse");
+                iconElement.removeClass("gui-icon-chevron-down");
+                iconElement.addClass("gui-icon-chevron-up");
             }
             else {
                 element.parents(".facet-item").find(".facet-item-description").slideUp();
-                iconElement.removeClass("icon-accordion-collapse");
-                iconElement.addClass("icon-accordion-expand");
+                iconElement.removeClass("gui-icon-chevron-up");
+                iconElement.addClass("gui-icon-chevron-down");
             }
         };
     }
     ExpandCollapseHandler.prototype.RegisterDomHandler = function () {
         var _this = this;
-        this.element.on("click", ".facet-body .expand-all", function (event) {
+        this.element.on("click", ".expand-all", function (event) {
             _this.element.find(".facet-item-header").each(function (index, element) {
                 _this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Show);
             });
             event.stopPropagation();
         });
-        this.element.on("click", ".facet-body .collapse-all", function (event) {
+        this.element.on("click", ".collapse-all", function (event) {
             _this.element.find(".facet-item-header").each(function (index, element) {
                 _this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Hide);
             });
             event.stopPropagation();
         });
-        this.element.on("click", ".facet-body .facet-item .facet-item-header", function (event) {
-            var headerElement = jQuery(event.target).parents(".facet-item-header");
+        this.element.on("click", ".facet-item-header", function (event) {
+            var target = jQuery(event.target);
+            var headerElement = target.is(".facet-item-header") ? target : target.parent(".facet-item-header");
             _this.element.find(".facet-header .button").removeAttr("disabled");
             _this.ControlVisibilityOfFilter(headerElement, ShowHide.Toggle);
             event.stopPropagation();
