@@ -1,27 +1,30 @@
 <div class="gui container of-hidden">
     {{!--
     <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
-    <div class="gui mini right floated buttons">
-        <button class="gui mini icon button expand-all">
+    <div class="gui right m-b-10 gui-body-2">
+        <a class="gui cursor-pointer expand-all">
+            <i class="gui-icon gui-icon-plus"></i>
             Expand All
-        </button>
-        <button class="gui mini icon button collapse-all">
+        </a>
+        <a class="gui cursor-pointer m-l-10 collapse-all">
+            <i class="gui-icon  gui-icon-minus"></i>
             Collapse All
-        </button>
+        </a>
     </div>
-    <div class="gui p-t-10 p-r-10 p-b-10">
-        <input class="gui input fluidw gui-subheading-2" placeholder="Search Filters 1" />
+    <div class="gui p-t-10 p-r-10 p-b-10 clear">
+        <input class="gui input fluidw gui-subheading-2" placeholder="Search Filters" />
     </div>
     <div class="gui fluid container facet-list of-auto">
         {{#each facets}}
         <div class="item facet-item m-b-10">
             <div class="content">
-                <div class="facet-item-header cursor-pointer">
-                    <i class="icon icon-accordion-expand"></i>
+                <div class="facet-item-header fluid cursor-pointer">
                     <span class="gui gui-subheading-1 bold primary">
                         {{name}} {{{SelectedFiltersCount facetValues}}}
                     </span>
+                    <i class="gui gui-icon gui-icon-chevron-up right m-r-10"></i>
                 </div>
+                <div class="clear"></div>
                 <div class="description facet-item-description m-t-5">
                     <div class="gui small list m-0 p-0">
                         {{#each facetValues}} {{!--
