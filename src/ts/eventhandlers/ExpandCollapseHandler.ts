@@ -15,21 +15,12 @@ export class ExpandCollapseHandler implements IEventHandler {
             this.element.find(".facet-item-header").each((index, element) => {
                 this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Show);
             });
-            // jQuery(event.target).parents("button")
-            // .attr("disabled", "true")
-            // .siblings("button")
-            // .removeAttr("disabled");
             event.stopPropagation();
         });
         this.element.on("click", ".facet-body .collapse-all", (event) => {
             this.element.find(".facet-item-header").each((index, element) => {
                 this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Hide);
             });
-            // jQuery(event.target)
-            // .parents("button")
-            // .attr("disabled", "true")
-            // .siblings("button")
-            // .removeAttr("disabled");
             event.stopPropagation();
         });
         this.element.on("click", ".facet-body .facet-item .facet-item-header", (event) => {
@@ -47,19 +38,19 @@ export class ExpandCollapseHandler implements IEventHandler {
     }
     private ControlVisibilityOfFilter = (element: JQuery, showHide: ShowHide) => {
         const iconElement = element.children("i");
-        const currentlyVisible = iconElement.hasClass("down");
+        const currentlyVisible = iconElement.hasClass("icon-accordion-expand");
         if (ShowHide.Toggle !== showHide && ((currentlyVisible && showHide === ShowHide.Show) ||
             (!currentlyVisible && showHide === ShowHide.Hide))) {
             return;
         }
         if (!currentlyVisible) {
-            element.parents(".facet-item").find(".facet-item-description").show();
-            iconElement.removeClass("right");
-            iconElement.addClass("down");
+            element.parents(".facet-item").find(".facet-item-description").slideDown();
+            iconElement.removeClass("icon-accordion-expand");
+            iconElement.addClass("icon-accordion-collapse");
         } else {
-            element.parents(".facet-item").find(".facet-item-description").hide();
-            iconElement.removeClass("down");
-            iconElement.addClass("right");
+            element.parents(".facet-item").find(".facet-item-description").slideUp();
+            iconElement.removeClass("icon-accordion-collapse");
+            iconElement.addClass("icon-accordion-expand");
         }
     }
 }

@@ -1,16 +1,5 @@
-<style>
-    .remove-label:hover{
-        text-decoration: line-through;
-        cursor: pointer;
-    }
-    .border-less tr td { border-top: 0px !important; }
-    .cursor-pointer{
-        cursor: pointer;
-    }
-</style>
-
-<div class="gui fluid card" style="padding-top : 0px;height:100%;overflow:hidden;">
-    <div class="facet-header">{{> facet-header}}</div>
-    <div class="facet-subheader">{{> facet-applied-filters}}</div>
-    <div class="facet-body" style="height:100%;overflow:hidden;">{{> facet-body}}</div>
+<div class="gui fluid container of-hidden">
+    {{!-- <div class="facet-header">{{> facet-header}}</div> --}}
+    {{!-- <div class="facet-subheader">{{> facet-applied-filters}}</div> --}}
+    <div class="facet-body gui fluid container of-hidden">{{> facet-body}}</div>
 </div>
