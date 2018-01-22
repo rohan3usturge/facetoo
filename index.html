@@ -8,6 +8,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script src="facetoo.js"></script>
     <script>
+        function makeid() {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for (var i = 0; i < 10; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            return text;
+        }
         const filters = [
             {
                 "id": "Facet1",
@@ -37,7 +46,7 @@
         for (let index = 0; index < 30; index++) {
             facets.push({
                 "id": "Facet" + index,
-                "name": "Mostly Used Filters " + index,
+                "name": makeid(),
                 "type": "Edm.String",
                 "facetValues": facetValues,
                 "facetRanges": [
