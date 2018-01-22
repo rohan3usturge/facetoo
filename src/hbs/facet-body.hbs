@@ -12,15 +12,15 @@
         </a>
     </div>
     <div class="gui clear"></div>
-    <div class="gui p-t-10 p-r-10 p-b-10">
-        <input class="gui input fluidw gui-subheading-2" placeholder="Search Filters" />
+    <div class="gui p-t-10 p-r-10 p-b-10 p-l-1">
+        <input class="gui input fluid-w gui-subheading-2" placeholder="Search Filters" />
     </div>
-    <div class="gui fluid facet-list of-auto">
+    <div class="gui fluid-h facet-list of-auto">
         {{#each facets}}
         <div class="item facet-item m-b-10">
             <div class="content">
                 <div class="facet-item-header fluid cursor-pointer">
-                    <span class="gui gui-subheading-1 bold primary">
+                    <span class="gui gui-subheading-2 bold primary">
                         {{name}} {{{SelectedFiltersCount facetValues}}}
                     </span>
                     <i class="gui gui-icon gui-icon-chevron-up right m-r-10"></i>
@@ -35,7 +35,7 @@
                             <label for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
                         </div> --}}
                         <div class="item gui-body-2">
-                            <input class="gui facet-value-checkbox gui-body-1 cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled
+                            <input class="gui facet-value-checkbox gui-body-2 cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled
                                 disabled}} value="{{../id}}:{{label}}" type="checkbox" /> {{#if selected}}
                             <label class="cursor-pointer primary" for="{{label}}-{{@index}}">
                                 {{label}}
