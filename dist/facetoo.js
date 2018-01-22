@@ -98,7 +98,7 @@ function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj);
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return "        <div class=\"item facet-item m-b-10\">\n            <div class=\"content\">\n                <div class=\"facet-item-header fluid cursor-pointer\">\n                    <span class=\"gui gui-subheading-1 bold primary\">\n                        "
+  return "        <div class=\"item facet-item m-b-10\">\n            <div class=\"content\">\n                <div class=\"facet-item-header fluid cursor-pointer\">\n                    <span class=\"gui gui-subheading-2 bold primary\">\n                        "
     + container.escapeExpression(container.lambda((depth0 != null ? depth0.name : depth0), depth0))
     + " "
     + ((stack1 = __default(__webpack_require__(/*! ./src/hbs/helpers/SelectedFiltersCount.ts */ 8)).call(alias1,(depth0 != null ? depth0.facetValues : depth0),{"name":"SelectedFiltersCount","hash":{},"data":data})) != null ? stack1 : "")
@@ -108,7 +108,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 },"2":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, alias3=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return " \n                        <div class=\"item gui-body-2\">\n                            <input class=\"gui facet-value-checkbox gui-body-1 cursor-pointer m-l-0\" id=\""
+  return " \n                        <div class=\"item gui-body-2\">\n                            <input class=\"gui facet-value-checkbox gui-body-2 cursor-pointer m-l-0\" id=\""
     + alias2(alias1((depth0 != null ? depth0.label : depth0), depth0))
     + "-"
     + alias2(alias1((data && data.index), depth0))
@@ -150,7 +150,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return "<div class=\"gui fluid-h of-hidden\">\n    <div class=\"gui right m-b-10 gui-body-2\">\n        <a class=\"gui cursor-pointer expand-all\">\n            <i class=\"gui-icon gui-icon-plus\"></i>\n            Expand All\n        </a>\n        <a class=\"gui cursor-pointer m-l-10 collapse-all\">\n            <i class=\"gui-icon  gui-icon-minus\"></i>\n            Collapse All\n        </a>\n    </div>\n    <div class=\"gui clear\"></div>\n    <div class=\"gui p-t-10 p-r-10 p-b-10\">\n        <input class=\"gui input fluidw gui-subheading-2\" placeholder=\"Search Filters\" />\n    </div>\n    <div class=\"gui fluid facet-list of-auto\">\n"
+  return "<div class=\"gui fluid-h of-hidden\">\n    <div class=\"gui right m-b-10 gui-body-2\">\n        <a class=\"gui cursor-pointer expand-all\">\n            <i class=\"gui-icon gui-icon-plus\"></i>\n            Expand All\n        </a>\n        <a class=\"gui cursor-pointer m-l-10 collapse-all\">\n            <i class=\"gui-icon  gui-icon-minus\"></i>\n            Collapse All\n        </a>\n    </div>\n    <div class=\"gui clear\"></div>\n    <div class=\"gui p-t-10 p-r-10 p-b-10 p-l-1\">\n        <input class=\"gui input fluid-w gui-subheading-2\" placeholder=\"Search Filters\" />\n    </div>\n    <div class=\"gui fluid-h facet-list of-auto\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.facets : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </div>\n</div>";
 },"useData":true,"useDepths":true});
