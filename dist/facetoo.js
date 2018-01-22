@@ -150,7 +150,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return "<div class=\"gui fluid container of-hidden\">\n    <div class=\"gui right m-b-10 gui-body-2\">\n        <a class=\"gui cursor-pointer expand-all\">\n            <i class=\"gui-icon gui-icon-plus\"></i>\n            Expand All\n        </a>\n        <a class=\"gui cursor-pointer m-l-10 collapse-all\">\n            <i class=\"gui-icon  gui-icon-minus\"></i>\n            Collapse All\n        </a>\n    </div>\n    <div class=\"gui clear\"></div>\n    <div class=\"gui p-t-10 p-r-10 p-b-10\">\n        <input class=\"gui input fluidw gui-subheading-2\" placeholder=\"Search Filters\" />\n    </div>\n    <div class=\"gui fluid container facet-list of-auto\">\n"
+  return "<div class=\"gui fluid-h of-hidden\">\n    <div class=\"gui right m-b-10 gui-body-2\">\n        <a class=\"gui cursor-pointer expand-all\">\n            <i class=\"gui-icon gui-icon-plus\"></i>\n            Expand All\n        </a>\n        <a class=\"gui cursor-pointer m-l-10 collapse-all\">\n            <i class=\"gui-icon  gui-icon-minus\"></i>\n            Collapse All\n        </a>\n    </div>\n    <div class=\"gui clear\"></div>\n    <div class=\"gui p-t-10 p-r-10 p-b-10\">\n        <input class=\"gui input fluidw gui-subheading-2\" placeholder=\"Search Filters\" />\n    </div>\n    <div class=\"gui fluid facet-list of-auto\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.facets : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "    </div>\n</div>";
 },"useData":true,"useDepths":true});
@@ -537,7 +537,7 @@ function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj);
 module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"gui fluid container of-hidden\">\n    <div class=\"facet-body gui fluid container of-hidden\">"
+  return "<div class=\"gui fluid-h of-hidden\">\n    <div class=\"facet-body gui fluid-h of-hidden\">"
     + ((stack1 = container.invokePartial(__webpack_require__(/*! ./src/hbs/facet-body.hbs */ 1),depth0,{"name":"facet-body","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + "</div>\n</div>";
 },"usePartial":true,"useData":true});
