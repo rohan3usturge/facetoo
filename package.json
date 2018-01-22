@@ -20,7 +20,7 @@
     "test:update": "jest --config jest.json -u",
     "reinstall": "rm -rf node_modules && yarn",
     "reinstall:win": "rd /s /q node_modules && yarn",
-    "pub": "yarn build && git commit -m 'Build' && npm version patch && npm publish",
+    "pub": "yarn build && git commit -am 'Build' && npm version patch && npm publish",
     "auth": "vsts-npm-auth -config .npmrc"
   },
   "author": "Rohan Usturge",
