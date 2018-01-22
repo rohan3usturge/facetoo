@@ -1,7 +1,7 @@
 <div class="gui fluid-h of-hidden">
     {{!--
     <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
-    <div class="gui right m-b-10 gui-body-2">
+    <div class="gui right m-b-5 gui-body-2">
         <a class="gui cursor-pointer expand-all">
             <i class="gui-icon gui-icon-plus"></i>
             Expand All
@@ -12,12 +12,12 @@
         </a>
     </div>
     <div class="gui clear"></div>
-    <div class="gui p-t-10 p-r-10 p-b-10 p-l-1">
+    <div class="gui p-t-5 p-r-5 p-b-5 p-l-1">
         <input class="gui input fluid-w gui-subheading-2" placeholder="Search Filters" />
     </div>
     <div class="gui fluid-h facet-list of-auto">
         {{#each facets}}
-        <div class="item facet-item m-b-10">
+        <div class="item facet-item">
             <div class="content">
                 <div class="facet-item-header fluid cursor-pointer">
                     <span class="gui gui-subheading-2 bold primary">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="clear"></div>
                 <div class="description facet-item-description m-t-5">
-                    <div class="gui small list m-0 p-0">
+                    <div class="gui fluid-w fluid-h m-0 p-0">
                         {{#each facetValues}} {{!--
                         <div class="gui item checkbox">
                             <input type="checkbox" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} class="facet-value-checkbox cursor-pointer"
