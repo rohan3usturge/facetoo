@@ -13,15 +13,17 @@ export class Facet {
     private configStore: ConfigStore;
     private templateService: IFacetTemplateService;
     private parentElement: JQuery;
+    private filterElement: JQuery;
     private bindFinished: boolean;
     private handlerChain: IEventHandler[] = [];
     constructor(options: IFacetOptions) {
         this.configStore =  new ConfigStore(options);
         this.parentElement = jQuery(options.containerElement);
+        this.filterElement = jQuery(options.filterElement);
         this.templateService = new FacetTemplateService();
         this.handlerChain.push(new FilterSearchHandler(this.parentElement));
         this.handlerChain.push(new ExpandCollapseHandler(this.parentElement, this.configStore));
-        this.handlerChain.push(new FilterActionHandler(this.parentElement, this.configStore));
+        this.handlerChain.push(new FilterActionHandler(this.parentElement, this.filterElement, this.configStore));
         this.handlerChain.forEach((handler) => {
             handler.RegisterDomHandler();
         });
@@ -33,22 +35,16 @@ export class Facet {
         jQuery(this.configStore.Options.containerElement).find(".facet-loader").remove("active");
     }
     public BindOnlyFacets =  (facets: IFacet[]): void => {
-        if (!this.bindFinished) {
-            const fullFacet = this.templateService.Bind(facets, []);
-        } else {
-            const facetSubHeader = this.templateService.BindOnlyFacets(facets);
-            this.parentElement.find(".facet-body").html(facetSubHeader);
-        }    }
+        const fullFacet = this.templateService.Bind(facets, []);
+        this.parentElement.html(fullFacet);
+    }
     public BindOnlyAppliedFilters =  (filters: IFacet[]): void => {
-        if (!this.bindFinished) {
-            const fullFacet = this.templateService.Bind([], filters);
-        } else {
-            const facetSubHeader = this.templateService.BindOnlyAppliedFilters(filters);
-            this.parentElement.find(".facet-subheader").html(facetSubHeader);
-        }
+        const facetSubHeader = this.templateService.BindOnlyAppliedFilters(filters);
+        this.filterElement.html(facetSubHeader);
     }
     public Bind =  (facets: IFacet[], filters: IFacet[]): void => {
-        this.parentElement.html(this.templateService.Bind(facets, filters));
-        this.bindFinished = true;
+        this.BindOnlyFacets(facets);
+        this.BindOnlyAppliedFilters(filters);
+        // this.parentElement.html(this.templateService.Bind(facets, filters));
     }
 }

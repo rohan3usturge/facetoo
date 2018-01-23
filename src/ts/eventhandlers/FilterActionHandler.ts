@@ -4,7 +4,7 @@ import { IEventHandler } from "./IEventHandler";
 
 export class FilterActionHandler implements IEventHandler {
 
-    constructor(private element: JQuery, private configStore: ConfigStore) {}
+    constructor(private element: JQuery, private filterElement: JQuery, private configStore: ConfigStore) {}
 
     public RegisterDomHandler(): void {
         this.element.on("change", ".facet-body .facet-item-description .facet-value-checkbox", (event) => {
@@ -14,16 +14,9 @@ export class FilterActionHandler implements IEventHandler {
             const checked = element.is(":checked");
             const action = checked ? FilterActionType.Add : FilterActionType.Minus;
             this.configStore.Options.onFilterChange(value[0], value[1], action);
-            // if (!checked) {
-            //     this.element.find(".facet-subheader .facet-labels .label").each((index, label) => {
-            //         const val = jQuery(label).attr("data-filter-entry");
-            //         if (val === valStr) {
-            //             jQuery(label).remove();
-            //         }
-            //     });
-            // }
+            event.stopPropagation();
         });
-        this.element.on("click", ".facet-subheader .facet-labels .label", (event) => {
+        this.filterElement.on("click", ".facet-subheader .facet-labels .label", (event) => {
             let element = jQuery(event.target);
             if (!element.is(".label")) {
                 element = element.parents(".label");
@@ -31,21 +24,11 @@ export class FilterActionHandler implements IEventHandler {
             const valStr = element.attr("data-filter-entry").toString();
             const value = valStr.split(":");
             this.configStore.Options.onFilterChange(value[0], value[1], FilterActionType.Minus);
-            // element.remove();
-            // this.element.find(".facet-body .facet-item-description .facet-value-checkbox")
-            // .each((index, checkbox) => {
-            //     if (!jQuery(checkbox).is(":checked")) {
-            //         return;
-            //     }
-            //     const val = jQuery(checkbox).val().toString();
-            //     if (val === valStr) {
-            //         jQuery(checkbox).prop("checked", false);
-            //     }
-            // });
+            event.stopPropagation();
         });
-        this.element.on("click", ".facet-subheader .remove-all", (event) => {
-            this.element.find(".facet-subheader").hide();
+        this.filterElement.on("click", ".facet-subheader .remove-all", (event) => {
             this.configStore.Options.onAllFilterRemove();
+            event.stopPropagation();
         });
     }
     public onResize(): void {

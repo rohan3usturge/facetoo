@@ -1,5 +1,6 @@
 {{#if filters.length}}
-<div class="content">
+<div class="content facet-subheader">
+    {{!--
     <h5 class="gui sub blue floated left header">Applied Filters</h5>
     <div class="gui mini right floated buttons">
         <button class="gui mini icon button remove-all">
@@ -25,6 +26,26 @@
             </tr>
             {{/each}}
         </tbod>
-    </table>
+    </table> --}}
+    <span class="gui gui-subheading-2">Filters</span>
+    <a class="gui m-l-5 remove-all" href="#">
+        <i class="gui-icon gui-icon-cancel"></i>
+        <span>Clear All</span>
+    </a>
+    <span class="gui m-l-10">
+        {{#each filters}}
+        <span class="gui m-r-5">
+            <span class="gui large labels facet-labels">
+                <span class="gui gui-subheading-2">{{id}}</span>
+                {{#each facetValues}}
+                <span class="gui m-0 m-r-2 p-4 label cursor-pointer strikethrough-hover" data-filter-entry="{{../id}}:{{this.label}}">
+                    {{label}}
+                    <i class="gui-icon gui-icon-cancel"></i>
+                </span>
+                {{/each}}
+            </span>
+        </span>
+        {{/each}}
+    </span>
 </div>
 {{/if}}
