@@ -20,6 +20,7 @@ export interface IFacet {
 export interface IFacetOptions {
     facets: IFacetMeta[];
     containerElement: HTMLElement | null;
+    filterElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
     onAllFilterRemove: IAllFilterRemoveDelegate;
 }
