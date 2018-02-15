@@ -1,6 +1,7 @@
 import { ExpandCollapseHandler } from "../eventhandlers/ExpandCollapseHandler";
 import { FilterActionHandler } from "../eventhandlers/FilterActionHandler";
 import { FilterSearchHandler } from "../eventhandlers/FilterSearchHandler";
+import { HideFilterSectionHandler } from "../eventhandlers/HideFilterSectionHandler";
 import { IEventHandler } from "../eventhandlers/IEventHandler";
 import { IFacet } from "../models/IFacet";
 import { IFacetValue } from "../models/IFacetValue";
@@ -22,6 +23,7 @@ export class Facet {
         this.filterElement = jQuery(options.filterElement);
         this.templateService = new FacetTemplateService();
         this.handlerChain.push(new FilterSearchHandler(this.parentElement));
+        this.handlerChain.push(new HideFilterSectionHandler(this.parentElement));
         this.handlerChain.push(new ExpandCollapseHandler(this.parentElement, this.configStore));
         this.handlerChain.push(new FilterActionHandler(this.parentElement, this.filterElement, this.configStore));
         this.handlerChain.forEach((handler) => {

@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="http://localhost:8080/assignment-search/asgn-search.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script src="facetoo.js"></script>
+    <style>
+        .breaked {
+            width: 1em;
+            font-size: 40px;
+            letter-spacing: 40px;
+            /* arbitrarily large letter-spacing for safety */
+        }
+    </style>
     <script>
         function makeid() {
             var text = "";
@@ -68,7 +76,7 @@
 <body>
     <button onclick="addFilters()">Add Filters</button>
     <button onclick="addFilters1()">Add Filters 1</button>
-    <div class="gui container" style="height: 90%; width:30%;float:left;    margin-top: 50px;" id="hi"></div>
+    <div class="gui" style="height: 90%; float:left;margin-top: 50px;" id="hi"></div>
     <div class="gui container" style="height: 90%; width:30%;float:right;    margin-top: 50px;" id="hi1"></div>
     <script>
 

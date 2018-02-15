@@ -1,15 +1,23 @@
 <div class="gui fluid-h of-hidden">
     {{!--
     <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
-    <div class="gui right m-5">
-        <a class="gui cursor-pointer expand-all">
-            <i class="gui-icon gui-icon-add"></i>
-            Expand All
-        </a>
-        <a class="gui cursor-pointer m-l-10 collapse-all">
-            <i class="gui-icon  gui-icon-minus"></i>
-            Collapse All
-        </a>
+    <div class="gui m-5">
+        <div class="gui left">
+            <a class="gui cursor-pointer hide-filter">
+                <i class="gui-icon gui-icon-chevron-left"></i>
+                Hide
+            </a>
+        </div>
+        <div class="gui right">
+            <a class="gui cursor-pointer expand-all">
+                <i class="gui-icon gui-icon-add"></i>
+                Expand All
+            </a>
+            <a class="gui cursor-pointer m-l-10 collapse-all">
+                <i class="gui-icon  gui-icon-minus"></i>
+                Collapse All
+            </a>
+        </div>
     </div>
     <div class="gui clear"></div>
     <div class="gui input fluid-w p-t-5 p-r-5 p-b-5 p-l-1">
@@ -35,8 +43,8 @@
                             <label for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
                         </div> --}}
                         <div class="item">
-                            <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled
-                                disabled}} value="{{../id}}:{{label}}" type="checkbox" /> {{#if selected}}
+                            <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
+                                value="{{../id}}:{{label}}" type="checkbox" /> {{#if selected}}
                             <label class="gui cursor-pointer primary" for="{{label}}-{{@index}}">
                                 {{label}}
                                 <span class="gui-body-2">({{count}})</span>
