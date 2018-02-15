@@ -11,7 +11,7 @@ const selectedFiltersCount = (facetValues: IFacetValue[]): string => {
                 }
             }
     }
-    return index === 0 ? "" : "<span class=\"gui-caption\">(" + index + ")</span>";
+    return index === 0 ? "" : "<span class=\"gui-body-2\">(" + index + ")</span>";
 };
 
 export default selectedFiltersCount;

@@ -1,7 +1,7 @@
 <div class="gui fluid-h of-hidden">
     {{!--
     <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
-    <div class="gui right m-5 gui-body-2">
+    <div class="gui right m-5">
         <a class="gui cursor-pointer expand-all">
             <i class="gui-icon gui-icon-add"></i>
             Expand All
@@ -20,7 +20,7 @@
         <div class="item facet-item" data-attr-name="{{name}}">
             <div class="content">
                 <div class="facet-item-header fluid cursor-pointer">
-                    <span class="gui gui-subheading-2 bold primary">
+                    <span class="gui gui-subheading-2 primary">
                         {{name}} {{{SelectedFiltersCount facetValues}}}
                     </span>
                     <i class="gui gui-icon gui-icon-chevron-down right m-r-10"></i>
@@ -34,17 +34,17 @@
                                 value="{{../id}}:{{label}}">
                             <label for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
                         </div> --}}
-                        <div class="item gui-body-2">
-                            <input class="gui facet-value-checkbox gui-body-2 cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled
+                        <div class="item">
+                            <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled
                                 disabled}} value="{{../id}}:{{label}}" type="checkbox" /> {{#if selected}}
-                            <label class="gui gui-body-2 cursor-pointer primary" for="{{label}}-{{@index}}">
+                            <label class="gui cursor-pointer primary" for="{{label}}-{{@index}}">
                                 {{label}}
-                                <span class="gui-caption">({{count}})</span>
+                                <span class="gui-body-2">({{count}})</span>
                             </label>
                             {{else}}
-                            <label class="gui gui-body-2 cursor-pointer" for="{{label}}-{{@index}}">
+                            <label class="gui cursor-pointer" for="{{label}}-{{@index}}">
                                 {{label}}
-                                <span class="gui-caption">({{count}})</span>
+                                <span class="gui-body-2">({{count}})</span>
                             </label>
                             {{/if}}
                         </div>
