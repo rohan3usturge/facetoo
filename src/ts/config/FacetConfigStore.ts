@@ -1,15 +1,11 @@
 import {FilterActionType} from "../models/FilterActionType";
 import {IFacetOptions} from "./IFacetOptions";
 
-export class ConfigStore {
+export class FacetConfigStore {
     private options: IFacetOptions;
-    private defaultGridOptions: IFacetOptions = {
+    private defaultFacetOptions: IFacetOptions = {
         containerElement: null,
-        facets: [],
-        filterElement: null,
-        onAllFilterRemove: (): void => {
-            // Ignore
-        },
+        // facets: [],
         onFilterChange: (key: string, value: string, action: FilterActionType): void => {
             // Ignore
         },
@@ -22,6 +18,6 @@ export class ConfigStore {
     }
     public get Options(): IFacetOptions {return this.options; }
     private extendOptions = (inputOptions: IFacetOptions): IFacetOptions => {
-        return this.options = jQuery.extend({}, this.defaultGridOptions, inputOptions);
+        return this.options = jQuery.extend({}, this.defaultFacetOptions, inputOptions);
     }
 }

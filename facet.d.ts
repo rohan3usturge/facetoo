@@ -5,11 +5,6 @@ export class Facet {
     bind: (facets: IFacet[]) => void;
 }
 
-export class Filter {
-    constructor(options: IFilterOptions);
-    bind: (filters: IFacet[]) => void;
-}
-
 export interface IFacet {
     id: string;
     name: string;
@@ -21,12 +16,6 @@ export interface IFacet {
 export interface IFacetOptions {
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
-}
-
-export interface IFilterOptions {
-    containerElement: HTMLElement | null;
-    onFilterChange: IFilterActionDelegate;
-    onAllFilterRemove: IAllFilterRemoveDelegate;
 }
 
 export enum DataType {
@@ -51,8 +40,6 @@ export interface IFacetValue {
 }
 
 export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType) => void;
-
-export type IAllFilterRemoveDelegate = () => void;
 
 export enum FilterActionType {
     Add = "Add",

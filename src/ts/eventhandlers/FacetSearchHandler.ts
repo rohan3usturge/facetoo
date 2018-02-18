@@ -1,6 +1,6 @@
 import { IEventHandler } from "./IEventHandler";
 
-export class FilterSearchHandler implements IEventHandler {
+export class FacetSearchHandler implements IEventHandler {
     constructor(private element: JQuery) {}
 
     public RegisterDomHandler(): void {

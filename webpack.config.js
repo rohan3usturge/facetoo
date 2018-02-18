@@ -15,7 +15,7 @@ DtsBundlePlugin.prototype.apply = function(compiler) {
 
     dts.bundle({
       name: libraryName,
-      main: "dist/src/ts/main/Facet.d.ts",
+      main: "dist/src/ts/main/Entry.d.ts",
       out: "../index.d.ts",
       baseDir: "dist",
       removeSource: true,
@@ -62,8 +62,8 @@ module.exports = (env = {}) => {
     devServer: DEV_SERVER,
     context: PATHS.root,
     entry: {
-      facetoo: path.join(PATHS.src, "ts/main/Facet.ts"),
-      "facetoo.min": path.join(PATHS.src, "ts/main/Facet.ts")
+      facetoo: path.join(PATHS.src, "ts/main/Entry.ts"),
+      "facetoo.min": path.join(PATHS.src, "ts/main/Entry.ts"),
     },
     output: {
       path: PATHS.dist,

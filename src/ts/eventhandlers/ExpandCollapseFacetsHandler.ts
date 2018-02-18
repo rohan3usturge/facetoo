@@ -1,4 +1,3 @@
-import { ConfigStore } from "../config/ConfigStore";
 import { IEventHandler } from "./IEventHandler";
 
 enum ShowHide {
@@ -7,8 +6,8 @@ enum ShowHide {
     Toggle,
 }
 
-export class ExpandCollapseHandler implements IEventHandler {
-    constructor(private element: JQuery, private configStore: ConfigStore) {}
+export class ExpandCollapseFacetsHandler implements IEventHandler {
+    constructor(private element: JQuery) {}
 
     public RegisterDomHandler(): void {
         this.element.on("click", ".expand-all", (event) => {

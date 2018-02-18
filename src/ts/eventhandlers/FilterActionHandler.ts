@@ -1,21 +1,12 @@
-import { ConfigStore } from "../config/ConfigStore";
+import { FilterConfigStore } from "../config/FilterConfigStore";
 import { FilterActionType } from "../models/FilterActionType";
 import { IEventHandler } from "./IEventHandler";
 
 export class FilterActionHandler implements IEventHandler {
 
-    constructor(private element: JQuery, private filterElement: JQuery, private configStore: ConfigStore) {}
+    constructor(private filterElement: JQuery, private configStore: FilterConfigStore) {}
 
     public RegisterDomHandler(): void {
-        this.element.on("change", ".facet-body .facet-item-description .facet-value-checkbox", (event) => {
-            const element = jQuery(event.target);
-            const valStr = element.val().toString();
-            const value = valStr.split(":");
-            const checked = element.is(":checked");
-            const action = checked ? FilterActionType.Add : FilterActionType.Minus;
-            this.configStore.Options.onFilterChange(value[0], value[1], action);
-            event.stopPropagation();
-        });
         this.filterElement.on("click", ".facet-subheader .facet-labels .label", (event) => {
             let element = jQuery(event.target);
             if (!element.is(".label")) {
