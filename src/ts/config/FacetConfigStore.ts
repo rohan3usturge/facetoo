@@ -4,6 +4,7 @@ import {IFacetOptions} from "./IFacetOptions";
 export class FacetConfigStore {
     private options: IFacetOptions;
     private defaultFacetOptions: IFacetOptions = {
+        collapsed: false,
         containerElement: null,
         // facets: [],
         onFilterChange: (key: string, value: string, action: FilterActionType): void => {
