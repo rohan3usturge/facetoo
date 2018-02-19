@@ -19,6 +19,7 @@ export interface IFacet {
 }
 
 export interface IFacetOptions {
+    collapsed: boolean;
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
 }
