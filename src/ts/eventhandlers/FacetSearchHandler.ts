@@ -9,9 +9,9 @@ export class FacetSearchHandler implements IEventHandler {
             const val = element.val().toString().toLowerCase();
             this.element.find(".facet-list .facet-item").each((i: number, e) => {
                 if (jQuery(e).attr("data-attr-name").toLowerCase().indexOf(val) === -1 ) {
-                    jQuery(e).fadeOut(300);
+                    jQuery(e).fadeOut(200);
                 } else {
-                    jQuery(e).fadeIn(300);
+                    jQuery(e).fadeIn(200);
                 }
             });
             event.stopPropagation();

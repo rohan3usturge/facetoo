@@ -44,11 +44,11 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
             return;
         }
         if (!currentlyVisible) {
-            element.parents(".facet-item").find(".facet-item-description").slideDown();
+            element.parents(".facet-item").find(".facet-item-description").slideDown(200);
             iconElement.removeClass("gui-icon-chevron-down");
             iconElement.addClass("gui-icon-chevron-up");
         } else {
-            element.parents(".facet-item").find(".facet-item-description").slideUp();
+            element.parents(".facet-item").find(".facet-item-description").slideUp(200);
             iconElement.removeClass("gui-icon-chevron-up");
             iconElement.addClass("gui-icon-chevron-down");
         }
