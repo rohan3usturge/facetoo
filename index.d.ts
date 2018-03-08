@@ -51,7 +51,7 @@ export interface IFacetValue {
     selected: boolean;
 }
 
-export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType) => void;
+export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType, type: string) => void;
 
 export type IAllFilterRemoveDelegate = () => void;
 

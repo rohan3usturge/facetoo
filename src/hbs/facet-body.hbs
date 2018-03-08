@@ -51,7 +51,7 @@
                         </div> --}}
                         <div class="item">
                             <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
-                                value="{{../id}}:{{label}}" type="checkbox" /> {{#if selected}}
+                                value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> {{#if selected}}
                             <label class="gui cursor-pointer primary" for="{{label}}-{{@index}}">
                                 {{label}}
                                 <span class="gui-body-2">({{count}})</span>

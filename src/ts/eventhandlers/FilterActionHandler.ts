@@ -14,7 +14,7 @@ export class FilterActionHandler implements IEventHandler {
             }
             const valStr = element.attr("data-filter-entry").toString();
             const value = valStr.split(":");
-            this.configStore.Options.onFilterChange(value[0], value[1], FilterActionType.Minus);
+            this.configStore.Options.onFilterChange(value[0], value[1], FilterActionType.Minus, value[2]);
             event.stopPropagation();
         });
         this.filterElement.on("click", ".facet-subheader .remove-all", (event) => {

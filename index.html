@@ -80,10 +80,16 @@
     <script>
 
         var facetoptions = {
-            containerElement: document.getElementById("hi")
+            containerElement: document.getElementById("hi"),
+            onFilterChange: function(column, value, actionType, type){
+                alert(column + value + actionType + type);
+            }
         };
         var filterOptions = {
-            containerElement: document.getElementById("hi1")
+            containerElement: document.getElementById("hi1"),
+            onFilterChange: function(column, value, actionType, type){
+                alert(column + value + actionType + type);
+            }
         };
         var facet = new Facetoo.Facet(facetoptions);
         var filter = new Facetoo.Filter(filterOptions);
