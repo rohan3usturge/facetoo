@@ -51,15 +51,15 @@
                         </div> --}}
                         <div class="item">
                             {{#if selected}}
-                            <label title="{{label}}" class="gui cursor-pointer primary">
+                            <label title="{{label}}" class="gui cursor-pointer no-wrap primary">
                                 <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} value="{{../id}}:{{label}}:{{../type}}" type="checkbox" />
-                                <div class="gui w-100 inline-block text-shorten">{{label}}</div>
+                                {{label}}
                                 <span class="gui-body-2">({{count}})</span>
                             </label>
                             {{else}}
-                            <label title="{{label}}" class="gui cursor-pointer">
+                            <label title="{{label}}" class="gui cursor-pointer no-wrap">
                                 <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} value="{{../id}}:{{label}}:{{../type}}" type="checkbox" />
-                                <div class="gui w-100 inline-block text-shorten">{{label}}</div>
+                                {{label}}
                                 <span class="gui-body-2">({{count}})</span>
                             </label>
                             {{/if}}
