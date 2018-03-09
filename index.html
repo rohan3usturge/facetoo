@@ -17,7 +17,7 @@
     <script>
         function makeid() {
             var text = "";
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
             for (var i = 0; i < 10; i++)
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -30,7 +30,7 @@
                 "name": null,
                 "type": "Edm.String",
                 "facetValues": [
-                    { "label": "377884", "count": 10 },
+                    { "label": "377884377884377884377884377884377884377884377884377884377884", "count": 10 },
                     { "label": "377887", "count": 10 },
                     { "label": "377890", "count": 10 },
                     { "label": "377881", "count": 5 },
@@ -47,7 +47,7 @@
         const facetValues = [];
         for (let index = 0; index < 10; index++) {
             facetValues.push({
-                "label": "Label " + index, "count": 23 * index, "selected": index % 5 == 2
+                "label": "Label377884377884377884377884377884377884377884377884377884377884377884 " + index, "count": 23 * index, "selected": index % 5 == 2
             });
         }
         for (let index = 0; index < 30; index++) {
