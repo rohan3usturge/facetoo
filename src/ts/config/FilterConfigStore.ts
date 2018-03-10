@@ -4,6 +4,7 @@ import { IFilterOptions } from "./IFilterOptions";
 export class FilterConfigStore {
     private options: IFilterOptions;
     private defaultfilterOptions: IFilterOptions = {
+        animationTime: 200,
         containerElement: null,
         onAllFilterRemove: () => {
         // Ignore

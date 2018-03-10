@@ -19,12 +19,14 @@ export interface IFacet {
 }
 
 export interface IFacetOptions {
+    animationTime?: number;
     collapsed: boolean;
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
 }
 
 export interface IFilterOptions {
+    animationTime?: number;
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
     onAllFilterRemove: IAllFilterRemoveDelegate;

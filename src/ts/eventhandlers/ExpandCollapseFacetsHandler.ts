@@ -1,3 +1,4 @@
+import { FacetConfigStore } from "./../config/FacetConfigStore";
 import { IEventHandler } from "./IEventHandler";
 
 enum ShowHide {
@@ -7,7 +8,7 @@ enum ShowHide {
 }
 
 export class ExpandCollapseFacetsHandler implements IEventHandler {
-    constructor(private element: JQuery) {}
+    constructor(private element: JQuery, private configStore: FacetConfigStore) {}
 
     public RegisterDomHandler(): void {
         this.element.on("click", ".expand-all", (event) => {

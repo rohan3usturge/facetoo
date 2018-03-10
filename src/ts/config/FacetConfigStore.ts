@@ -4,6 +4,7 @@ import {IFacetOptions} from "./IFacetOptions";
 export class FacetConfigStore {
     private options: IFacetOptions;
     private defaultFacetOptions: IFacetOptions = {
+        animationTime: 200,
         collapsed: false,
         containerElement: null,
         // facets: [],
