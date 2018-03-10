@@ -7,13 +7,13 @@ export class HideFacetSectionHandler implements IEventHandler {
     public RegisterDomHandler = (): void => {
         this.element.on("click", ".hide-facet", (event): void => {
             $(".facet-body").hide();
-            $(".facet-collapsed-body").fadeIn(200);
+            $(".facet-collapsed-body").fadeIn(this.configStore.Options.animationTime);
             this.configStore.Options.collapsed = true;
             event.stopPropagation();
         });
         this.element.on("click", ".show-facet", (event): void => {
             $(".facet-collapsed-body").hide();
-            $(".facet-body").fadeIn(200);
+            $(".facet-body").fadeIn(this.configStore.Options.animationTime);
             this.configStore.Options.collapsed = false;
             event.stopPropagation();
         });
