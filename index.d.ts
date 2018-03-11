@@ -3,11 +3,13 @@
 export class Facet {
     constructor(options: IFacetOptions);
     bind: (facets: IFacet[]) => void;
+    destroy: () => void;
 }
 
 export class Filter {
     constructor(options: IFilterOptions);
     bind: (filters: IFacet[]) => void;
+    destroy: () => void;
 }
 
 export interface IFacet {

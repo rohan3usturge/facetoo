@@ -28,4 +28,9 @@ export class Facet {
         const fullFacet = this.templateService.bind(facets);
         this.facetElement.html(fullFacet);
     }
+    public destroy =  (): void => {
+        if ( this.facetElement !== undefined ) {
+            this.facetElement.off();
+        }
+    }
 }

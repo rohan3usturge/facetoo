@@ -23,4 +23,9 @@ export class Filter {
         const facetSubHeader = this.templateService.bind(filters);
         this.filterElement.html(facetSubHeader);
     }
+    public destroy =  (): void => {
+        if ( this.filterElement !== undefined ) {
+            this.filterElement.off();
+        }
+    }
 }
