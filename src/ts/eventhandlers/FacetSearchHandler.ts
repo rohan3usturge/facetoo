@@ -13,38 +13,44 @@ export class FacetSearchHandler implements IEventHandler {
             const val = element.val().toString().toLowerCase();
             this.element.find(".facet-list .facet-item").each((i: number, e) => {
                 const facetItem = jQuery(e);
-                let showFullFacets = false;
+                let facetNameMatch = false;
                 let inputValueBlank = false;
+                // Check if value is empty
                 if ( val === undefined || val === null || val.trim() === "") {
                     inputValueBlank = true;
                 }
+                // Compare value with facet name
                 if ( !inputValueBlank && facetItem.attr("data-attr-name").toLowerCase().indexOf(val) !== -1 ) {
-                    showFullFacets = true;
+                    facetNameMatch = true;
                 }
-                let hasMatchingChild: boolean = false;
-                if ( !showFullFacets ) {
-                    facetItem.find("label").each((j: number, label) => {
-                        const labelElem = jQuery(label);
-                        const labelValue = labelElem.attr("data-attr-value");
-                        if (!inputValueBlank && labelValue.toLowerCase().indexOf(val) === -1 ) {
-                            labelElem.hide();
-                        } else {
-                            hasMatchingChild = true;
-                            labelElem.show();
-                        }
-                    });
-                }
-                const headerElment = facetItem.find(".facet-item-header");
-                if ( !showFullFacets && !hasMatchingChild ) {
-                    facetItem.fadeOut(this.configStore.Options.animationTime);
-                    ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Hide);
-                } else {
-                    facetItem.fadeIn(this.configStore.Options.animationTime);
-                    if ( inputValueBlank ) {
-                        ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Hide);
-                    } else {
-                        ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Show);
+                // Compare values against child values
+                let facetChildMatch: boolean = false;
+                facetItem.find("label").each((j: number, label) => {
+                    const labelElem = jQuery(label);
+                    if ( facetNameMatch || inputValueBlank ) {
+                        labelElem.show();
+                        return;
                     }
+                    const labelValue = labelElem.attr("data-attr-value");
+                    if (labelValue.toLowerCase().indexOf(val) === -1 ) {
+                        labelElem.hide();
+                    } else {
+                        facetChildMatch = true;
+                        labelElem.show();
+                    }
+                });
+                // Show hide Facet Item itself
+                const headerElment = facetItem.find(".facet-item-header");
+                if ( facetNameMatch || facetChildMatch || inputValueBlank ) {
+                    facetItem.fadeIn(this.configStore.Options.animationTime);
+                } else {
+                    facetItem.fadeOut(this.configStore.Options.animationTime);
+                }
+                // Expand Collapse Facet
+                if ( facetNameMatch || facetChildMatch ) {
+                    ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Show);
+                } else {
+                    ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Hide);
                 }
             });
             event.stopPropagation();
