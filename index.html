@@ -47,7 +47,7 @@
         const facetValues = [];
         for (let index = 0; index < 10; index++) {
             facetValues.push({
-                "label": "Label377884377884377884377884377884377884377884377884377884377884377884 " + index, "count": 23 * index, "selected": index % 5 == 2
+                "label": "Label" + makeid(), "count": 23 * index, "selected": index % 5 == 2
             });
         }
         for (let index = 0; index < 30; index++) {
@@ -75,8 +75,10 @@
 <body>
     <button onclick="addFacets()">Add Facets</button>
     <button onclick="addFilters()">Add Filters</button>
-    <div class="gui" style="height: 90%; width:30%;float:left;margin-top: 50px;" id="hi"></div>
-    <div class="gui container" style="height: 90%; width:30%;float:right;    margin-top: 50px;" id="hi1"></div>
+    <div style="display: flex;">
+        <div class="gui" style="height: 90%; width:30%;overflow: hidden;margin-top: 50px;" id="hi"></div>
+        <div class="gui container" style="height: 90%; width:30%;float:right;    margin-top: 50px;" id="hi1"></div>
+    </div>
     <script>
 
         var facetoptions = {

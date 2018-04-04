@@ -1,11 +1,7 @@
 import { FacetConfigStore } from "./../config/FacetConfigStore";
+import { ExpandCollapseManager } from "./ExpandCollapseManager";
 import { IEventHandler } from "./IEventHandler";
-
-enum ShowHide {
-    Show,
-    Hide,
-    Toggle,
-}
+import { ShowHide } from "./ShowHide";
 
 export class ExpandCollapseFacetsHandler implements IEventHandler {
     constructor(private element: JQuery, private configStore: FacetConfigStore) {}
@@ -13,13 +9,13 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
     public RegisterDomHandler(): void {
         this.element.on("click", ".expand-all", (event) => {
             this.element.find(".facet-item-header").each((index, element) => {
-                this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Show);
+                ExpandCollapseManager.ControlVisibilityOfFilter(jQuery(element), ShowHide.Show);
             });
             event.stopPropagation();
         });
         this.element.on("click", ".collapse-all", (event) => {
             this.element.find(".facet-item-header").each((index, element) => {
-                this.ControlVisibilityOfFilter(jQuery(element), ShowHide.Hide);
+                ExpandCollapseManager.ControlVisibilityOfFilter(jQuery(element), ShowHide.Hide);
             });
             event.stopPropagation();
         });
@@ -27,7 +23,7 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
             const target = jQuery(event.target);
             const headerElement = target.is(".facet-item-header") ? target : target.parent(".facet-item-header");
             this.element.find(".facet-header .button").removeAttr("disabled");
-            this.ControlVisibilityOfFilter(headerElement, ShowHide.Toggle);
+            ExpandCollapseManager.ControlVisibilityOfFilter(headerElement, ShowHide.Toggle);
             event.stopPropagation();
         });
     }
@@ -36,22 +32,5 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
     }
     public onDocumentClick(event: any): void {
         // throw new Error("Method not implemented.");
-    }
-    private ControlVisibilityOfFilter = (element: JQuery, showHide: ShowHide) => {
-        const iconElement = element.children("i");
-        const currentlyVisible = iconElement.hasClass("gui-icon-chevron-up");
-        if (ShowHide.Toggle !== showHide && ((currentlyVisible && showHide === ShowHide.Show) ||
-            (!currentlyVisible && showHide === ShowHide.Hide))) {
-            return;
-        }
-        if (!currentlyVisible) {
-            element.parents(".facet-item").find(".facet-item-description").slideDown(200);
-            iconElement.removeClass("gui-icon-chevron-down");
-            iconElement.addClass("gui-icon-chevron-up");
-        } else {
-            element.parents(".facet-item").find(".facet-item-description").slideUp(200);
-            iconElement.removeClass("gui-icon-chevron-up");
-            iconElement.addClass("gui-icon-chevron-down");
-        }
     }
 }

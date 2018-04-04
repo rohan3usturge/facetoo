@@ -1,31 +1,28 @@
-<div class="gui fluid-h of-hidden">
+<div class="gui of-hidden min-w-50 w-auto fluid-h flex column container">
     {{!--
     <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
-    <div class="gui m-5">
-        <div class="gui left">
+    <div class="gui flex jc-sb">
+        <div class="gui">
             <span class="gui caps bold gui-subheading-2">
-                    Filter By
+                Filter By
             </span>
         </div>
-        <div class="gui right">
-            <a class="gui cursor-pointer hide-facet">
+        <div class="gui">
+            <button class="gui cursor-pointer hide-facet">
                 <i class="gui-icon gui-icon-chevron-left"></i>
-            </a>
+            </button>
         </div>
     </div>
-    <div class="gui clear"></div>
-    <div class="gui m-t-5"></div>
-    <div class="gui left">
-        <a class="gui cursor-pointer expand-all">
+    <div class="gui flex jc-sb">
+        <button class="gui cursor-pointer expand-all">
             <i class="gui-icon gui-icon-add"></i>
             Expand All
-        </a>
-        <a class="gui cursor-pointer m-l-10 collapse-all">
+        </button>
+        <button class="gui cursor-pointer m-l-10 collapse-all">
             <i class="gui-icon  gui-icon-minus"></i>
             Collapse All
-        </a>
+        </button>
     </div>
-    <div class="gui clear"></div>
     <div class="gui m-t-5"></div>
     <div class="gui input fluid-w p-t-5 p-r-5 p-b-5 p-l-1">
         <input class="gui input p-5 fluid-w gui-subheading-2 filter-search-input" placeholder="Search Filters" />
@@ -38,7 +35,7 @@
                     <span class="gui gui-subheading-2 primary">
                         {{name}} {{{SelectedFiltersCount facetValues}}}
                     </span>
-                    <i class="gui gui-icon gui-icon-chevron-down right m-r-10"></i>
+                    <i class="gui gui-icon gui-icon-chevron-down right m-t-5 m-r-10"></i>
                 </div>
                 <div class="clear"></div>
                 <div class="description gui gui-hidden facet-item-description m-t-5">
@@ -51,13 +48,13 @@
                         </div> --}}
                         <div class="item">
                             {{#if selected}}
-                            <label title="{{label}}" class="gui cursor-pointer no-wrap primary">
+                            <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap primary text-shorten m-0">
                                 <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} value="{{../id}}:{{label}}:{{../type}}" type="checkbox" />
                                 {{label}}
                                 <span class="gui-body-2">({{count}})</span>
                             </label>
                             {{else}}
-                            <label title="{{label}}" class="gui cursor-pointer no-wrap">
+                            <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap text-shorten m-0">
                                 <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} value="{{../id}}:{{label}}:{{../type}}" type="checkbox" />
                                 {{label}}
                                 <span class="gui-body-2">({{count}})</span>
