@@ -1,4 +1,5 @@
 import { IFilterOptions } from "../config/IFilterOptions";
+import { HotKeysFiltersHandler } from "../eventhandlers/HotKeysFiltersHandler";
 import { IFacet } from "../models/IFacet";
 import { FilterTemplateService } from "../services/FilterTemplateService";
 import { IFilterTemplateService } from "../services/IFilterTemplateService";
@@ -15,6 +16,7 @@ export class Filter {
         this.filterElement = jQuery(options.containerElement);
         this.templateService = new FilterTemplateService();
         this.handlerChain.push(new FilterActionHandler(this.filterElement, this.configStore));
+        this.handlerChain.push(new HotKeysFiltersHandler());
         this.handlerChain.forEach((handler) => {
             handler.RegisterDomHandler();
         });
@@ -27,5 +29,10 @@ export class Filter {
         if ( this.filterElement !== undefined ) {
             this.filterElement.off();
         }
+        this.handlerChain.forEach((handler) => {
+            if (handler !== undefined && handler.deregister !== undefined) {
+                handler.deregister();
+            }
+        });
     }
 }

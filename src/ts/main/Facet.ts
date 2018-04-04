@@ -1,3 +1,4 @@
+import { HotKeysFacetHandler } from "../eventhandlers/HotKeysFacetHandler";
 import { IFacet } from "../models/IFacet";
 import { IFacetValue } from "../models/IFacetValue";
 import { FacetTemplateService } from "../services/FacetTemplateService";
@@ -20,6 +21,7 @@ export class Facet {
         this.handlerChain.push(new FacetActionHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new FacetSearchHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new HideFacetSectionHandler(this.facetElement, this.configStore));
+        this.handlerChain.push(new HotKeysFacetHandler());
         this.handlerChain.forEach((handler) => {
             handler.RegisterDomHandler();
         });
@@ -32,5 +34,10 @@ export class Facet {
         if ( this.facetElement !== undefined ) {
             this.facetElement.off();
         }
+        this.handlerChain.forEach((handler) => {
+            if (handler !== undefined && handler.deregister !== undefined) {
+                handler.deregister();
+            }
+        });
     }
 }
