@@ -16,7 +16,7 @@ class HotKeysFiltersHandler implements IEventHandler {
     }
 
     private focusOnSearch = (event) => {
-        if (event.ctrlKey  &&  event.key === "c") {
+        if (event.ctrlKey  &&  event.key === "r") {
             event.preventDefault();
             jQuery(".facet-subheader .remove-all").focus();
         }
