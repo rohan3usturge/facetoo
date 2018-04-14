@@ -15,6 +15,19 @@ export class FacetTemplateService implements IFacetTemplateService {
   }
   public bind(facets: IFacet[]): string {
     const collapsed: boolean = this.configStore.Options.collapsed;
-    return this.tempateFunctionForFacetMain({ collapsed, facets });
+    const favorites = facets.filter( (f) => f.pinned !== undefined && f.pinned);
+    const nonFavorites = facets.filter( (f) => f.pinned === undefined || !f.pinned);
+    favorites.sort(this.compareFn);
+    nonFavorites.sort(this.compareFn);
+    return this.tempateFunctionForFacetMain({ favorites, nonFavorites });
+  }
+  private compareFn = (prev: IFacet, next: IFacet) => {
+    if ( prev.order === undefined ) {
+      return -1;
+    }
+    if ( next.order === undefined ) {
+      return 1;
+    }
+    return prev.order - next.order;
   }
 }

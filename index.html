@@ -13,6 +13,9 @@
             letter-spacing: 40px;
             /* arbitrarily large letter-spacing for safety */
         }
+        :-webkit-scrollbar {
+            width: 14px;
+        }
     </style>
     <script>
         function makeid() {
@@ -45,7 +48,7 @@
 
         const facets = [];
         const facetValues = [];
-        for (let index = 0; index < 10; index++) {
+        for (let index = 0; index < 30; index++) {
             facetValues.push({
                 "label": "Label" + makeid(), "count": 23 * index, "selected": index % 5 == 2
             });
@@ -55,6 +58,8 @@
                 "id": "Facet" + index,
                 "name": makeid(),
                 "type": "Edm.String",
+                "pinned": index % 5 == 0,
+                "order" : index,
                 "facetValues": facetValues,
                 "facetRanges": [
                     {

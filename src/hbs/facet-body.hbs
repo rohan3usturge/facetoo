@@ -3,17 +3,18 @@
     <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
     <div class="gui flex jc-sb">
         <div class="gui">
-            <span class="gui caps bold gui-subheading-2">
-                Filter By
+            <i class="gui gui-icon gui-icon-filter primary m-r-5"></i>
+            <span class="gui gui-subheading-2">
+                FILTER BY
             </span>
         </div>
         <div class="gui">
-            <button class="gui cursor-pointer hide-facet">
+            <button class="gui cursor-pointer bold hide-facet">
                 <i class="gui-icon gui-icon-chevron-left"></i>
             </button>
         </div>
     </div>
-    <div class="gui flex jc-sc m-t-10">
+    <div class="gui flex m-t-10">
         <button class="gui cursor-pointer expand-all">
             <i class="gui-icon gui-icon-add"></i>
             Expand All
@@ -29,44 +30,8 @@
         <input class="gui input p-5 fluid-w gui-subheading-2 filter-search-input" placeholder="Search Filters" />
     </div>
     <div class="gui fluid-h facet-list of-auto">
-        {{#each facets}}
-        <div class="item facet-item" data-attr-name="{{name}}">
-            <div class="content">
-                <div class="facet-item-header fluid cursor-pointer gui selectable item">
-                    <span class="gui gui-subheading-2 primary">
-                        {{name}} {{{SelectedFiltersCount facetValues}}}
-                    </span>
-                    <i class="gui gui-icon gui-icon-chevron-down right m-t-5 m-r-10"></i>
-                </div>
-                <div class="clear"></div>
-                <div class="description gui gui-hidden facet-item-description m-t-5">
-                    <div class="gui fluid-w fluid-h m-0 p-0">
-                        {{#each facetValues}} {{!--
-                        <div class="gui item checkbox">
-                            <input type="checkbox" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} class="facet-value-checkbox cursor-pointer"
-                                value="{{../id}}:{{label}}">
-                            <label for="{{label}}-{{@index}}">{{label}} ({{count}})</label>
-                        </div> --}}
-                        <div class="item">
-                            {{#if selected}}
-                            <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap primary text-shorten m-0">
-                                <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} value="{{../id}}:{{label}}:{{../type}}" type="checkbox" />
-                                {{label}}
-                                <span class="gui-body-2">({{count}})</span>
-                            </label>
-                            {{else}}
-                            <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap text-shorten m-0">
-                                <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}} value="{{../id}}:{{label}}:{{../type}}" type="checkbox" />
-                                {{label}}
-                                <span class="gui-body-2">({{count}})</span>
-                            </label>
-                            {{/if}}
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/each}}
+        {{> facet-pinned}}
+        {{> facet-unpinned}}
     </div>
+
 </div>

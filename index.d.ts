@@ -15,9 +15,12 @@ export class Filter {
 export interface IFacet {
     id: string;
     name: string;
-    type: DataType;
-    facetValues: IFacetValue[];
-    facetRange: IFacetRange;
+    type: string;
+    order?: number;
+    pinned?: boolean;
+    collapsed: boolean;
+    facetValues?: IFacetValue[];
+    facetRange?: IFacetRange;
 }
 
 export interface IFacetOptions {
@@ -34,14 +37,6 @@ export interface IFilterOptions {
     onAllFilterRemove: IAllFilterRemoveDelegate;
 }
 
-export enum DataType {
-    String = "String",
-    Date = "Date",
-    Number = "Number",
-    Boolean = "Boolean",
-    Collection = "Collection",
-}
-
 export interface IFacetRange {
     min: string;
     max: string;
@@ -52,7 +47,9 @@ export interface IFacetRange {
 export interface IFacetValue {
     label: string;
     count: number;
-    selected: boolean;
+    selected?: boolean;
+    disabled?: boolean;
+    isNotEqual: boolean;
 }
 
 export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType, type: string) => void;

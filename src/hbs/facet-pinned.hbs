@@ -1,0 +1,42 @@
+<div class="gui">
+    <span class="gui gui-subheading-2">
+        PINNED FILTERS
+    </span>
+</div>
+{{#each favorites}}
+<div class="item facet-item" data-attr-name="{{name}}">
+    <div class="content">
+        <div class="facet-item-header fluid gui item flex jc-sb">
+            <span class="gui gui-subheading-2 primary m-0 expansion-icon cursor-pointer" tabindex="0">
+                {{name}} {{{SelectedFiltersCount facetValues}}}
+            </span>
+            <span>
+                <i class="gui gui-icon selectable gui-icon-unpin m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 cursor-pointer" tabindex="0"></i>
+            </span>
+        </div>
+        <div class="clear"></div>
+        <div class="description gui facet-item-description m-t-5 max-h-100 of-auto">
+            <div class="gui fluid-w m-0 p-0">
+                {{#each facetValues}}
+                <div class="item">
+                    {{#if selected}}
+                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap primary text-shorten m-0">
+                        <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
+                            value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> {{label}}
+                        <span class="gui-body-2">({{count}})</span>
+                    </label>
+                    {{else}}
+                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap text-shorten m-0">
+                        <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
+                            value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> {{label}}
+                        <span class="gui-body-2">({{count}})</span>
+                    </label>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}

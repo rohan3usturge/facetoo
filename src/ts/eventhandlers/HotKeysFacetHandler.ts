@@ -16,7 +16,7 @@ class HotKeysFacetHandler implements IEventHandler {
     }
 
     private focusOnSearch = (event) => {
-        if (event.ctrlKey  &&  event.key === "f") {
+        if (event.altKey  &&  event.key === "f") {
             event.preventDefault();
             jQuery(".filter-search-input").focus();
         }

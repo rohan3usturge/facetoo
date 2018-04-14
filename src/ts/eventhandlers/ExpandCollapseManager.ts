@@ -3,7 +3,7 @@ import { ShowHide } from "./ShowHide";
 export class ExpandCollapseManager {
 
     public static ControlVisibilityOfFilter = (headerElement: JQuery, showHide: ShowHide) => {
-        const iconElement = headerElement.children("i");
+        const iconElement = headerElement.children("span").children(".expansion-icon") ;
         const currentlyVisible = iconElement.hasClass("gui-icon-chevron-up");
         if (ShowHide.Toggle !== showHide && ((currentlyVisible && showHide === ShowHide.Show) ||
             (!currentlyVisible && showHide === ShowHide.Hide))) {
