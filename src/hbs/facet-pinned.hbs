@@ -19,7 +19,7 @@
         <div class="description gui facet-item-description m-t-2 m-l-5">
             <div class="gui fluid-w m-0 p-0">
                 {{#each facetValues}}
-                <div class="gui item {{CheckLength @index 4}}">
+                <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">
                     {{#if selected}}
                     <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap primary text-shorten m-0">
                         <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
@@ -34,7 +34,8 @@
                     </label>
                     {{/if}}
                 </div>
-                {{/each}} {{{ShowMoreLessLink facetValues 4}}}
+                {{/each}} 
+                {{{ShowMoreLessLink facetValues ../noOfFacetToShow}}}
             </div>
         </div>
     </div>

@@ -19,7 +19,8 @@ export class FacetTemplateService implements IFacetTemplateService {
     const nonFavorites = facets.filter( (f) => f.pinned === undefined || !f.pinned);
     favorites.sort(this.compareFn);
     nonFavorites.sort(this.compareFn);
-    return this.tempateFunctionForFacetMain({ favorites, nonFavorites });
+    const noOfFacetToShow = this.configStore.Options.noOfFacetToShow;
+    return this.tempateFunctionForFacetMain({ favorites, nonFavorites, noOfFacetToShow });
   }
   public setData = (facets: IFacet[]): void => {
     this.data = facets;

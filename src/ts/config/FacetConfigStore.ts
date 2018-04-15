@@ -7,6 +7,7 @@ export class FacetConfigStore {
         animationTime: 200,
         collapsed: false,
         containerElement: null,
+        noOfFacetToShow: 5,
         // facets: [],
         onFilterChange: (key: string, value: string, action: FilterActionType): void => {
             // Ignore

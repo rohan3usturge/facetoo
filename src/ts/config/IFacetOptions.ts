@@ -10,4 +10,5 @@ export interface IFacetOptions {
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
     onPinUnpin: IPinUnpinFilterDelegate;
+    noOfFacetToShow?: number;
 }
