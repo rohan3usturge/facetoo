@@ -21,6 +21,12 @@ export class FacetTemplateService implements IFacetTemplateService {
     nonFavorites.sort(this.compareFn);
     return this.tempateFunctionForFacetMain({ favorites, nonFavorites });
   }
+  public setData = (facets: IFacet[]): void => {
+    this.data = facets;
+  }
+  public getData = (): IFacet[] => {
+    return this.data;
+  }
   private compareFn = (prev: IFacet, next: IFacet) => {
     if ( prev.order === undefined ) {
       return -1;

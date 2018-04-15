@@ -11,6 +11,9 @@ export class FacetConfigStore {
         onFilterChange: (key: string, value: string, action: FilterActionType): void => {
             // Ignore
         },
+        onPinUnpin: (key: string, pin: boolean): void => {
+            // Ignore
+        },
     };
     constructor(options: IFacetOptions) {
         this.extendOptions(options);

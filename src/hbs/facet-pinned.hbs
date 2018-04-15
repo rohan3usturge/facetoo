@@ -1,25 +1,25 @@
-<div class="gui">
+<div class="gui m-b-5 m-t-5">
     <span class="gui gui-subheading-1">
         PINNED FILTERS
     </span>
 </div>
-{{#each favorites}}
-<div class="item facet-item" data-attr-name="{{name}}">
+{{#if favorites.length}} {{#each favorites}}
+<div class="item facet-item gui m-t-6" data-attr-name="{{name}}">
     <div class="content">
         <div class="facet-item-header fluid gui item flex jc-sb">
             <span class="gui gui-subheading-1 primary m-0 expansion-icon cursor-pointer" tabindex="0">
                 {{name}} {{{SelectedFiltersCount facetValues}}}
             </span>
             <span>
-                <i class="gui gui-icon selectable gui-icon-unpin m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
-                <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                <i data-attr-id="{{id}}" class="gui gui-icon selectable primary gui-icon-unpin m-t-5 m-r-10 unpin-icon cursor-pointer" tabindex="0"></i>
+                <i class="gui gui-icon selectable gui-icon-chevron-up primary expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
             </span>
         </div>
         <div class="clear"></div>
-        <div class="description gui facet-item-description m-t-5">
+        <div class="description gui facet-item-description m-t-2 m-l-5">
             <div class="gui fluid-w m-0 p-0">
                 {{#each facetValues}}
-                <div class="item">
+                <div class="gui item {{CheckLength @index 4}}">
                     {{#if selected}}
                     <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer no-wrap primary text-shorten m-0">
                         <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
@@ -34,9 +34,14 @@
                     </label>
                     {{/if}}
                 </div>
-                {{/each}}
+                {{/each}} {{{ShowMoreLessLink facetValues 4}}}
             </div>
         </div>
     </div>
 </div>
 {{/each}}
+{{else}}
+<div>
+    No Pinned filters. Pin your favorite filters here.
+</div>
+{{/if}}

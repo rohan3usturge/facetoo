@@ -28,6 +28,7 @@ export interface IFacetOptions {
     collapsed: boolean;
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
+    onPinUnpin: IPinUnpinFilterDelegate;
 }
 
 export interface IFilterOptions {
@@ -53,6 +54,8 @@ export interface IFacetValue {
 }
 
 export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType, type: string) => void;
+
+export type IPinUnpinFilterDelegate = (key: string, pin: boolean) => void;
 
 export type IAllFilterRemoveDelegate = () => void;
 

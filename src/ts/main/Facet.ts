@@ -6,7 +6,7 @@ import { IFacetTemplateService } from "../services/IFacetTemplateService";
 import { FacetConfigStore } from "./../config/FacetConfigStore";
 import { IFacetOptions } from "./../config/IFacetOptions";
 import { ExpandCollapseFacetsHandler , FacetActionHandler, FacetSearchHandler,
-         HideFacetSectionHandler, IEventHandler } from "./../eventhandlers";
+         HideFacetSectionHandler, IEventHandler, PinUnpinEventHandler, ShowMoreLessHandler } from "./../eventhandlers";
 
 export class Facet {
     private configStore: FacetConfigStore;
@@ -22,11 +22,14 @@ export class Facet {
         this.handlerChain.push(new FacetSearchHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new HideFacetSectionHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new HotKeysFacetHandler());
+        this.handlerChain.push(new PinUnpinEventHandler(this.facetElement, this.configStore, this.templateService));
+        this.handlerChain.push(new ShowMoreLessHandler(this.facetElement, this.configStore));
         this.handlerChain.forEach((handler) => {
             handler.RegisterDomHandler();
         });
     }
     public bind =  (facets: IFacet[]): void => {
+        this.templateService.setData(facets);
         const fullFacet = this.templateService.bind(facets);
         this.facetElement.html(fullFacet);
     }
