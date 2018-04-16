@@ -1,20 +1,21 @@
 <div class="gui of-hidden min-w-50 w-auto fluid-h flex column container">
     {{!--
     <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
-    <div class="gui flex jc-sb">
-        <div class="gui">
-            <i class="gui gui-icon gui-icon-filter m-r-5"></i>
-            <span class="gui gui-subheading-2">
-                FILTER BY
-            </span>
-        </div>
-        <div class="gui">
-            <button class="gui cursor-pointer bold hide-facet">
-                <i class="gui gui-icon bold gui-icon-chevron-left-dark"></i>
-            </button>
-        </div>
-    </div>
-    <div class="gui h-30 flex m-t-5">
+    {{!-- <div class="gui flex jc-sb gui-subheading-1 m-0">
+        <i class="gui gui-icon gui-icon-filter m-r-10"></i>
+        <ul class="gui nav nav-tabs fluid-w border-less m-0 p-0 no-wrap">
+            <li class="gui m-r-5 cursor-pointer">
+                <a class="gui text-color-default caps tab-active">FILTERS BY</a>
+            </li>
+            <li class="gui m-r-5 cursor-pointer">
+                <a class="gui text-color-default caps">DATE FILTERS</a>
+            </li>
+        </ul>
+        <button class="gui cursor-pointer bold hide-facet">
+            <i class="gui gui-icon bold gui-icon-chevron-left-dark"></i>
+        </button>
+    </div> --}}
+    <div class="gui h-30 flex m-t-10">
         <button class="gui cursor-pointer gui-subheading-1 m-0 expand-all">
             <i class="gui-icon special rotate-right gui-icon-chevdouble"></i>
             Expand All
@@ -25,13 +26,11 @@
             Collapse All
         </button>
     </div>
-    <div class="gui m-t-5"></div>
-    <div class="gui input fluid-w p-t-5 p-r-5 p-b-5 p-l-1">
+    <div class="gui input fluid-w p-t-5 p-r-5 p-b-5 p-l-1 m-t-10">
         <input class="gui input p-5 h-30 fluid-w gui-subheading-2 filter-search-input" placeholder="Search Filters" />
     </div>
-    <div class="gui fluid-h facet-list of-auto">
-        {{> facet-pinned}}
-        {{> facet-unpinned}}
+    <div class="gui fluid-h facet-list of-auto m-t-10">
+        {{> facet-pinned}} {{> facet-unpinned}}
     </div>
 
 </div>

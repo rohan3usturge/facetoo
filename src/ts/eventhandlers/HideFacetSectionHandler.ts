@@ -28,13 +28,13 @@ export class HideFacetSectionHandler implements IEventHandler {
     public onDocumentClick(event: any): void {
         // Ignore
     }
-    private hideFacet = (event): void => {
+    public hideFacet = (event): void => {
         $(".facet-body").hide();
         $(".facet-collapsed-body").fadeIn(this.configStore.Options.animationTime);
         this.configStore.Options.collapsed = true;
         event.stopPropagation();
     }
-    private showFacet = (event): void => {
+    public showFacet = (event): void => {
         $(".facet-collapsed-body").hide();
         $(".facet-body").fadeIn(this.configStore.Options.animationTime);
         this.configStore.Options.collapsed = false;

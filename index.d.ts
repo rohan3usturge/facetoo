@@ -3,6 +3,8 @@
 export class Facet {
     constructor(options: IFacetOptions);
     bind: (facets: IFacet[]) => void;
+    hide: () => void;
+    show: () => void;
     destroy: () => void;
 }
 

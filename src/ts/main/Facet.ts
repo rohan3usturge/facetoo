@@ -33,6 +33,14 @@ export class Facet {
         const fullFacet = this.templateService.bind(facets);
         this.facetElement.html(fullFacet);
     }
+    public hide = (): void => {
+        this.facetElement.find(".facet-body").fadeOut(this.configStore.Options.animationTime);
+        this.configStore.Options.collapsed = true;
+    }
+    public show = (): void => {
+        this.facetElement.find(".facet-body").fadeIn(this.configStore.Options.animationTime);
+        this.configStore.Options.collapsed = false;
+    }
     public destroy =  (): void => {
         if ( this.facetElement !== undefined ) {
             this.facetElement.off();
