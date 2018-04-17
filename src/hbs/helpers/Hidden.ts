@@ -1,8 +1,19 @@
 const hidden = (value: boolean, invert: boolean): string => {
-    if (!invert && value) {
-        return " gui-hidden ";
+    let hide;
+    if (invert) {
+        if (!value) {
+            hide = true;
+        } else {
+            hide = false;
+        }
+    } else {
+        if (value) {
+            hide = true;
+        } else {
+            hide = false;
+        }
     }
-    return "";
+    return hide ? " gui-hidden " : " ";
 };
 
 export default hidden;
