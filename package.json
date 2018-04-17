@@ -46,5 +46,7 @@
     "webpack-dashboard": "^1.0.2",
     "webpack-dev-server": "^2.11.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "moment": "^2.22.1"
+  }
 }

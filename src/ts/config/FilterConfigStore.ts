@@ -6,6 +6,7 @@ export class FilterConfigStore {
     private defaultfilterOptions: IFilterOptions = {
         animationTime: 200,
         containerElement: null,
+        filterConfig: [],
         onAllFilterRemove: () => {
         // Ignore
         },

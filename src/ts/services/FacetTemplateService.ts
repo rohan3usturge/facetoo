@@ -1,8 +1,8 @@
 import * as Handlebars from "handlebars";
-import { IFacet } from "../models/IFacet";
+import {IFacet} from "../models/IFacet";
 import * as FacetMain from "./../../hbs/facet-main.hbs";
-import { FacetConfigStore } from "./../config/FacetConfigStore";
-import { IFacetTemplateService } from "./IFacetTemplateService";
+import {FacetConfigStore} from "./../config/FacetConfigStore";
+import {IFacetTemplateService} from "./IFacetTemplateService";
 
 export class FacetTemplateService implements IFacetTemplateService {
   private data: IFacet[];
@@ -15,12 +15,13 @@ export class FacetTemplateService implements IFacetTemplateService {
   }
   public bind(facets: IFacet[]): string {
     const collapsed: boolean = this.configStore.Options.collapsed;
-    const favorites = facets.filter( (f) => f.pinned !== undefined && f.pinned);
-    const nonFavorites = facets.filter( (f) => f.pinned === undefined || !f.pinned);
+    const mergedFacets = this.mergeWithFacetConfig(facets);
+    const favorites = mergedFacets.filter((f) => f.pinned !== undefined && f.pinned);
+    const nonFavorites = mergedFacets.filter((f) => f.pinned === undefined || !f.pinned);
     favorites.sort(this.compareFn);
     nonFavorites.sort(this.compareFn);
     const noOfFacetToShow = this.configStore.Options.noOfFacetToShow;
-    return this.tempateFunctionForFacetMain({ favorites, nonFavorites, noOfFacetToShow });
+    return this.tempateFunctionForFacetMain({favorites, nonFavorites, noOfFacetToShow});
   }
   public setData = (facets: IFacet[]): void => {
     this.data = facets;
@@ -28,13 +29,34 @@ export class FacetTemplateService implements IFacetTemplateService {
   public getData = (): IFacet[] => {
     return this.data;
   }
-  private compareFn = (prev: IFacet, next: IFacet) => {
-    if ( prev.order === undefined ) {
+  private compareFn = (prev: any, next: any) => {
+    if (prev.order === undefined) {
       return -1;
     }
-    if ( next.order === undefined ) {
+    if (next.order === undefined) {
       return 1;
     }
     return prev.order - next.order;
+  }
+  private mergeWithFacetConfig = (facets: IFacet[]) => {
+    const mergedArray: any[] = [];
+    for (const facet of facets) {
+      for (const facetConfig of this.configStore.Options.facetConfig) {
+        if (facetConfig.id === facet.id) {
+          mergedArray.push({
+            collapsed: facetConfig.collapsed,
+            facetRange: facet.facetRange,
+            facetValues: facet.facetValues,
+            id: facetConfig.id,
+            name: facetConfig.name,
+            order: facetConfig.order,
+            pinned: facetConfig.pinned,
+            type: facetConfig.type,
+          });
+          break;
+        }
+      }
+    }
+    return mergedArray;
   }
 }

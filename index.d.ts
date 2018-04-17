@@ -16,16 +16,12 @@ export class Filter {
 
 export interface IFacet {
     id: string;
-    name: string;
-    type: string;
-    order?: number;
-    pinned?: boolean;
-    collapsed: boolean;
     facetValues?: IFacetValue[];
     facetRange?: IFacetRange;
 }
 
 export interface IFacetOptions {
+    facetConfig: IFacetConfig[];
     animationTime?: number;
     collapsed: boolean;
     containerElement: HTMLElement | null;
@@ -35,6 +31,7 @@ export interface IFacetOptions {
 }
 
 export interface IFilterOptions {
+    filterConfig: IFacetConfig[];
     animationTime?: number;
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
@@ -56,9 +53,18 @@ export interface IFacetValue {
     isNotEqual: boolean;
 }
 
-export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType, type: string) => void;
+export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType, type: string, isRange: boolean) => void;
 
 export type IPinUnpinFilterDelegate = (key: string, pin: boolean) => void;
+
+export interface IFacetConfig {
+    id: string;
+    name: string;
+    type: string;
+    pinned: boolean;
+    collapsed: boolean;
+    order: number;
+}
 
 export type IAllFilterRemoveDelegate = () => void;
 

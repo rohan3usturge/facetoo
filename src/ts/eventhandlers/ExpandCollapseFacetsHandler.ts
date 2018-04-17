@@ -40,7 +40,7 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
             ExpandCollapseManager.ControlVisibilityOfFilter(jQuery(element), hideShow);
         });
         const value = hideShow === ShowHide.Show ? true : false;
-        const data = this.templateService.getData();
+        const data = this.configStore.Options.facetConfig;
         for (const facet of data) {
             facet.collapsed = value;
         }
@@ -56,7 +56,7 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
         const parent = headerElement.parents(".facet-item");
         const bool = target.hasClass("gui-icon-chevron-up");
         const id = parent.attr("data-attr-id");
-        const data = this.templateService.getData();
+        const data = this.configStore.Options.facetConfig;
         for (const facet of data) {
             if (facet.id === id ) {
                 facet.collapsed = bool;

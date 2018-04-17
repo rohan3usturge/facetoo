@@ -14,7 +14,7 @@ export class Filter {
     constructor(options: IFilterOptions) {
         this.configStore =  new FilterConfigStore(options);
         this.filterElement = jQuery(options.containerElement);
-        this.templateService = new FilterTemplateService();
+        this.templateService = new FilterTemplateService(this.configStore);
         this.handlerChain.push(new FilterActionHandler(this.filterElement, this.configStore));
         this.handlerChain.push(new HotKeysFiltersHandler());
         this.handlerChain.forEach((handler) => {

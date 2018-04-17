@@ -40,15 +40,14 @@ export class PinUnpinEventHandler implements IEventHandler {
     private handlePinUnpin(event: any, pin: boolean) {
         const element = jQuery(event.target);
         const id = element.attr("data-attr-id");
-        const data = this.templateService.getData();
+        const data = this.configStore.Options.facetConfig;
         for (const facet of data) {
             if ( facet.id === id ) {
                 facet.pinned = pin;
                 break;
             }
         }
-        this.templateService.setData(data);
-        this.element.html(this.templateService.bind(data));
+        this.element.html(this.templateService.bind(this.templateService.getData()));
         this.configStore.Options.onPinUnpin(id, pin);
         event.stopPropagation();
     }

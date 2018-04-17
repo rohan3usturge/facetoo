@@ -13,7 +13,7 @@ export class FacetActionHandler implements IEventHandler {
             const value = valStr.split(":");
             const checked = element.is(":checked");
             const action = checked ? FilterActionType.Add : FilterActionType.Minus;
-            this.configStore.Options.onFilterChange(value[0], value[1], action, value[2]);
+            this.configStore.Options.onFilterChange(value[0], value[1], action, value[2], false);
             event.stopPropagation();
         });
     }

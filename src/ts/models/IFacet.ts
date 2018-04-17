@@ -4,11 +4,6 @@ import { IFacetValue } from "./IFacetValue";
 
 export interface IFacet {
     id: string;
-    name: string;
-    type: string;
-    order?: number;
-    pinned?: boolean;
-    collapsed: boolean;
     facetValues?: IFacetValue[];
     facetRange?: IFacetRange;
 }

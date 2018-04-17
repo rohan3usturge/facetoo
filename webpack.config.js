@@ -73,6 +73,7 @@ module.exports = (env = {}) => {
       pathinfo: true
     },
     externals: {
+      moment: "moment",
       jquery: "jQuery",
       handlebars: {
         root: "Handlebars",
