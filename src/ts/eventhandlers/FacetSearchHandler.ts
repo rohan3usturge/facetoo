@@ -77,10 +77,6 @@ export class FacetSearchHandler implements IEventHandler {
                     .find("label")
                     .each((j: number, label) => {
                         const labelElem = jQuery(label);
-                        if (facetNameMatch || inputValueBlank) {
-                            labelElem.show();
-                            return;
-                        }
                         if (inputValueBlank) {
                             labelElem
                                 .parent(".extra-filter")
@@ -89,6 +85,10 @@ export class FacetSearchHandler implements IEventHandler {
                             labelElem
                                 .parent(".extra-filter")
                                 .show();
+                        }
+                        if (facetNameMatch || inputValueBlank) {
+                            labelElem.show();
+                            return;
                         }
                         const labelValue = labelElem.attr("data-attr-value");
                         if (labelValue.toLowerCase().indexOf(val) === -1) {
@@ -101,7 +101,7 @@ export class FacetSearchHandler implements IEventHandler {
                 // Show hide Facet Item itself
                 const headerElment = facetItem.find(".facet-item-header");
                 const collapsed = facetItem.hasClass("collapsed");
-                if (!collapsed || facetNameMatch || facetChildMatch || inputValueBlank) {
+                if (facetNameMatch || facetChildMatch || inputValueBlank) {
                     facetItem.fadeIn(this.configStore.Options.animationTime);
                 } else {
                     facetItem.fadeOut(this.configStore.Options.animationTime);

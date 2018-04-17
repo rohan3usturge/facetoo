@@ -12,11 +12,15 @@
             </span>
             <span>
                 <i data-attr-id="{{id}}" class="gui gui-icon selectable primary gui-icon-pin m-t-5 pin-icon m-r-10 cursor-pointer" tabindex="0"></i>
-                <i class="gui gui-icon selectable gui-icon-chevron-down primary expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                {{#if collapsed}}
+                    <i class="gui gui-icon selectable gui-icon-chevron-up primary expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                {{else}}
+                    <i class="gui gui-icon selectable gui-icon-chevron-down primary expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                {{/if}}
             </span>
         </div>
         <div class="clear"></div>
-        <div class="description gui {{Hidden collapsed}} facet-item-description m-t-2 m-l-5">
+        <div class="description gui {{Hidden collapsed true}} facet-item-description m-t-2 m-l-5">
             <div class="gui fluid-w m-0 p-0">
                 {{#each facetValues}}
                 <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">

@@ -17,7 +17,8 @@ export class Facet {
         this.configStore =  new FacetConfigStore(options);
         this.facetElement = jQuery(options.containerElement);
         this.templateService = new FacetTemplateService(this.configStore);
-        this.handlerChain.push(new ExpandCollapseFacetsHandler(this.facetElement, this.configStore));
+        this.handlerChain.push(new ExpandCollapseFacetsHandler(this.facetElement,
+            this.configStore, this.templateService));
         this.handlerChain.push(new FacetActionHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new FacetSearchHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new HideFacetSectionHandler(this.facetElement, this.configStore));
