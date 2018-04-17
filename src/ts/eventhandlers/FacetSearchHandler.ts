@@ -40,6 +40,37 @@ export class FacetSearchHandler implements IEventHandler {
                 if (!inputValueBlank && facetItem.attr("data-attr-name").toLowerCase().indexOf(val) !== -1) {
                     facetNameMatch = true;
                 }
+                if (inputValueBlank) {
+                    this
+                        .element
+                        .find(".show-more-link")
+                        .each((index: number, shwMoreElem) => {
+                            if (jQuery(shwMoreElem).hasClass("gui-hidden")) {
+                                jQuery(shwMoreElem).hide();
+                            } else {
+                                jQuery(shwMoreElem).show();
+                            }
+                        });
+                    this
+                        .element
+                        .find(".show-less-link")
+                        .each((index: number, showLessLink) => {
+                            if (jQuery(showLessLink).hasClass("gui-hidden")) {
+                                jQuery(showLessLink).hide();
+                            } else {
+                                jQuery(showLessLink).show();
+                            }
+                        });
+                } else {
+                    this
+                        .element
+                        .find(".show-more-link")
+                        .hide();
+                    this
+                        .element
+                        .find(".show-less-link")
+                        .hide();
+                }
                 // Compare values against child values
                 let facetChildMatch: boolean = false;
                 facetItem
@@ -49,6 +80,15 @@ export class FacetSearchHandler implements IEventHandler {
                         if (facetNameMatch || inputValueBlank) {
                             labelElem.show();
                             return;
+                        }
+                        if (inputValueBlank) {
+                            labelElem
+                                .parent(".extra-filter")
+                                .hide();
+                        } else {
+                            labelElem
+                                .parent(".extra-filter")
+                                .show();
                         }
                         const labelValue = labelElem.attr("data-attr-value");
                         if (labelValue.toLowerCase().indexOf(val) === -1) {
@@ -60,13 +100,14 @@ export class FacetSearchHandler implements IEventHandler {
                     });
                 // Show hide Facet Item itself
                 const headerElment = facetItem.find(".facet-item-header");
-                if (facetNameMatch || facetChildMatch || inputValueBlank) {
+                const collapsed = facetItem.hasClass("collapsed");
+                if (!collapsed || facetNameMatch || facetChildMatch || inputValueBlank) {
                     facetItem.fadeIn(this.configStore.Options.animationTime);
                 } else {
                     facetItem.fadeOut(this.configStore.Options.animationTime);
                 }
                 // Expand Collapse Facet
-                if (facetNameMatch || facetChildMatch) {
+                if (collapsed || facetNameMatch || facetChildMatch) {
                     ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Show);
                 } else {
                     ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Hide);
