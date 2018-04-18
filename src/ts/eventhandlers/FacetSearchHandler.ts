@@ -21,6 +21,8 @@ export class FacetSearchHandler implements IEventHandler {
     }
     private handleSearch = (event): void => {
         const element = jQuery(event.target);
+        element.parent().addClass("loading");
+        element.next().show();
         const val = element
             .val()
             .toString()
@@ -113,6 +115,8 @@ export class FacetSearchHandler implements IEventHandler {
                     ExpandCollapseManager.ControlVisibilityOfFilter(headerElment, ShowHide.Hide);
                 }
             });
+        element.parent().removeClass("loading");
+        element.next().hide();
         event.stopPropagation();
     }
 }
