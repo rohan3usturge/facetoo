@@ -5,5 +5,5 @@ import { IFacetValue } from "./IFacetValue";
 export interface IFacet {
     id: string;
     facetValues?: IFacetValue[];
-    facetRange?: IFacetRange;
+    facetRanges?: IFacetRange[];
 }
