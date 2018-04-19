@@ -27,6 +27,7 @@ export interface IFacetOptions {
     containerElement: HTMLElement | null;
     onFilterChange: IFilterActionDelegate;
     onPinUnpin: IPinUnpinFilterDelegate;
+    onCollapseToggle: IExpandCollapseDelegate;
     noOfFacetToShow?: number;
 }
 
@@ -52,6 +53,11 @@ export interface IFacetValue {
     disabled?: boolean;
     isNotEqual: boolean;
 }
+
+export type IExpandCollapseDelegate = (collapseSettings: Array<{
+    key: string;
+    collapsed: boolean;
+}>) => void;
 
 export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType, type: string, isRange: boolean) => void;
 

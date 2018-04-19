@@ -41,9 +41,12 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
         });
         const value = hideShow === ShowHide.Show ? true : false;
         const data = this.configStore.Options.facetConfig;
+        const publish: Array<{key: string, collapsed: boolean}> = [];
         for (const facet of data) {
             facet.collapsed = value;
+            publish.push({key: facet.id, collapsed: facet.collapsed});
         }
+        this.configStore.Options.onCollapseToggle(publish);
         event.stopPropagation();
     }
     private handleVisibilityOfOne = (event) => {
@@ -57,12 +60,15 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
         const bool = target.hasClass("gui-icon-chevron-up");
         const id = parent.attr("data-attr-id");
         const data = this.configStore.Options.facetConfig;
+        const publish: Array<{key: string, collapsed: boolean}> = [];
         for (const facet of data) {
             if (facet.id === id ) {
                 facet.collapsed = bool;
+                publish.push({key: facet.id, collapsed: facet.collapsed});
                 break;
             }
         }
+        this.configStore.Options.onCollapseToggle(publish);
         ExpandCollapseManager.ControlVisibilityOfFilter(headerElement, ShowHide.Toggle);
         event.stopPropagation();
     }

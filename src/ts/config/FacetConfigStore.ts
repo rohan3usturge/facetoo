@@ -10,6 +10,9 @@ export class FacetConfigStore {
         facetConfig: [],
         noOfFacetToShow: 5,
         // facets: [],
+        onCollapseToggle: (collapseConfig: [{key: string, collapsed: boolean}]) => {
+            // Ignore
+        },
         onFilterChange: (key: string, value: string, action: FilterActionType): void => {
             // Ignore
         },

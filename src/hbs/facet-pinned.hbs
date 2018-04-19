@@ -4,7 +4,7 @@
     </span>
 </div>
 {{#if favorites.length}} {{#each favorites}}
-<div class="item facet-item collapsed gui m-t-6" data-attr-name="{{name}}">
+<div class="item facet-item {{Collapsed collapsed}} gui m-t-6" data-attr-name="{{name}}">
     <div class="content">
         <div class="facet-item-header fluid gui item flex jc-sb">
             <span class="gui gui-subheading-1 primary m-0 expansion-icon cursor-pointer" tabindex="0">
@@ -12,11 +12,15 @@
             </span>
             <span>
                 <i data-attr-id="{{id}}" class="gui gui-icon selectable primary gui-icon-unpin m-t-5 m-r-10 unpin-icon cursor-pointer" tabindex="0"></i>
-                <i class="gui gui-icon selectable gui-icon-chevron-up primary expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                {{#if collapsed}}
+                    <i class="gui gui-icon selectable gui-icon-chevron-up primary expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                {{else}}
+                    <i class="gui gui-icon selectable gui-icon-chevron-down primary expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
+                {{/if}}
             </span>
         </div>
         <div class="clear"></div>
-        <div class="description gui facet-item-description m-t-2 m-l-5">
+        <div class="description gui facet-item-description m-t-2 m-l-5 {{Hidden collapsed true}}">
             <div class="gui fluid-w m-0 p-0">
                 {{#each facetValues}}
                 <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">
