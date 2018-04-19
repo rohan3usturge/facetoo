@@ -48,7 +48,7 @@ export class ShowMoreLessHandler implements IEventHandler {
         const element = jQuery(event.target);
         if (showMore) {
             element
-                .parent()
+                .parents(".facet-label-container")
                 .find(".extra-filter")
                 .fadeIn(this.configStore.Options.animationTime, () => {
                     element.hide();
@@ -58,7 +58,7 @@ export class ShowMoreLessHandler implements IEventHandler {
                 });
         } else {
             element
-                .parent()
+                .parents(".facet-label-container")
                 .find(".extra-filter")
                 .fadeOut(this.configStore.Options.animationTime, () => {
                     element

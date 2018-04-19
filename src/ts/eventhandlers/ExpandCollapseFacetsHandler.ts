@@ -36,10 +36,15 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
         if ( event.type !== "click" && (event.type === "keyup" && code !== 13 && code !== 32) ) {
             return;
         }
+        const value = hideShow === ShowHide.Show ? true : false;
         this.element.find(".facet-item-header").each((index, element) => {
+            if ( value ) {
+                jQuery(element).parents(".facet-item").addClass("collapsed");
+            } else {
+                jQuery(element).parents(".facet-item").removeClass("collapsed");
+            }
             ExpandCollapseManager.ControlVisibilityOfFilter(jQuery(element), hideShow);
         });
-        const value = hideShow === ShowHide.Show ? true : false;
         const data = this.configStore.Options.facetConfig;
         const publish: Array<{key: string, collapsed: boolean}> = [];
         for (const facet of data) {
@@ -58,12 +63,17 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
         const headerElement = target.parents(".facet-item-header");
         const parent = headerElement.parents(".facet-item");
         const bool = target.hasClass("gui-icon-chevron-up");
+        if ( !bool ) {
+            parent.addClass("collapsed");
+        } else {
+            parent.removeClass("collapsed");
+        }
         const id = parent.attr("data-attr-id");
         const data = this.configStore.Options.facetConfig;
         const publish: Array<{key: string, collapsed: boolean}> = [];
         for (const facet of data) {
             if (facet.id === id ) {
-                facet.collapsed = bool;
+                facet.collapsed = !bool;
                 publish.push({key: facet.id, collapsed: facet.collapsed});
                 break;
             }
