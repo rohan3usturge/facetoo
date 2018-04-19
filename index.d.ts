@@ -17,7 +17,7 @@ export class Filter {
 export interface IFacet {
     id: string;
     facetValues?: IFacetValue[];
-    facetRange?: IFacetRange;
+    facetRanges?: IFacetRange[];
 }
 
 export interface IFacetOptions {

@@ -1,6 +1,10 @@
 {
   "name": "facetoo",
+<<<<<<< HEAD
   "version": "1.0.61",
+=======
+  "version": "1.0.62",
+>>>>>>> 719e3b1e42b35480e16e7096353486248c2eeda4
   "description": "",
   "main": "index.js",
   "scripts": {

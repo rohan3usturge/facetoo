@@ -23,7 +23,7 @@ export class FilterTemplateService implements IFilterTemplateService {
             if (facetConfig.id === facet.id) {
               mergedArray.push({
                 collapsed: facetConfig.collapsed,
-                facetRange: facet.facetRange,
+                facetRanges: facet.facetRanges,
                 facetValues: facet.facetValues,
                 id: facetConfig.id,
                 name: facetConfig.name,
