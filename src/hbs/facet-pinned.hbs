@@ -1,4 +1,4 @@
-<div class="gui p-10">
+<div class="gui p-l-10 p-r-10 p-b-10 p-t-0">
     <span class="gui gui-subheading-2 caps bold-500">
         PINNED FILTERS
     </span>
@@ -25,13 +25,13 @@
                 {{#each facetValues}}
                 <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">
                     {{#if selected}}
-                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer gui-subheading-2 no-wrap primary text-shorten m-b-3">
+                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer gui-subheading-1 no-wrap primary text-shorten m-0">
                         <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
                             value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> {{label}}
                         <span class="gui gui-subheading-1 m-0">({{count}})</span>
                     </label>
                     {{else}}
-                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer gui-subheading-2 no-wrap text-shorten m-b-3">
+                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0">
                         <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
                             value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> {{label}}
                         <span class="gui gui-subheading-1 m-0">({{count}})</span>
@@ -39,9 +39,7 @@
                     {{/if}}
                 </div>
                 {{/each}} 
-                <div class="gui m-t-10">
-                    {{{ShowMoreLessLink facetValues ../noOfFacetToShow}}}
-                </div>
+                {{{ShowMoreLessLink facetValues ../noOfFacetToShow}}}
             </div>
         </div>
     </div>
