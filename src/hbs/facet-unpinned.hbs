@@ -1,47 +1,67 @@
-<div class="gui p-10">
-    <span class="gui gui-subheading-2 caps bold-500">
-        ALL FILTERS
-    </span>
-</div>
-{{#each nonFavorites}}
-<div class="gui item facet-item border-bottom light p-r-10 p-t-5 p-b-5 p-l-10 {{Collapsed collapsed}}" data-attr-id="{{id}}" data-attr-name="{{name}}">
-    <div class="content">
-        <div class="facet-item-header fluid gui item flex jc-sb">
-            <span class="gui gui-subheading-1 caps m-0 expansion-icon cursor-pointer" tabindex="0">
-                {{name}} {{{SelectedFiltersCount facetValues}}}
-            </span>
-            <span>
-                <i data-attr-id="{{id}}" class="gui gui-icon selectable gui-icon-pin m-t-5 m-r-10 pin-icon cursor-pointer" tabindex="0"></i>
-                {{#if collapsed}}
-                    <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
-                {{else}}
-                    <i class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer" tabindex="0"></i>
-                {{/if}}
-            </span>
-        </div>
-        <div class="clear"></div>
-        <div class="description gui facet-item-description m-t-10 {{Hidden collapsed true}} ">
-            <div class="gui facet-label-container fluid-w m-0 p-0">
-                {{#each facetValues}}
-                <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">
-                    {{#if selected}}
-                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui gui-subheading-1 cursor-pointer no-wrap primary text-shorten m-0">
-                        <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
-                            value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> {{label}}
-                        <span class="gui gui-subheading-1 m-0">({{count}})</span>
-                    </label>
+{{#if nonFavorites.length}}
+<section>
+    <div class="gui p-10">
+        <span class="gui gui-subheading-2 caps bold-500">
+            ALL FILTERS
+        </span>
+    </div>
+    {{#each nonFavorites}}
+    <div class="gui item facet-item border-bottom light p-r-10 p-t-5 p-b-5 p-l-10 {{Collapsed collapsed}}" 
+        data-attr-id="{{id}}" 
+        data-attr-name="{{name}}">
+        <div class="content">
+            <div class="facet-item-header fluid gui item flex jc-sb">
+                <span   class="gui primary gui-subheading-1 caps m-0 expansion-icon cursor-pointer" 
+                        aria-label="Press enter or space to toggle filter values for {{name}}"
+                        aria-expanded="{{Boolean collapsed}}"
+                        aria-controls="facet-values-{{@index}}"
+                        tabindex="0">
+                    {{name}} {{{SelectedFiltersCount facetValues}}}
+                </span>
+                <span>
+                    <i data-attr-id="{{id}}" class="gui gui-icon selectable gui-icon-pin m-t-5 m-r-10 pin-icon cursor-pointer" 
+                        aria-label="Press enter or space to pin filter {{name}}"
+                        tabindex="0"></i>
+                    {{#if collapsed}}
+                        <i  class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer" 
+                            aria-label="Press enter or space to expand filter values for {{name}}"
+                            aria-expanded="false"
+                            aria-controls="facet-values-{{@index}}"
+                            tabindex="0"></i>
                     {{else}}
-                    <label data-attr-value="{{label}}" title="{{label}}({{count}})" class="gui gui-subheading-1 cursor-pointer no-wrap text-shorten m-0">
-                        <input class="gui facet-value-checkbox cursor-pointer m-l-0" id="{{label}}-{{@index}}" {{Checked selected}} {{Disabled disabled}}
-                            value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> {{label}}
-                        <span class="gui gui-subheading-1 m-0">({{count}})</span>
-                    </label>
+                        <i  class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer" 
+                            aria-label="Press enter or space to collapse filter values for {{name}}"
+                            aria-expanded="true"
+                            aria-controls="facet-values-{{@index}}"
+                            tabindex="0"></i>
                     {{/if}}
+                </span>
+            </div>
+            <div class="clear"></div>
+            <div class="description gui facet-item-description m-t-10 {{Hidden collapsed true}}"
+                id="unpinned-facet-values-{{@index}}">
+                <div class="gui facet-label-container fluid-w m-0 p-0">
+                    {{#each facetValues}}
+                    <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">
+                        <label  data-attr-value="{{label}}" 
+                                title="{{label}}({{count}})"
+                                aria-label="{{label}} in {{../id}} has {{count}} records"
+                                class="gui gui-subheading-1 cursor-pointer no-wrap text-shorten m-0">
+                            <input class="gui facet-value-checkbox cursor-pointer m-l-0" 
+                                    id="{{label}}-{{@index}}" 
+                                    {{Checked selected}} 
+                                    {{Disabled disabled}}
+                                    value="{{../id}}:{{label}}:{{../type}}" type="checkbox" /> 
+                            {{label}}
+                            <span class="gui gui-subheading-1 m-0">({{count}})</span>
+                        </label>
+                    </div>
+                    {{/each}}
+                    {{{ShowMoreLessLink facetValues ../noOfFacetToShow}}}
                 </div>
-                {{/each}}
-                {{{ShowMoreLessLink facetValues ../noOfFacetToShow}}}
             </div>
         </div>
     </div>
-</div>
-{{/each}}
+    {{/each}}
+</section>
+{{/if}}

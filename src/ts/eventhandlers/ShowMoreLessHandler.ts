@@ -54,7 +54,7 @@ export class ShowMoreLessHandler implements IEventHandler {
                     element.hide();
                     element
                         .siblings("a")
-                        .show();
+                        .show().focus();
                 });
         } else {
             element
@@ -63,7 +63,7 @@ export class ShowMoreLessHandler implements IEventHandler {
                 .fadeOut(this.configStore.Options.animationTime, () => {
                     element
                         .siblings("a")
-                        .show();
+                        .show().focus();
                     element.hide();
                 });
         }

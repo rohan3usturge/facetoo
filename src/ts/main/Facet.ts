@@ -30,9 +30,11 @@ export class Facet {
         });
     }
     public bind =  (facets: IFacet[]): void => {
-        this.templateService.setData(facets);
-        const fullFacet = this.templateService.bind(facets);
-        this.facetElement.html(fullFacet);
+        setTimeout(() => {
+            this.templateService.setData(facets);
+            const fullFacet = this.templateService.bind(facets);
+            this.facetElement.html(fullFacet);
+        }, 1 );
     }
     public hide = (): void => {
         this.facetElement.find(".facet-body").fadeOut(this.configStore.Options.animationTime);

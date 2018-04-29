@@ -38,12 +38,14 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
         }
         const value = hideShow === ShowHide.Show ? true : false;
         this.element.find(".facet-item-header").each((index, element) => {
+            const parent = jQuery(element).parents(".facet-item");
+            const name = parent.attr("data-attr-name");
             if ( value ) {
-                jQuery(element).parents(".facet-item").addClass("collapsed");
+                parent.addClass("collapsed");
             } else {
-                jQuery(element).parents(".facet-item").removeClass("collapsed");
+                parent.removeClass("collapsed");
             }
-            ExpandCollapseManager.ControlVisibilityOfFilter(jQuery(element), hideShow);
+            ExpandCollapseManager.ControlVisibilityOfFilter(jQuery(element), hideShow, name);
         });
         const data = this.configStore.Options.facetConfig;
         const publish: Array<{key: string, collapsed: boolean}> = [];
@@ -62,6 +64,7 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
         const target = jQuery(event.target);
         const headerElement = target.parents(".facet-item-header");
         const parent = headerElement.parents(".facet-item");
+        const name = parent.attr("data-attr-name");
         const bool = target.hasClass("gui-icon-chevron-up");
         if ( !bool ) {
             parent.addClass("collapsed");
@@ -79,7 +82,7 @@ export class ExpandCollapseFacetsHandler implements IEventHandler {
             }
         }
         this.configStore.Options.onCollapseToggle(publish);
-        ExpandCollapseManager.ControlVisibilityOfFilter(headerElement, ShowHide.Toggle);
+        ExpandCollapseManager.ControlVisibilityOfFilter(headerElement, ShowHide.Toggle, name);
         event.stopPropagation();
     }
 }

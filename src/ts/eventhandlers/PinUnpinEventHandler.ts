@@ -47,7 +47,9 @@ export class PinUnpinEventHandler implements IEventHandler {
                 break;
             }
         }
-        this.element.html(this.templateService.bind(this.templateService.getData()));
+        setTimeout(() => {
+            this.element.html(this.templateService.bind(this.templateService.getData()));
+        }, 1);
         this.configStore.Options.onPinUnpin(id, pin);
         event.stopPropagation();
     }

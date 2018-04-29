@@ -22,8 +22,10 @@ export class Filter {
         });
     }
     public bind =  (filters: IFacet[]): void => {
-        const facetSubHeader = this.templateService.bind(filters);
-        this.filterElement.html(facetSubHeader);
+        setTimeout(() => {
+            const facetSubHeader = this.templateService.bind(filters);
+            this.filterElement.html(facetSubHeader);
+        }, 1 );
     }
     public destroy =  (): void => {
         if ( this.filterElement !== undefined ) {

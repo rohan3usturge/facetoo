@@ -15,21 +15,27 @@
             <i class="gui gui-icon bold gui-icon-chevron-left-dark"></i>
         </button>
     </div> --}}
-    <div class="gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
-        <button class="gui cursor-pointer expand-all">
-            <i class="gui-icon special rotate-right gui-icon-chevdouble"></i>
+    <section class="gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
+        <button class="gui cursor-pointer expand-all" 
+                aria-label="Expand All Filters">
+            <i  class="gui-icon special rotate-left gui-icon-chevdouble"></i>
             Expand All
         </button>
-        <button class="gui cursor-pointer collapse-all">
+        <button class="gui cursor-pointer collapse-all" 
+                aria-label="Collapse All Filters">
             <i class="gui-icon special rotate-right gui-icon-chevdouble"></i>
             Collapse All
         </button>
-    </div>
-    <div class="gui input border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
-        <input class="gui input p-5 fluid-w gui-subheading-2 filter-search-input" placeholder="Search Filters ( Alt + F )" />
-    </div>
-    <div class="gui fluid-h facet-list of-auto ofx-hidden m-t-10">
-        {{> facet-pinned}} {{> facet-unpinned}}
-    </div>
-
+    </section>
+    <section class="gui border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
+        <div class="gui gui-icon input fluid-w m-t-5 m-l-5 m-b-5">
+            <input class="gui input fluid-w gui-subheading-2 filter-search-input" 
+              placeholder="Search Filters. Shortcut Alt + F " />
+            <i class="gui gui-icon gui-icon-search gui-hidden"></i>
+        </div>
+    </section>
+    <section class="gui fluid-h facet-list of-auto ofx-hidden m-t-10">
+        {{> facet-pinned}} 
+        {{> facet-unpinned}}
+    </section>
 </div>
