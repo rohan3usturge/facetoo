@@ -1,5 +1,6 @@
 import { HotKeysFacetHandler } from "../eventhandlers/HotKeysFacetHandler";
 import { IFacet } from "../models/IFacet";
+import { IFacetConfig } from "../models/IFacetConfig";
 import { IFacetValue } from "../models/IFacetValue";
 import { FacetTemplateService } from "../services/FacetTemplateService";
 import { IFacetTemplateService } from "../services/IFacetTemplateService";
@@ -36,6 +37,13 @@ export class Facet {
             this.facetElement.html(fullFacet);
         }, 1 );
     }
+    public reRender = (): void => {
+        setTimeout(() => {
+            const data = this.templateService.getData();
+            const fullFacet = this.templateService.bind(data);
+            this.facetElement.html(fullFacet);
+        }, 1 );
+    }
     public hide = (): void => {
         this.facetElement.find(".facet-body").fadeOut(this.configStore.Options.animationTime);
         this.configStore.Options.collapsed = true;
@@ -43,6 +51,9 @@ export class Facet {
     public show = (): void => {
         this.facetElement.find(".facet-body").fadeIn(this.configStore.Options.animationTime);
         this.configStore.Options.collapsed = false;
+    }
+    public setFacetConfig = (facetConfig: IFacetConfig[]): void => {
+        this.configStore.Options.facetConfig = facetConfig;
     }
     public destroy =  (): void => {
         if ( this.facetElement !== undefined ) {

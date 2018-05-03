@@ -3,8 +3,10 @@
 export class Facet {
     constructor(options: IFacetOptions);
     bind: (facets: IFacet[]) => void;
+    reRender: () => void;
     hide: () => void;
     show: () => void;
+    setFacetConfig: (facetConfig: IFacetConfig[]) => void;
     destroy: () => void;
 }
 
@@ -18,6 +20,15 @@ export interface IFacet {
     id: string;
     facetValues?: IFacetValue[];
     facetRanges?: IFacetRange[];
+}
+
+export interface IFacetConfig {
+    id: string;
+    name: string;
+    type: string;
+    pinned: boolean;
+    collapsed: boolean;
+    order: number;
 }
 
 export interface IFacetOptions {
@@ -62,15 +73,6 @@ export type IExpandCollapseDelegate = (collapseSettings: Array<{
 export type IFilterActionDelegate = (key: string, value: string, action: FilterActionType, type: string, isRange: boolean) => void;
 
 export type IPinUnpinFilterDelegate = (key: string, pin: boolean) => void;
-
-export interface IFacetConfig {
-    id: string;
-    name: string;
-    type: string;
-    pinned: boolean;
-    collapsed: boolean;
-    order: number;
-}
 
 export type IAllFilterRemoveDelegate = () => void;
 
