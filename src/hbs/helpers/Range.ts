@@ -5,10 +5,10 @@ const range = (min, max, type) => {
     let maxStr = max;
     if (type === "Edm.DateTimeOffset") {
         if (min !== undefined && min !== null && min !== "") {
-            minStr = moment(min).format("ll");
+            minStr = moment(min).format("DD-MMM-YYYY");
         }
         if (max !== undefined && max !== null && max !== "") {
-            maxStr = moment(max).format("ll");
+            maxStr = moment(max).format("DD-MMM-YYYY");
         }
     }
     if (minStr !== undefined && minStr !== null && minStr !== "") {
