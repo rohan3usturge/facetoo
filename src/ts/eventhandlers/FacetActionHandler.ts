@@ -10,7 +10,7 @@ export class FacetActionHandler implements IEventHandler {
         this.element.on("change", ".facet-body .facet-item-description .facet-value-checkbox", (event) => {
             const element = jQuery(event.target);
             const valStr = element.val().toString();
-            const value = valStr.split(":");
+            const value = valStr.split(":::");
             const checked = element.is(":checked");
             const action = checked ? FilterActionType.Add : FilterActionType.Minus;
             this.configStore.Options.onFilterChange(value[0], value[1], action, value[2], false);

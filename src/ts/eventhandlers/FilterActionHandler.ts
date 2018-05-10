@@ -13,7 +13,7 @@ export class FilterActionHandler implements IEventHandler {
                 element = element.parents(".label");
             }
             const valStr = element.attr("data-filter-entry").toString();
-            const value = valStr.split(":");
+            const value = valStr.split(":::");
             let isRange = false;
             if (value.length === 4 ) {
                 isRange = true;

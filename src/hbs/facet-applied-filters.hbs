@@ -11,13 +11,13 @@
             <span class="gui large labels facet-labels">
                 <span class="gui gui-subheading-1">{{name}}</span>
                 {{#each facetValues}}
-                <button class="gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover" data-filter-entry="{{../id}}:{{this.label}}:{{../type}}">
+                <button class="gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover" data-filter-entry="{{../id}}:::{{this.label}}:::{{../type}}">
                     {{label}}
                     <i class="gui-icon gui-icon-cancel"></i>
                 </button>
                 {{/each}}
                 {{#each facetRanges}}
-                <button class="gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover" data-filter-entry="{{../id}}:{{this.label}}:{{../type}}:true">
+                <button class="gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover" data-filter-entry="{{../id}}:::{{this.label}}:::{{../type}}:::true">
                     {{Range min max ../type}}
                     <i class="gui-icon gui-icon-cancel"></i>
                 </button>
