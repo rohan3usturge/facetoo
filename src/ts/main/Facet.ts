@@ -6,8 +6,9 @@ import { FacetTemplateService } from "../services/FacetTemplateService";
 import { IFacetTemplateService } from "../services/IFacetTemplateService";
 import { FacetConfigStore } from "./../config/FacetConfigStore";
 import { IFacetOptions } from "./../config/IFacetOptions";
-import { ExpandCollapseFacetsHandler , FacetActionHandler, FacetSearchHandler,
-         HideFacetSectionHandler, IEventHandler, PinUnpinEventHandler, ShowMoreLessHandler } from "./../eventhandlers";
+import { ExpandCollapseFacetsHandler , FacetActionHandler,
+    FacetKeyBoardNavigationHandler, FacetSearchHandler,
+    HideFacetSectionHandler, IEventHandler, PinUnpinEventHandler, ShowMoreLessHandler } from "./../eventhandlers";
 
 export class Facet {
     private configStore: FacetConfigStore;
@@ -26,6 +27,7 @@ export class Facet {
         this.handlerChain.push(new HotKeysFacetHandler());
         this.handlerChain.push(new PinUnpinEventHandler(this.facetElement, this.configStore, this.templateService));
         this.handlerChain.push(new ShowMoreLessHandler(this.facetElement, this.configStore));
+        this.handlerChain.push(new FacetKeyBoardNavigationHandler(this.facetElement));
         this.handlerChain.forEach((handler) => {
             handler.RegisterDomHandler();
         });

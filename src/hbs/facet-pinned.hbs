@@ -1,17 +1,17 @@
 {{#if favorites.length}}
-<section>
+<section aria-label="Pinned Filters">
     <div class="gui p-l-10 p-r-10 p-b-10 p-t-10">
         <span class="gui gui-subheading-2 caps bold-500">
             PINNED FILTERS
         </span>
     </div>
     {{#each favorites}}
-    <div    class="gui item facet-item {{Collapsed collapsed}} border-bottom light p-r-10 p-t-5 p-b-5 p-l-10" 
+    <section aria-label="Filter Section for {{name}}" class="gui item facet-item {{Collapsed collapsed}} border-bottom light p-r-10 p-t-5 p-b-5 p-l-10" 
             data-attr-id="{{id}}" 
             data-attr-name="{{name}}">
         <div class="content">
             <div class="facet-item-header fluid gui item flex jc-sb">
-                <span   class="gui primary gui-subheading-1 caps m-0 expansion-icon cursor-pointer"
+                <span   class="gui primary gui-subheading-1 caps m-0 expansion-icon cursor-pointer arrowkeys-aware"
                         title="{{name}}"
                         aria-label="Press enter or space to toggle expansion of filter values for {{name}}"
                         aria-expanded="{{Boolean collapsed}}"
@@ -47,8 +47,8 @@
                     <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">
                         <label  data-attr-value="{{label}}" 
                                 title="{{label}}({{count}})" 
-                                aria-label="{{label}} in {{../id}} has {{count}} records"
-                                class="gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0">
+                                aria-label="{{label}} in {{../id}} has {{count}} records. Press spacebar to apply this filter."
+                                class="gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0 arrowkeys-aware">
                             <input  class="gui facet-value-checkbox cursor-pointer m-l-0" 
                                     id="{{label}}-{{@index}}"
                                     {{Checked selected}}
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     {{/each}}
 </section>
 {{/if}}
