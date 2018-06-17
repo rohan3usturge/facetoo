@@ -48,23 +48,19 @@ export class ShowMoreLessHandler implements IEventHandler {
         const element = jQuery(event.target);
         if (showMore) {
             element
-                .parents(".facet-label-container")
+                .parents(".facet-item-description")
                 .find(".extra-filter")
                 .fadeIn(this.configStore.Options.animationTime, () => {
-                    element.hide();
-                    element
-                        .siblings("a")
-                        .show().focus();
+                    element.parent().hide();
+                    element.parent().next().show().find("a").focus();
                 });
         } else {
             element
-                .parents(".facet-label-container")
+                .parents(".facet-item-description")
                 .find(".extra-filter")
                 .fadeOut(this.configStore.Options.animationTime, () => {
-                    element
-                        .siblings("a")
-                        .show().focus();
-                    element.hide();
+                    element.parent().prev().show().find("a").focus();
+                    element.parent().hide();
                 });
         }
         event.stopPropagation();

@@ -4,12 +4,12 @@ import { IFacetConfig } from "../models/IFacetConfig";
 import { IFacetValue } from "../models/IFacetValue";
 import { FacetTemplateService } from "../services/FacetTemplateService";
 import { IFacetTemplateService } from "../services/IFacetTemplateService";
+import { TreeLink } from "./../a11y/TreeLinks";
 import { FacetConfigStore } from "./../config/FacetConfigStore";
 import { IFacetOptions } from "./../config/IFacetOptions";
 import { ExpandCollapseFacetsHandler , FacetActionHandler,
     FacetKeyBoardNavigationHandler, FacetSearchHandler,
     HideFacetSectionHandler, IEventHandler, PinUnpinEventHandler, ShowMoreLessHandler } from "./../eventhandlers";
-
 export class Facet {
     private configStore: FacetConfigStore;
     private templateService: IFacetTemplateService;
@@ -19,15 +19,15 @@ export class Facet {
         this.configStore =  new FacetConfigStore(options);
         this.facetElement = jQuery(options.containerElement);
         this.templateService = new FacetTemplateService(this.configStore);
-        this.handlerChain.push(new ExpandCollapseFacetsHandler(this.facetElement,
-            this.configStore, this.templateService));
-        this.handlerChain.push(new FacetActionHandler(this.facetElement, this.configStore));
+        // this.handlerChain.push(new ExpandCollapseFacetsHandler(this.facetElement,
+        //     this.configStore, this.templateService));
+        // this.handlerChain.push(new FacetActionHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new FacetSearchHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new HideFacetSectionHandler(this.facetElement, this.configStore));
         this.handlerChain.push(new HotKeysFacetHandler());
         this.handlerChain.push(new PinUnpinEventHandler(this.facetElement, this.configStore, this.templateService));
-        this.handlerChain.push(new ShowMoreLessHandler(this.facetElement, this.configStore));
-        this.handlerChain.push(new FacetKeyBoardNavigationHandler(this.facetElement));
+        // this.handlerChain.push(new ShowMoreLessHandler(this.facetElement, this.configStore));
+        // this.handlerChain.push(new FacetKeyBoardNavigationHandler(this.facetElement));
         this.handlerChain.forEach((handler) => {
             handler.RegisterDomHandler();
         });
@@ -37,6 +37,12 @@ export class Facet {
             this.templateService.setData(facets);
             const fullFacet = this.templateService.bind(facets);
             this.facetElement.html(fullFacet);
+            const trees = document.querySelectorAll('[role="tree"]');
+            // tslint:disable-next-line:prefer-for-of
+            for (let i = 0; i < trees.length; i++) {
+                const t = new TreeLink(trees[i]);
+                t.init();
+            }
         }, 1 );
     }
     public reRender = (): void => {

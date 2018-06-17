@@ -15,8 +15,7 @@
             <i class="gui gui-icon bold gui-icon-chevron-left-dark"></i>
         </button>
     </div> --}}
-    <section aria-label="Expand All and Collapse All buttons"
-             class="gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
+    <section class="gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
         <button class="gui cursor-pointer expand-all" 
                 aria-label="Expand All Filters">
             <i  class="gui-icon special rotate-left gui-icon-chevdouble"></i>
@@ -28,16 +27,15 @@
             Collapse All
         </button>
     </section>
-    <section aria-label="Search box for filters"
-             class="gui border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
+    <section class="gui border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
         <div class="gui gui-icon input fluid-w h-30">
-            <input class="gui input fluid-w gui-subheading-2 filter-search-input" 
-              placeholder="Search Filters. Shortcut Alt + F " />
+            <input class="gui input fluid-w gui-subheading-2 filter-search-input"
+                   aria-label="Search Filters. Shortcut Alt + F"
+                   placeholder="Search Filters. Shortcut Alt + F " />
             <i class="gui gui-icon gui-icon-search gui-hidden"></i>
         </div>
     </section>
-    <section aria-label="Pinned and All Filters"
-             class="gui fluid-h facet-list of-auto ofx-hidden">
+    <section class="gui fluid-h facet-list of-auto ofx-hidden">
         {{> facet-pinned}} 
         {{> facet-unpinned}}
     </section>

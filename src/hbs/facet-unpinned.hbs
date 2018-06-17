@@ -1,23 +1,23 @@
 {{#if nonFavorites.length}}
-<section aria-label="All Filters">
+<section>
     <div class="gui p-10">
         <span class="gui gui-subheading-2 caps bold-500">
             ALL FILTERS
         </span>
     </div>
     {{#each nonFavorites}}
-    <section aria-label="Filter Section for {{name}}" class="gui item facet-item border-bottom light p-r-10 p-t-5 p-b-5 p-l-10 {{Collapsed collapsed}}" 
-        data-attr-id="{{id}}" 
-        data-attr-name="{{name}}">
+    <section aria-label="Filter Section for {{name}}" 
+             class="gui item facet-item border-bottom light p-r-10 p-t-5 p-b-5 p-l-10 {{Collapsed collapsed}}" 
+             data-attr-id="{{id}}" 
+             role="listbox"
+             tabindex="0"
+             data-attr-name="{{name}}">
         <div class="content">
             <div class="facet-item-header fluid gui item flex jc-sb">
                 <span   class="gui primary gui-subheading-1 caps m-0 expansion-icon cursor-pointer arrowkeys-aware" 
                         aria-label="Press enter or space to toggle filter values for {{name}}"
-                        aria-expanded="{{Boolean collapsed}}"
-                        aria-controls="facet-values-{{@index}}"
-                        role="listbox"
-                        tabindex="0">
-                    {{name}} {{{SelectedFiltersCount facetValues}}}
+                        aria-expanded="{{Boolean collapsed}}">
+                        {{name}} {{{SelectedFiltersCount facetValues}}}
                 </span>
                 <span>
                     <i data-attr-id="{{id}}" class="gui gui-icon selectable gui-icon-pin m-t-5 m-r-10 pin-icon cursor-pointer" 
@@ -27,13 +27,11 @@
                         <i  class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer" 
                             aria-label="Press enter or space to expand filter values for {{name}}"
                             aria-expanded="false"
-                            aria-controls="facet-values-{{@index}}"
                             tabindex="0"></i>
                     {{else}}
                         <i  class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer" 
                             aria-label="Press enter or space to collapse filter values for {{name}}"
                             aria-expanded="true"
-                            aria-controls="facet-values-{{@index}}"
                             tabindex="0"></i>
                     {{/if}}
                 </span>
@@ -50,7 +48,7 @@
                                 role="option"
                                 class="gui gui-subheading-1 cursor-pointer no-wrap text-shorten m-0 arrowkeys-aware">
                             <input class="gui facet-value-checkbox cursor-pointer m-l-0" 
-                                    id="{{label}}-{{@index}}" 
+                                    id="filter-{{../id}}-{{label}}-{{@index}}" 
                                     {{Checked selected}} 
                                     {{Disabled disabled}}
                                     value="{{../id}}:::{{label}}:::{{../type}}" type="checkbox" /> 

@@ -12,7 +12,6 @@
             width: 1em;
             font-size: 40px;
             letter-spacing: 40px;
-            /* arbitrarily large letter-spacing for safety */
         }
         :-webkit-scrollbar {
             width: 14px;
@@ -72,12 +71,12 @@
         const facets = [];
         const facetValues = [];
         const facetConfig = [];
-        for (let index = 0; index < 100; index++) {
+        for (let index = 0; index < 6; index++) {
             facetValues.push({
                 "label": "Label" + makeid(), "count": 23 * index, "selected": index % 5 == 2
             });
         }
-        for (let index = 0; index < 30; index++) {
+        for (let index = 0; index < 3; index++) {
             facetConfig.push({
                 "id": "Facet" + index,
                 "name": makeid(),
