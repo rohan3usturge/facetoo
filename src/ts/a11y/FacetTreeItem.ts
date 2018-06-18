@@ -1,38 +1,47 @@
 import { FacetConfigStore } from "./../config/FacetConfigStore";
-import { TreeLink } from "./TreeLinks";
+import { DomUtils } from "./DomUtils";
+import { FacetTree } from "./FacetTree";
+import { KeyCodes } from "./KeyCodes";
 
-export class TreeitemLink {
-    private tree: TreeLink;
-    private groupTreeitem: any;
-    private domNode: HTMLElement;
-    private label: string;
-    private stopDefaultClick: boolean;
-    private isExpandable: boolean;
-    private isVisible: boolean;
-    private inGroup: boolean;
-    private keyCode: any;
-    private id: string;
-    private value: string;
-    private isShowMoreLink: boolean;
-    private isShowLessLink: boolean;
-    private isLabel: boolean;
+export class FacetTreeItem {
+    public tree: FacetTree;
+    public groupTreeitem: FacetTreeItem;
+    public pinUnPinDomNode: HTMLElement;
+    public treeItemDomNode: HTMLElement;
+    public label: string;
+    public stopDefaultClick: boolean;
+    public isExpandable: boolean;
+    public isVisible: boolean;
+    public inGroup: boolean;
+    public id: string;
+    // public value: string;
+    public dataType: string;
+    public isRange: boolean;
+    public isShowMoreLink: boolean;
+    public isShowLessLink: boolean;
+    public isLabel: boolean;
+    public ignoreForSearch: boolean;
 
-    constructor(node: HTMLElement, tree: TreeLink, group: any) {
+    constructor(node: HTMLElement, tree: FacetTree, group: FacetTreeItem) {
         node.tabIndex = -1;
         this.tree = tree;
         this.groupTreeitem = group;
-        this.domNode = node;
-        this.label = node
-            .textContent
-            .trim();
+        this.treeItemDomNode = node;
+        // this.label = node
+        //     .textContent
+        //     .trim();
         this.stopDefaultClick = false;
-        if (node.getAttribute("aria-label")) {
-            this.label = node
-                .getAttribute("aria-label")
-                .trim();
-        }
+        // if (node.getAttribute("aria-label")) {
+        //     this.label = node
+        //         .getAttribute("aria-label")
+        //         .trim();
+        // }
+        // this.pinUnPinDomNode = node.querySelectorAll("pin-unpin-selector")[0] as HTMLDocument;
         this.id = node.getAttribute("data-attr-id");
-        this.value = node.getAttribute("data-attr-value");
+        this.label = node.getAttribute("data-attr-value");
+        this.dataType = node.getAttribute("data-attr-type");
+        this.isRange = node.getAttribute("data-attr-isRange") === "true";
+        this.ignoreForSearch = node.getAttribute("data-attr-ignoreForSearch") === "true";
         this.isShowMoreLink = node.classList.contains("show-more-link");
         this.isShowLessLink = node.classList.contains("show-less-link");
         this.isLabel = node.tagName.toLowerCase() === "label";
@@ -51,75 +60,61 @@ export class TreeitemLink {
             }
             elem = elem.nextElementSibling;
         }
-        this.keyCode = Object.freeze({
-            RETURN: 13,
-            SPACE: 32,
-            PAGEUP: 33,
-            PAGEDOWN: 34,
-            END: 35,
-            HOME: 36,
-            LEFT: 37,
-            UP: 38,
-            RIGHT: 39,
-            DOWN: 40,
-        });
     }
 
     public init = () => {
-        this.domNode.tabIndex = -1;
-        if (!this.domNode.getAttribute("role")) {
+        this.treeItemDomNode.tabIndex = -1;
+        if (!this.treeItemDomNode.getAttribute("role")) {
             this
-                .domNode
+                .treeItemDomNode
                 .setAttribute("role", "treeitem");
         }
         this
-            .domNode
+            .treeItemDomNode
             .addEventListener("keydown", this.handleKeydown.bind(this));
         this
-            .domNode
+            .treeItemDomNode
             .addEventListener("click", this.handleClick.bind(this));
         this
-            .domNode
+            .treeItemDomNode
             .addEventListener("focus", this.handleFocus.bind(this));
         this
-            .domNode
+            .treeItemDomNode
             .addEventListener("blur", this.handleBlur.bind(this));
 
         if (this.isExpandable) {
             this
-                .domNode
+                .treeItemDomNode
                 .firstElementChild
                 .addEventListener("mouseover", this.handleMouseOver.bind(this));
             this
-                .domNode
+                .treeItemDomNode
                 .firstElementChild
                 .addEventListener("mouseout", this.handleMouseOut.bind(this));
         } else {
             this
-                .domNode
+                .treeItemDomNode
                 .addEventListener("mouseover", this.handleMouseOver.bind(this));
             this
-                .domNode
+                .treeItemDomNode
                 .addEventListener("mouseout", this.handleMouseOut.bind(this));
         }
     }
 
     public destroy = () => {
-        const newNode = this.domNode.cloneNode(true);
-        this.domNode.parentNode.replaceChild(newNode, this.domNode);
-        this.domNode = null;
+        const newNode = this.treeItemDomNode.cloneNode(true);
+        this.treeItemDomNode.parentNode.replaceChild(newNode, this.treeItemDomNode);
+        this.treeItemDomNode = null;
     }
 
     public isExpanded = () => {
         if (this.isExpandable) {
-            return this
-                .domNode
-                .getAttribute("aria-expanded") === "true";
+            return DomUtils.isAriaExpanded(this.treeItemDomNode);
         }
         return false;
     }
 
-    public handleKeydown = (event: any) => {
+    public handleKeydown = (event: HTMLElementEventMap["keydown"]) => {
         const tgt = event.currentTarget;
         let flag = false;
         const char = event.key;
@@ -127,7 +122,7 @@ export class TreeitemLink {
         function isPrintableCharacter(str) {
             return str.length === 1 && str.match(/\S/);
         }
-        function printableCharacter(item) {
+        function printableCharacter(item: FacetTreeItem) {
             if (char === "*") {
                 item
                     .tree
@@ -149,8 +144,8 @@ export class TreeitemLink {
             return;
         }
 
-        if (event.shift) {
-            if (event.keyCode === this.keyCode.SPACE || event.keyCode === this.keyCode.RETURN) {
+        if (event.shiftKey) {
+            if (event.keyCode === KeyCodes.SPACE || event.keyCode === KeyCodes.RETURN) {
                 event.stopPropagation();
                 this.stopDefaultClick = true;
             } else {
@@ -160,17 +155,18 @@ export class TreeitemLink {
             }
         } else {
             switch (event.keyCode) {
-                case this.keyCode.SPACE:
-                case this.keyCode.RETURN:
+                case KeyCodes.SPACE:
+                case KeyCodes.RETURN:
+                    flag = true;
                     if (this.isExpandable) {
                         if (this.isExpanded()) {
                             this
                                 .tree
-                                .collapseTreeitem(this);
+                                .collapseTreeitem(this, true);
                         } else {
                             this
                                 .tree
-                                .expandTreeitem(this);
+                                .expandTreeitem(this, true);
                         }
                     } else {
                         if ( this.isShowMoreLink ) {
@@ -189,24 +185,23 @@ export class TreeitemLink {
                                 .handleLabelChange(this);
                         }
                     }
-                    flag = true;
                     break;
 
-                case this.keyCode.UP:
+                case KeyCodes.UP:
                     this
                         .tree
                         .setFocusToPreviousItem(this);
                     flag = true;
                     break;
 
-                case this.keyCode.DOWN:
+                case KeyCodes.DOWN:
                     this
                         .tree
                         .setFocusToNextItem(this);
                     flag = true;
                     break;
 
-                case this.keyCode.RIGHT:
+                case KeyCodes.RIGHT:
                     if (this.isExpandable) {
                         if (this.isExpanded()) {
                             this
@@ -215,17 +210,17 @@ export class TreeitemLink {
                         } else {
                             this
                                 .tree
-                                .expandTreeitem(this);
+                                .expandTreeitem(this, true);
                         }
                     }
                     flag = true;
                     break;
 
-                case this.keyCode.LEFT:
+                case KeyCodes.LEFT:
                     if (this.isExpandable && this.isExpanded()) {
                         this
                             .tree
-                            .collapseTreeitem(this);
+                            .collapseTreeitem(this, true);
                         flag = true;
                     } else {
                         if (this.inGroup) {
@@ -237,14 +232,14 @@ export class TreeitemLink {
                     }
                     break;
 
-                case this.keyCode.HOME:
+                case KeyCodes.HOME:
                     this
                         .tree
                         .setFocusToFirstItem();
                     flag = true;
                     break;
 
-                case this.keyCode.END:
+                case KeyCodes.END:
                     this
                         .tree
                         .setFocusToLastItem();
@@ -258,36 +253,54 @@ export class TreeitemLink {
                     break;
             }
         }
-
         if (flag) {
             event.stopPropagation();
             event.preventDefault();
         }
     }
 
-    public handleClick = (event) => {
+    public handleClick = (event: HTMLElementEventMap["click"]) => {
 
         // only process click events that directly happened on this treeitem
-        // if (event.target !== this.domNode && event.target !== this.domNode.firstElementChild) {
-        //     return;
-        // }
+        if (event.target !== this.treeItemDomNode
+            && ! DomUtils.isSelfOrDescendant(this.treeItemDomNode.firstElementChild, event.target)) {
+            return;
+        }
 
         if (this.isExpandable) {
             if (this.isExpanded()) {
                 this
                     .tree
-                    .collapseTreeitem(this);
+                    .collapseTreeitem(this, true);
             } else {
                 this
                     .tree
-                    .expandTreeitem(this);
+                    .expandTreeitem(this, true);
             }
             event.stopPropagation();
+        } else {
+            if ( this.isShowMoreLink ) {
+                this
+                    .tree
+                    .showMoreValues(this.groupTreeitem);
+            }
+            if ( this.isShowLessLink ) {
+                this
+                    .tree
+                    .showLessValues(this.groupTreeitem);
+            }
+            if ( this.isLabel ) {
+                this
+                    .tree
+                    .handleLabelChange(this);
+            }
+            event.stopPropagation();
+            event.preventDefault();
         }
     }
 
-    public handleFocus = (event) => {
-        let node: Element = this.domNode;
+    public handleFocus = (event: HTMLElementEventMap["focus"]) => {
+        let node: Element = this.treeItemDomNode;
         if (this.isExpandable) {
             node = node.firstElementChild;
         }
@@ -296,8 +309,8 @@ export class TreeitemLink {
             .add("focus");
     }
 
-    public handleBlur = function(event) {
-        let node = this.domNode;
+    public handleBlur = function(event: HTMLElementEventMap["blur"]) {
+        let node = this.treeItemDomNode;
         if (this.isExpandable) {
             node = node.firstElementChild;
         }
@@ -306,17 +319,13 @@ export class TreeitemLink {
             .remove("focus");
     };
 
-    public handleMouseOver = (event) => {
-        event
-            .currentTarget
-            .classList
-            .add("hover");
+    public handleMouseOver = (event: HTMLElementEventMap["mouseover"]) => {
+        const target = event.currentTarget as HTMLElement;
+        target.classList.add("hover");
     }
 
-    public handleMouseOut = (event) => {
-        event
-            .currentTarget
-            .classList
-            .remove("hover");
+    public handleMouseOut = (event: HTMLElementEventMap["mouseout"]) => {
+        const target = event.currentTarget as HTMLElement;
+        target.classList.remove("hover");
     }
 }

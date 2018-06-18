@@ -13,4 +13,5 @@ export interface IFacetOptions {
     onPinUnpin: IPinUnpinFilterDelegate;
     onCollapseToggle: IExpandCollapseDelegate;
     noOfFacetToShow?: number;
+    idPrefix?: string;
 }

@@ -8,6 +8,7 @@ export class FacetConfigStore {
         collapsed: false,
         containerElement: null,
         facetConfig: [],
+        idPrefix: Math.floor((1 + Math.random()) * 0x1000000).toString(),
         noOfFacetToShow: 5,
         // facets: [],
         onCollapseToggle: (collapseConfig: [{key: string, collapsed: boolean}]) => {
