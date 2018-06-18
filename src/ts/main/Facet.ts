@@ -34,20 +34,17 @@ export class Facet {
         // });
     }
     public bind =  (facets: IFacet[]): void => {
-        setTimeout(() => {
-            this.templateService.setData(facets);
-            const fullFacet = this.templateService.bind(facets);
-            this.facetElement.innerHTML = fullFacet;
-            const trees = document.querySelectorAll('[role="tree"]');
-            this.facetTree = new FacetTree(this.configStore.Options.containerElement, this.configStore);
-            this.facetTree.init();
-        }, 1 );
+        this.templateService.setData(facets);
+        this.reRender();
     }
     public reRender = (): void => {
         setTimeout(() => {
             const data = this.templateService.getData();
             const fullFacet = this.templateService.bind(data);
             this.facetElement.innerHTML = fullFacet;
+            const trees = document.querySelectorAll('[role="tree"]');
+            this.facetTree = new FacetTree(this.configStore.Options.containerElement, this, this.configStore);
+            this.facetTree.init();
         }, 1 );
     }
     public setFacetConfig = (facetConfig: IFacetConfig[]): void => {

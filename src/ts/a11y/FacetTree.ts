@@ -1,10 +1,13 @@
 import { FacetConfigStore } from "../config/FacetConfigStore";
+import { Facet } from "../main/Facet";
 import { FilterActionType } from "./../models/FilterActionType";
 import { DomUtils } from "./DomUtils";
 import { FacetTreeItem } from "./FacetTreeItem";
 import { KeyCodes } from "./KeyCodes";
 
 export class FacetTree {
+    // Facet Object
+    private facet: Facet;
     // Dom Nodes
     private parentElement: HTMLElement;
     private treeDomNode: HTMLElement;
@@ -24,9 +27,10 @@ export class FacetTree {
     // Local
     private lastInputValue: string = "";
 
-    constructor(node: HTMLElement, configStore: FacetConfigStore) {
+    constructor(node: HTMLElement, facet: Facet, configStore: FacetConfigStore) {
         this.configStore = configStore;
         this.parentElement = node;
+        this.facet = facet;
         this.treeDomNode = this.parentElement.querySelectorAll("[role=tree]")[0] as HTMLElement;
         this.collapseAllNode = this.parentElement.querySelectorAll(".collapse-all")[0] as HTMLElement;
         this.expandAllNode = this.parentElement.querySelectorAll(".expand-all")[0] as HTMLElement;
@@ -362,6 +366,18 @@ export class FacetTree {
             }
         }
         this.configStore.Options.onCollapseToggle(publish);
+    }
+    public handlePinUnpin = (event: any, pin: boolean, id: string) => {
+        const data = this.configStore.Options.facetConfig;
+        for (const facet of data) {
+            if ( facet.id === id ) {
+                facet.pinned = pin;
+                break;
+            }
+        }
+        this.facet.reRender();
+        this.configStore.Options.onPinUnpin(id, pin);
+        event.stopPropagation();
     }
     public handleSearchForFilters = (event: HTMLElementEventMap["keyup"]) => {
         const input = event.target as HTMLInputElement;

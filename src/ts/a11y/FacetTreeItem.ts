@@ -36,7 +36,7 @@ export class FacetTreeItem {
         //         .getAttribute("aria-label")
         //         .trim();
         // }
-        // this.pinUnPinDomNode = node.querySelectorAll("pin-unpin-selector")[0] as HTMLDocument;
+        this.pinUnPinDomNode = this.treeItemDomNode.firstElementChild.querySelector(".pin-unpin-selector");
         this.id = node.getAttribute("data-attr-id");
         this.label = node.getAttribute("data-attr-value");
         this.dataType = node.getAttribute("data-attr-type");
@@ -99,6 +99,10 @@ export class FacetTreeItem {
                 .treeItemDomNode
                 .addEventListener("mouseout", this.handleMouseOut.bind(this));
         }
+        if (this.pinUnPinDomNode) {
+            this.pinUnPinDomNode.addEventListener("click", this.handleUnPinClick);
+            this.pinUnPinDomNode.addEventListener("keydown", this.handleUnPinKeyup);
+        }
     }
 
     public destroy = () => {
@@ -113,7 +117,30 @@ export class FacetTreeItem {
         }
         return false;
     }
-
+    public handleUnPinClick = (event: HTMLElementEventMap["click"]) => {
+        const target = event.target as HTMLElement;
+        if (target.classList.contains("unpin-icon")) {
+            this.tree.handlePinUnpin(event, false, this.id);
+        } else {
+            this.tree.handlePinUnpin(event, true, this.id);
+        }
+    }
+    public handleUnPinKeyup = (event: HTMLElementEventMap["keydown"]) => {
+        const target = event.target as HTMLElement;
+        switch (event.keyCode) {
+            case KeyCodes.SPACE:
+            case KeyCodes.RETURN:
+                if (target.classList.contains("unpin-icon")) {
+                    this.tree.handlePinUnpin(event, false, this.id);
+                } else {
+                    this.tree.handlePinUnpin(event, true, this.id);
+                }
+                break;
+            default:
+                break;
+        }
+        event.stopPropagation();
+    }
     public handleKeydown = (event: HTMLElementEventMap["keydown"]) => {
         const tgt = event.currentTarget;
         let flag = false;
