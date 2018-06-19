@@ -504,6 +504,11 @@ export class FacetTree {
             if (ti.ignoreForSearch) {
                 continue;
             }
+            if (ti.isShowLessLink || ti.isShowMoreLink ) {
+                ti.isVisible = false;
+                DomUtils.hide(ti.treeItemDomNode.parentElement);
+                continue;
+            }
             // Check if expandable
             if (ti.isExpandable) {
                 // Reset the group level Values
@@ -529,20 +534,10 @@ export class FacetTree {
             if ( !ti.isExpandable && ti.groupTreeitem === groupItem ) {
                 // check if group matches set the visiblity to true except show more or less links
                 if ( groupItemMatched ) {
-                    if (ti.isShowLessLink || ti.isShowMoreLink ) {
-                        ti.isVisible = false;
-                        DomUtils.hide(ti.treeItemDomNode.parentElement);
-                    } else {
-                        ti.isVisible = true;
-                        DomUtils.show(ti.treeItemDomNode.parentElement);
-                    }
+                    ti.isVisible = true;
+                    DomUtils.show(ti.treeItemDomNode.parentElement);
                 } else {
                     // If group not matched check if child matches
-
-                    // Skipp Show more or less links
-                    if (ti.isShowMoreLink || ti.isShowLessLink) {
-                        continue;
-                    }
                     if (ti.label.toLowerCase().indexOf(val) > -1 ) {
                         ti.isVisible = true;
                         DomUtils.show(ti.treeItemDomNode.parentElement);

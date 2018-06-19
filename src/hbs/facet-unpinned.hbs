@@ -4,21 +4,24 @@
     data-attr-value="All Filters"
     data-attr-ignoreForSearch="true"
     aria-expanded="true"
+    aria-live="polite"
+    aria-relevant="all"
+    aria-atomic="true"
     role="treeitem"
-    id="{{idPrefix}}-unpinned-facets-container">
+    id="{{idPrefix}}-unpinned-filter-tree">
     <h6 class="gui gui-subheading-2 caps bold-500 m-b-10 flex jc-sb">
         All FILTERS
         <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
     </h6>
-    <ul aria-labelledby="{{idPrefix}}-unpinned-facets-container" class="gui m-0 p-0" role="group">
+    <ul aria-labelledby="{{idPrefix}}-unpinned-filter-tree" class="gui m-0 p-0" role="group">
         {{#each nonFavorites}}
         <li aria-label="{{name}}"
             class="gui item facet-item border-bottom light p-r-10 p-t-5 p-b-5 p-l-5 {{Collapsed collapsed}}"
             role="treeitem"
-            aria-expanded="{{Boolean collapsed}}"
+            aria-expanded="{{Boolean collapsed true}}"
             data-attr-id="{{id}}" 
             data-attr-value="{{name}}">
-            <div class="facet-item-header fluid gui item flex jc-sb" id="facet-item-header-{{@index}}">
+            <div class="facet-item-header fluid gui item flex jc-sb">
                 <span class="gui primary gui-subheading-1 caps m-0 cursor-pointer" title="{{name}}">
                     {{name}} {{{SelectedFiltersCount facetValues}}}
                 </span>

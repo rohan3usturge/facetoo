@@ -1,7 +1,7 @@
 <ul class="description gui facet-item-description m-t-10 p-l-5 p-0 {{Hidden collapsed true}}" 
     role="group">
     {{#each facetValues}}
-    <li class="gui item {{CheckLength @index ../../noOfFacetToShow}}"
+    <li class="gui item {{CheckLength @index 5}}"
         aria-label="{{label}}">
         <label  data-attr-value="{{label}}" 
                 data-attr-id="{{../id}}"
@@ -24,5 +24,5 @@
         </label>
     </li>
     {{/each}}
-    {{{ShowMoreLessLink facetValues ../noOfFacetToShow}}}
+    {{{ShowMoreLessLink facetValues 5}}}
 </ul>

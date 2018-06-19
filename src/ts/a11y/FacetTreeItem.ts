@@ -36,7 +36,10 @@ export class FacetTreeItem {
         //         .getAttribute("aria-label")
         //         .trim();
         // }
-        this.pinUnPinDomNode = this.treeItemDomNode.firstElementChild.querySelector(".pin-unpin-selector");
+        const firstEm = this.treeItemDomNode.firstElementChild;
+        if ( firstEm ) {
+            this.pinUnPinDomNode = firstEm.querySelector(".pin-unpin-selector");
+        }
         this.id = node.getAttribute("data-attr-id");
         this.label = node.getAttribute("data-attr-value");
         this.dataType = node.getAttribute("data-attr-type");
