@@ -4,7 +4,7 @@
     data-attr-value="Pinned Filters"
     data-attr-ignoreForSearch="true"
     aria-expanded="true"
-    aria-live="polite"
+    {{!-- aria-live="polite" --}}
     aria-atomic="true"
     aria-relevant="all"
     role="treeitem"
@@ -31,9 +31,9 @@
                         aria-label="Press enter or space to unpin filter {{name}}"
                         tabindex="0"></i>
                     {{#if collapsed}}
-                        <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
-                    {{else}}
                         <i class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
+                    {{else}}
+                        <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
                     {{/if}}
                 </span>
             </div>

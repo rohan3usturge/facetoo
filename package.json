@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "postBuildClean": "rimraf ./dist/src",
-    "build": "yarn run clean && webpack --config webpack.config.js --bail --env.build --env.sourceMap && yarn postBuildClean",
+    "build": "yarn run clean && webpack --config webpack.config.js --bail --env.build && yarn postBuildClean",
     "local": "yarn build --env.local",
     "dashboard": "webpack-dashboard -p 8081 -m -- webpack-dev-server --config webpack.config.js --env.dashboard",
     "dashboard2": "webpack-dashboard -p 8081 -m -- webpack-dev-server --config webpack.config.js --env.awesome --env.dashboard",
