@@ -1,22 +1,5 @@
-<div class="gui of-hidden min-w-50 w-auto fluid-h flex column container">
-    {{!--
-    <h5 class="gui sub blue left floated header">Select Filters</h5> --}}
-    {{!-- <div class="gui flex jc-sb gui-subheading-1 m-0">
-        <i class="gui gui-icon gui-icon-filter m-r-10"></i>
-        <ul class="gui nav nav-tabs fluid-w border-less m-0 p-0 no-wrap">
-            <li class="gui m-r-5 cursor-pointer">
-                <a class="gui text-color-default caps tab-active">FILTERS BY</a>
-            </li>
-            <li class="gui m-r-5 cursor-pointer">
-                <a class="gui text-color-default caps">DATE FILTERS</a>
-            </li>
-        </ul>
-        <button class="gui cursor-pointer bold hide-facet">
-            <i class="gui gui-icon bold gui-icon-chevron-left-dark"></i>
-        </button>
-    </div> --}}
-    <section aria-label="Expand All and Collapse All buttons"
-             class="gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
+<div class="gui of-hidden min-w-50 w-auto fluid-h flex column container" id="{{idPrefix}}-facet-container">
+    <section class="gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
         <button class="gui cursor-pointer expand-all" 
                 aria-label="Expand All Filters">
             <i  class="gui-icon special rotate-left gui-icon-chevdouble"></i>
@@ -28,17 +11,22 @@
             Collapse All
         </button>
     </section>
-    <section aria-label="Search box for filters"
-             class="gui border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
+    <section class="gui border-bottom light p-r-10 p-t-5 p-b-5 p-l-10">
         <div class="gui gui-icon input fluid-w h-30">
-            <input class="gui input fluid-w gui-subheading-2 filter-search-input" 
-              placeholder="Search Filters. Shortcut Alt + F " />
+            <input class="gui input fluid-w gui-subheading-2 filter-search-input"
+                   role="search"
+                   aria-label="Search Filters"
+                   aria-controls="{{idPrefix}}-filter-tree {{idPrefix}}-pinned-filter-tree {{idPrefix}}-unpinned-filter-tree"
+                   placeholder="Search Filters. Shortcut Alt + F " />
             <i class="gui gui-icon gui-icon-search gui-hidden"></i>
         </div>
     </section>
-    <section aria-label="Pinned and All Filters"
-             class="gui fluid-h facet-list of-auto ofx-hidden">
-        {{> facet-pinned}} 
+    <ul class="gui fluid-h facet-list of-auto ofx-hidden m-0 p-0" 
+        role="tree"
+        id="{{idPrefix}}-filter-tree"
+        aria-relevant="all"
+        aria-live="assertive">
+        {{> facet-pinned}}
         {{> facet-unpinned}}
-    </section>
+    </ul>
 </div>

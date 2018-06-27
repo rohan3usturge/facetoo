@@ -1,0 +1,28 @@
+<ul class="description gui facet-item-description m-t-10 p-l-5 p-0 {{Hidden collapsed true}}" 
+    role="group">
+    {{#each facetValues}}
+    <li class="gui item {{CheckLength @index 5}}"
+        aria-label="{{label}}">
+        <label  data-attr-value="{{label}}" 
+                data-attr-id="{{../id}}"
+                data-attr-type="{{../type}}"
+                tabindex="0"
+                role="treeitem"
+                title="{{label}}({{count}})"
+                for="{{idPrefix}}-{{../id}}-{{@index}}-checkbox"
+                aria-label="Filter {{label}} in {{../name}} has {{count}} records. Press spacebar to {{ApplyRemove selected}} this filter."
+                class="gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0">
+            <input class="gui facet-value-checkbox cursor-pointer m-l-0" 
+                    id="{{idPrefix}}-{{../id}}-{{@index}}-checkbox"
+                    {{Checked selected}}
+                    {{Disabled disabled}}
+                    tabindex="-1"
+                    value="{{../id}}:::{{label}}:::{{../type}}" 
+                    type="checkbox" />
+                    {{FormatLabelByType ../type label}}
+            <span class="gui gui-subheading-1 m-0">({{count}})</span>
+        </label>
+    </li>
+    {{/each}}
+    {{{ShowMoreLessLink facetValues 5}}}
+</ul>

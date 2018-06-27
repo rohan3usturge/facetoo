@@ -1,70 +1,45 @@
 {{#if favorites.length}}
-<section aria-label="Pinned Filters">
-    <div class="gui p-l-10 p-r-10 p-b-10 p-t-10">
-        <span class="gui gui-subheading-2 caps bold-500">
-            PINNED FILTERS
-        </span>
-    </div>
-    {{#each favorites}}
-    <section aria-label="Filter Section for {{name}}" class="gui item facet-item {{Collapsed collapsed}} border-bottom light p-r-10 p-t-5 p-b-5 p-l-10" 
+<li class="gui m-0 p-r-10 p-t-5 p-b-5 p-l-10" 
+    aria-label="Pinned Filters"
+    data-attr-value="Pinned Filters"
+    data-attr-ignoreForSearch="true"
+    aria-expanded="true"
+    {{!-- aria-live="polite" --}}
+    aria-atomic="true"
+    aria-relevant="all"
+    role="treeitem"
+    id="{{idPrefix}}-pinned-filter-tree">
+    <h6 class="gui gui-subheading-2 caps bold-500 flex m-b-10 jc-sb">
+        PINNED FILTERS
+        <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
+    </h6>
+    <ul aria-labelledby="{{idPrefix}}-pinned-filter-tree" class="gui m-0 p-0" role="group">
+        {{#each favorites}}
+        <li aria-label="{{name}}"
+            class="gui item facet-item border-bottom light p-r-10 p-t-5 p-b-5 p-l-5 {{Collapsed collapsed}}"
+            role="treeitem"
+            aria-expanded="{{Boolean collapsed true}}"
             data-attr-id="{{id}}" 
-            data-attr-name="{{name}}">
-        <div class="content">
+            data-attr-value="{{name}}">
             <div class="facet-item-header fluid gui item flex jc-sb">
-                <span   class="gui primary gui-subheading-1 caps m-0 expansion-icon cursor-pointer arrowkeys-aware"
-                        title="{{name}}"
-                        aria-label="Press enter or space to toggle expansion of filter values for {{name}}"
-                        aria-expanded="{{Boolean collapsed}}"
-                        aria-controls="facet-values-{{@index}}"
-                        tabindex="0">
+                <span class="gui primary gui-subheading-1 caps m-0 cursor-pointer" title="{{name}}">
                     {{name}} {{{SelectedFiltersCount facetValues}}}
                 </span>
                 <span>
                     <i  data-attr-id="{{id}}" 
-                        class="gui gui-icon selectable gui-icon-unpin m-t-5 m-r-10 unpin-icon cursor-pointer" 
+                        class="gui gui-icon selectable pin-unpin-selector gui-icon-unpin m-t-5 m-r-10 unpin-icon cursor-pointer" 
                         aria-label="Press enter or space to unpin filter {{name}}"
                         tabindex="0"></i>
                     {{#if collapsed}}
-                        <i  class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"
-                            aria-label="Press enter or space to collapse filter values for {{name}}"
-                            aria-expanded="true"
-                            aria-controls="facet-values-{{@index}}"
-                            tabindex="0"></i>
+                        <i class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
                     {{else}}
-                        <i  class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer" 
-                            aria-label="Press enter or space to expand filter values for {{name}}"
-                            aria-expanded="false"
-                            aria-controls="facet-values-{{@index}}"
-                            tabindex="0"></i>
+                        <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
                     {{/if}}
                 </span>
             </div>
-            <div class="clear"></div>
-            <div class="description gui facet-item-description m-t-10 {{Hidden collapsed true}}"
-                id="pinned-facet-values-{{@index}}">
-                <div class="gui facet-label-container fluid-w m-0 p-0">
-                    {{#each facetValues}}
-                    <div class="gui item {{CheckLength @index ../../noOfFacetToShow}}">
-                        <label  data-attr-value="{{label}}" 
-                                title="{{label}}({{count}})" 
-                                aria-label="{{label}} in {{../id}} has {{count}} records. Press spacebar to apply this filter."
-                                class="gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0 arrowkeys-aware">
-                            <input  class="gui facet-value-checkbox cursor-pointer m-l-0" 
-                                    id="{{label}}-{{@index}}"
-                                    {{Checked selected}}
-                                    {{Disabled disabled}}
-                                    value="{{../id}}:::{{label}}:::{{../type}}" 
-                                    type="checkbox" />
-                            {{FormatLabelByType ../type label}}
-                            <span class="gui gui-subheading-1 m-0">({{count}})</span>
-                        </label>
-                    </div>
-                    {{/each}} 
-                    {{{ShowMoreLessLink facetValues ../noOfFacetToShow}}}
-                </div>
-            </div>
-        </div>
-    </section>
-    {{/each}}
-</section>
+            {{> facet-label}}
+        </li>
+        {{/each}}
+    </ul>
+</li>
 {{/if}}

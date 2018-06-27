@@ -72,12 +72,12 @@
         const facets = [];
         const facetValues = [];
         const facetConfig = [];
-        for (let index = 0; index < 100; index++) {
+        for (let index = 0; index < 15; index++) {
             facetValues.push({
                 "label": "Label" + makeid(), "count": 23 * index, "selected": index % 5 == 2
             });
         }
-        for (let index = 0; index < 30; index++) {
+        for (let index = 0; index < 10; index++) {
             facetConfig.push({
                 "id": "Facet" + index,
                 "name": makeid(),
@@ -111,6 +111,7 @@
 <body>
     <button onclick="addFacets()">Add Facets</button>
     <button onclick="addFilters()">Add Filters</button>
+    <button onclick="destroy()">Destroy Facete</button>
     <div style="display: flex;">
         <div class="gui facet-container" style="height: 90%; width:30%;overflow: hidden;margin-top: 50px;" >
             <div id="hi">
@@ -126,6 +127,9 @@
             containerElement: document.getElementById("hi"),
             onFilterChange: function(column, value, actionType, type, range){
                 alert(column + value + actionType + type + range);
+            },
+            onCollapseToggle: function(collapseSettings) {
+                console.log(collapseSettings);
             }
         };
         var filterOptions = {
@@ -142,6 +146,9 @@
         }
         function addFilters() {
             filter.bind(filters);
+        }
+        function destroy() {
+            facet.destroy();
         }
     </script>
 </body>

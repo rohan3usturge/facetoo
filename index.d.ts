@@ -4,8 +4,6 @@ export class Facet {
     constructor(options: IFacetOptions);
     bind: (facets: IFacet[]) => void;
     reRender: () => void;
-    hide: () => void;
-    show: () => void;
     setFacetConfig: (facetConfig: IFacetConfig[]) => void;
     destroy: () => void;
 }
@@ -40,6 +38,7 @@ export interface IFacetOptions {
     onPinUnpin: IPinUnpinFilterDelegate;
     onCollapseToggle: IExpandCollapseDelegate;
     noOfFacetToShow?: number;
+    idPrefix?: string;
 }
 
 export interface IFilterOptions {
