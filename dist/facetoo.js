@@ -1368,11 +1368,15 @@ var FacetTree = /** @class */ (function () {
             }
             _this.updateVisibleTreeitems();
         };
-        this.handleLabelChange = function (currentItem) {
-            var checked = DomUtils_1.DomUtils.toggleLabel(currentItem.treeItemDomNode);
+        this.handleLabelChange = function (currentItem, event) {
+            var node = currentItem.treeItemDomNode;
+            var forId = node.htmlFor;
+            var input = (document.getElementById(forId) || node.firstElementChild);
+            var checked = input.checked;
             var action = checked ? FilterActionType_1.FilterActionType.Add : FilterActionType_1.FilterActionType.Minus;
             currentItem.treeItemDomNode.setAttribute("aria-selected", checked.toString());
             _this.configStore.Options.onFilterChange(currentItem.id, currentItem.label, action, currentItem.dataType, currentItem.isRange);
+            event.stopPropagation();
         };
         this.notifyCollapseAndExpansion = function () {
             var data = _this.configStore.Options.facetConfig;
@@ -1697,7 +1701,7 @@ var FacetTreeItem = /** @class */ (function () {
         };
         this.handleKeydown = function (event) {
             var tgt = event.currentTarget;
-            var flag = false;
+            var flag = true;
             var char = event.key;
             function isPrintableCharacter(str) {
                 return str.length === 1 && str.match(/\S/);
@@ -1707,14 +1711,12 @@ var FacetTreeItem = /** @class */ (function () {
                     item
                         .tree
                         .expandAllSiblingItems(item);
-                    flag = true;
                 }
                 else {
                     if (isPrintableCharacter(char)) {
                         item
                             .tree
                             .setFocusByFirstCharacter(item, char);
-                        flag = true;
                     }
                 }
             }
@@ -1737,7 +1739,6 @@ var FacetTreeItem = /** @class */ (function () {
                 switch (event.keyCode) {
                     case KeyCodes_1.KeyCodes.SPACE:
                     case KeyCodes_1.KeyCodes.RETURN:
-                        flag = true;
                         if (_this.isExpandable) {
                             if (_this.isExpanded()) {
                                 _this
@@ -1762,9 +1763,10 @@ var FacetTreeItem = /** @class */ (function () {
                                     .showLessValues(_this.groupTreeitem);
                             }
                             if (_this.isLabel) {
+                                flag = false;
                                 _this
                                     .tree
-                                    .handleLabelChange(_this);
+                                    .handleLabelChange(_this, event);
                             }
                         }
                         break;
@@ -1772,13 +1774,11 @@ var FacetTreeItem = /** @class */ (function () {
                         _this
                             .tree
                             .setFocusToPreviousItem(_this);
-                        flag = true;
                         break;
                     case KeyCodes_1.KeyCodes.DOWN:
                         _this
                             .tree
                             .setFocusToNextItem(_this);
-                        flag = true;
                         break;
                     case KeyCodes_1.KeyCodes.RIGHT:
                         if (_this.isExpandable) {
@@ -1793,21 +1793,18 @@ var FacetTreeItem = /** @class */ (function () {
                                     .expandTreeitem(_this, true);
                             }
                         }
-                        flag = true;
                         break;
                     case KeyCodes_1.KeyCodes.LEFT:
                         if (_this.isExpandable && _this.isExpanded()) {
                             _this
                                 .tree
                                 .collapseTreeitem(_this, true);
-                            flag = true;
                         }
                         else {
                             if (_this.inGroup) {
                                 _this
                                     .tree
                                     .setFocusToParentItem(_this);
-                                flag = true;
                             }
                         }
                         break;
@@ -1815,13 +1812,11 @@ var FacetTreeItem = /** @class */ (function () {
                         _this
                             .tree
                             .setFocusToFirstItem();
-                        flag = true;
                         break;
                     case KeyCodes_1.KeyCodes.END:
                         _this
                             .tree
                             .setFocusToLastItem();
-                        flag = true;
                         break;
                     default:
                         if (isPrintableCharacter(char)) {
@@ -1836,6 +1831,7 @@ var FacetTreeItem = /** @class */ (function () {
             }
         };
         this.handleClick = function (event) {
+            var flag = true;
             // only process click events that directly happened on this treeitem
             if (event.target !== _this.treeItemDomNode
                 && !DomUtils_1.DomUtils.isSelfOrDescendant(_this.treeItemDomNode.firstElementChild, event.target)) {
@@ -1852,7 +1848,6 @@ var FacetTreeItem = /** @class */ (function () {
                         .tree
                         .expandTreeitem(_this, true);
                 }
-                event.stopPropagation();
             }
             else {
                 if (_this.isShowMoreLink) {
@@ -1866,10 +1861,13 @@ var FacetTreeItem = /** @class */ (function () {
                         .showLessValues(_this.groupTreeitem);
                 }
                 if (_this.isLabel) {
+                    flag = false;
                     _this
                         .tree
-                        .handleLabelChange(_this);
+                        .handleLabelChange(_this, event);
                 }
+            }
+            if (flag) {
                 event.stopPropagation();
                 event.preventDefault();
             }
