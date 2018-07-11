@@ -146,7 +146,7 @@ export class FacetTreeItem {
     }
     public handleKeydown = (event: HTMLElementEventMap["keydown"]) => {
         const tgt = event.currentTarget;
-        let flag = false;
+        let flag = true;
         const char = event.key;
 
         function isPrintableCharacter(str) {
@@ -157,13 +157,11 @@ export class FacetTreeItem {
                 item
                     .tree
                     .expandAllSiblingItems(item);
-                flag = true;
             } else {
                 if (isPrintableCharacter(char)) {
                     item
                         .tree
                         .setFocusByFirstCharacter(item, char);
-                    flag = true;
                 }
             }
         }
@@ -187,7 +185,6 @@ export class FacetTreeItem {
             switch (event.keyCode) {
                 case KeyCodes.SPACE:
                 case KeyCodes.RETURN:
-                    flag = true;
                     if (this.isExpandable) {
                         if (this.isExpanded()) {
                             this
@@ -210,9 +207,10 @@ export class FacetTreeItem {
                                 .showLessValues(this.groupTreeitem);
                         }
                         if ( this.isLabel ) {
+                            flag = false;
                             this
                                 .tree
-                                .handleLabelChange(this);
+                                .handleLabelChange(this, event);
                         }
                     }
                     break;
@@ -221,14 +219,12 @@ export class FacetTreeItem {
                     this
                         .tree
                         .setFocusToPreviousItem(this);
-                    flag = true;
                     break;
 
                 case KeyCodes.DOWN:
                     this
                         .tree
                         .setFocusToNextItem(this);
-                    flag = true;
                     break;
 
                 case KeyCodes.RIGHT:
@@ -243,7 +239,6 @@ export class FacetTreeItem {
                                 .expandTreeitem(this, true);
                         }
                     }
-                    flag = true;
                     break;
 
                 case KeyCodes.LEFT:
@@ -251,13 +246,11 @@ export class FacetTreeItem {
                         this
                             .tree
                             .collapseTreeitem(this, true);
-                        flag = true;
                     } else {
                         if (this.inGroup) {
                             this
                                 .tree
                                 .setFocusToParentItem(this);
-                            flag = true;
                         }
                     }
                     break;
@@ -266,14 +259,12 @@ export class FacetTreeItem {
                     this
                         .tree
                         .setFocusToFirstItem();
-                    flag = true;
                     break;
 
                 case KeyCodes.END:
                     this
                         .tree
                         .setFocusToLastItem();
-                    flag = true;
                     break;
 
                 default:
@@ -290,7 +281,7 @@ export class FacetTreeItem {
     }
 
     public handleClick = (event: HTMLElementEventMap["click"]) => {
-
+        let flag = true;
         // only process click events that directly happened on this treeitem
         if (event.target !== this.treeItemDomNode
             && ! DomUtils.isSelfOrDescendant(this.treeItemDomNode.firstElementChild, event.target)) {
@@ -307,7 +298,6 @@ export class FacetTreeItem {
                     .tree
                     .expandTreeitem(this, true);
             }
-            event.stopPropagation();
         } else {
             if ( this.isShowMoreLink ) {
                 this
@@ -320,10 +310,13 @@ export class FacetTreeItem {
                     .showLessValues(this.groupTreeitem);
             }
             if ( this.isLabel ) {
+                flag = false;
                 this
                     .tree
-                    .handleLabelChange(this);
+                    .handleLabelChange(this, event);
             }
+        }
+        if (flag) {
             event.stopPropagation();
             event.preventDefault();
         }

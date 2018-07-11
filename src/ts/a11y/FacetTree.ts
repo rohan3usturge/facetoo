@@ -341,8 +341,11 @@ export class FacetTree {
         }
         this.updateVisibleTreeitems();
     }
-    public handleLabelChange = (currentItem: FacetTreeItem) => {
-        const checked = DomUtils.toggleLabel(currentItem.treeItemDomNode as  HTMLLabelElement);
+    public handleLabelChange = (currentItem: FacetTreeItem, event: any) => {
+        const node = currentItem.treeItemDomNode as  HTMLLabelElement;
+        const forId = node.htmlFor;
+        const input: HTMLInputElement = (document.getElementById(forId) || node.firstElementChild) as HTMLInputElement;
+        const checked = input.checked;
         const action = checked ? FilterActionType.Add : FilterActionType.Minus;
         currentItem.treeItemDomNode.setAttribute("aria-selected", checked.toString());
         this.configStore.Options.onFilterChange(currentItem.id,
@@ -350,6 +353,7 @@ export class FacetTree {
                                                 action,
                                                 currentItem.dataType,
                                                 currentItem.isRange);
+        event.stopPropagation();
     }
     public notifyCollapseAndExpansion = () => {
         const data = this.configStore.Options.facetConfig;
