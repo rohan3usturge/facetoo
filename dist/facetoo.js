@@ -266,7 +266,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + alias2(alias3((depth0 != null ? depth0.count : depth0), depth0))
     + " records. Press spacebar to "
     + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/ApplyRemove.ts */ 20)).call(alias1,(depth0 != null ? depth0.selected : depth0),{"name":"ApplyRemove","hash":{},"data":data}))
-    + " this filter.\"\r\n                class=\"gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0\">\r\n            <input class=\"gui facet-value-checkbox cursor-pointer m-l-0\" \r\n                    id=\""
+    + " this filter.\"\r\n                class=\"gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0\">\r\n            <input  class=\"gui facet-value-checkbox cursor-pointer m-l-0\" \r\n                    id=\""
     + alias2(alias3((depth0 != null ? depth0.idPrefix : depth0), depth0))
     + "-"
     + alias2(alias3((depths[1] != null ? depths[1].id : depths[1]), depth0))
@@ -1377,6 +1377,7 @@ var FacetTree = /** @class */ (function () {
             currentItem.treeItemDomNode.setAttribute("aria-selected", checked.toString());
             _this.configStore.Options.onFilterChange(currentItem.id, currentItem.label, action, currentItem.dataType, currentItem.isRange);
             event.stopPropagation();
+            event.preventDefault();
         };
         this.notifyCollapseAndExpansion = function () {
             var data = _this.configStore.Options.facetConfig;
@@ -1657,10 +1658,21 @@ var FacetTreeItem = /** @class */ (function () {
                     .treeItemDomNode
                     .addEventListener("mouseout", _this.handleMouseOut.bind(_this));
             }
+            if (_this.isLabel) {
+                var checkBox = _this
+                    .treeItemDomNode
+                    .firstElementChild;
+                checkBox.onchange = _this.handleLabelChange.bind(_this);
+            }
             if (_this.pinUnPinDomNode) {
                 _this.pinUnPinDomNode.addEventListener("click", _this.handleUnPinClick);
                 _this.pinUnPinDomNode.addEventListener("keydown", _this.handleUnPinKeyup);
             }
+        };
+        this.handleLabelChange = function (event) {
+            _this
+                .tree
+                .handleLabelChange(_this, event);
         };
         this.destroy = function () {
             var newNode = _this.treeItemDomNode.cloneNode(true);
@@ -1699,27 +1711,27 @@ var FacetTreeItem = /** @class */ (function () {
             }
             event.stopPropagation();
         };
+        this.isPrintableCharacter = function (str) {
+            return str.length === 1 && str.match(/\S/);
+        };
+        this.printableCharacter = function (item, char) {
+            if (char === "*") {
+                item
+                    .tree
+                    .expandAllSiblingItems(item);
+            }
+            else {
+                if (_this.isPrintableCharacter(char)) {
+                    item
+                        .tree
+                        .setFocusByFirstCharacter(item, char);
+                }
+            }
+        };
         this.handleKeydown = function (event) {
             var tgt = event.currentTarget;
             var flag = true;
             var char = event.key;
-            function isPrintableCharacter(str) {
-                return str.length === 1 && str.match(/\S/);
-            }
-            function printableCharacter(item) {
-                if (char === "*") {
-                    item
-                        .tree
-                        .expandAllSiblingItems(item);
-                }
-                else {
-                    if (isPrintableCharacter(char)) {
-                        item
-                            .tree
-                            .setFocusByFirstCharacter(item, char);
-                    }
-                }
-            }
             _this.stopDefaultClick = false;
             if (event.altKey || event.ctrlKey || event.metaKey) {
                 return;
@@ -1730,8 +1742,8 @@ var FacetTreeItem = /** @class */ (function () {
                     _this.stopDefaultClick = true;
                 }
                 else {
-                    if (isPrintableCharacter(char)) {
-                        printableCharacter(_this);
+                    if (_this.isPrintableCharacter(char)) {
+                        _this.printableCharacter(_this, char);
                     }
                 }
             }
@@ -1762,12 +1774,12 @@ var FacetTreeItem = /** @class */ (function () {
                                     .tree
                                     .showLessValues(_this.groupTreeitem);
                             }
-                            if (_this.isLabel) {
-                                flag = false;
-                                _this
-                                    .tree
-                                    .handleLabelChange(_this, event);
-                            }
+                        }
+                        if (_this.isLabel) {
+                            var checkBox = _this
+                                .treeItemDomNode
+                                .firstElementChild;
+                            checkBox.click();
                         }
                         break;
                     case KeyCodes_1.KeyCodes.UP:
@@ -1819,8 +1831,8 @@ var FacetTreeItem = /** @class */ (function () {
                             .setFocusToLastItem();
                         break;
                     default:
-                        if (isPrintableCharacter(char)) {
-                            printableCharacter(_this);
+                        if (_this.isPrintableCharacter(char)) {
+                            _this.printableCharacter(_this, char);
                         }
                         break;
                 }
@@ -1832,6 +1844,9 @@ var FacetTreeItem = /** @class */ (function () {
         };
         this.handleClick = function (event) {
             var flag = true;
+            if (_this.isLabel) {
+                flag = false;
+            }
             // only process click events that directly happened on this treeitem
             if (event.target !== _this.treeItemDomNode
                 && !DomUtils_1.DomUtils.isSelfOrDescendant(_this.treeItemDomNode.firstElementChild, event.target)) {
@@ -1859,12 +1874,6 @@ var FacetTreeItem = /** @class */ (function () {
                     _this
                         .tree
                         .showLessValues(_this.groupTreeitem);
-                }
-                if (_this.isLabel) {
-                    flag = false;
-                    _this
-                        .tree
-                        .handleLabelChange(_this, event);
                 }
             }
             if (flag) {
@@ -1902,15 +1911,7 @@ var FacetTreeItem = /** @class */ (function () {
         this.tree = tree;
         this.groupTreeitem = group;
         this.treeItemDomNode = node;
-        // this.label = node
-        //     .textContent
-        //     .trim();
         this.stopDefaultClick = false;
-        // if (node.getAttribute("aria-label")) {
-        //     this.label = node
-        //         .getAttribute("aria-label")
-        //         .trim();
-        // }
         var firstEm = this.treeItemDomNode.firstElementChild;
         if (firstEm) {
             this.pinUnPinDomNode = firstEm.querySelector(".pin-unpin-selector");

@@ -354,6 +354,7 @@ export class FacetTree {
                                                 currentItem.dataType,
                                                 currentItem.isRange);
         event.stopPropagation();
+        event.preventDefault();
     }
     public notifyCollapseAndExpansion = () => {
         const data = this.configStore.Options.facetConfig;

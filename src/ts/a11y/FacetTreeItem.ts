@@ -27,15 +27,7 @@ export class FacetTreeItem {
         this.tree = tree;
         this.groupTreeitem = group;
         this.treeItemDomNode = node;
-        // this.label = node
-        //     .textContent
-        //     .trim();
         this.stopDefaultClick = false;
-        // if (node.getAttribute("aria-label")) {
-        //     this.label = node
-        //         .getAttribute("aria-label")
-        //         .trim();
-        // }
         const firstEm = this.treeItemDomNode.firstElementChild;
         if ( firstEm ) {
             this.pinUnPinDomNode = firstEm.querySelector(".pin-unpin-selector");
@@ -102,12 +94,22 @@ export class FacetTreeItem {
                 .treeItemDomNode
                 .addEventListener("mouseout", this.handleMouseOut.bind(this));
         }
+        if ( this.isLabel ) {
+            const checkBox = this
+                .treeItemDomNode
+                .firstElementChild as HTMLInputElement;
+            checkBox.onchange = this.handleLabelChange.bind(this);
+        }
         if (this.pinUnPinDomNode) {
             this.pinUnPinDomNode.addEventListener("click", this.handleUnPinClick);
             this.pinUnPinDomNode.addEventListener("keydown", this.handleUnPinKeyup);
         }
     }
-
+    public handleLabelChange = (event: any) => {
+        this
+        .tree
+        .handleLabelChange(this, event);
+    }
     public destroy = () => {
         const newNode = this.treeItemDomNode.cloneNode(true);
         this.treeItemDomNode.parentNode.replaceChild(newNode, this.treeItemDomNode);
@@ -144,41 +146,37 @@ export class FacetTreeItem {
         }
         event.stopPropagation();
     }
-    public handleKeydown = (event: HTMLElementEventMap["keydown"]) => {
-        const tgt = event.currentTarget;
-        let flag = true;
-        const char = event.key;
-
-        function isPrintableCharacter(str) {
-            return str.length === 1 && str.match(/\S/);
-        }
-        function printableCharacter(item: FacetTreeItem) {
-            if (char === "*") {
+    public isPrintableCharacter = (str: string) => {
+        return str.length === 1 && str.match(/\S/);
+    }
+    public printableCharacter = (item: FacetTreeItem, char: string) => {
+        if (char === "*") {
+            item
+                .tree
+                .expandAllSiblingItems(item);
+        } else {
+            if (this.isPrintableCharacter(char)) {
                 item
                     .tree
-                    .expandAllSiblingItems(item);
-            } else {
-                if (isPrintableCharacter(char)) {
-                    item
-                        .tree
-                        .setFocusByFirstCharacter(item, char);
-                }
+                    .setFocusByFirstCharacter(item, char);
             }
         }
-
+    }
+    public handleKeydown = (event: HTMLElementEventMap["keydown"]) => {
+        const tgt = event.currentTarget;
+        const flag = true;
+        const char = event.key;
         this.stopDefaultClick = false;
-
         if (event.altKey || event.ctrlKey || event.metaKey) {
             return;
         }
-
         if (event.shiftKey) {
             if (event.keyCode === KeyCodes.SPACE || event.keyCode === KeyCodes.RETURN) {
                 event.stopPropagation();
                 this.stopDefaultClick = true;
             } else {
-                if (isPrintableCharacter(char)) {
-                    printableCharacter(this);
+                if (this.isPrintableCharacter(char)) {
+                    this.printableCharacter(this, char);
                 }
             }
         } else {
@@ -206,12 +204,12 @@ export class FacetTreeItem {
                                 .tree
                                 .showLessValues(this.groupTreeitem);
                         }
-                        if ( this.isLabel ) {
-                            flag = false;
-                            this
-                                .tree
-                                .handleLabelChange(this, event);
-                        }
+                    }
+                    if (this.isLabel) {
+                        const checkBox = this
+                                        .treeItemDomNode
+                                        .firstElementChild as HTMLInputElement;
+                        checkBox.click();
                     }
                     break;
 
@@ -268,8 +266,8 @@ export class FacetTreeItem {
                     break;
 
                 default:
-                    if (isPrintableCharacter(char)) {
-                        printableCharacter(this);
+                    if (this.isPrintableCharacter(char)) {
+                        this.printableCharacter(this, char);
                     }
                     break;
             }
@@ -282,6 +280,9 @@ export class FacetTreeItem {
 
     public handleClick = (event: HTMLElementEventMap["click"]) => {
         let flag = true;
+        if ( this.isLabel ) {
+            flag = false;
+        }
         // only process click events that directly happened on this treeitem
         if (event.target !== this.treeItemDomNode
             && ! DomUtils.isSelfOrDescendant(this.treeItemDomNode.firstElementChild, event.target)) {
@@ -308,12 +309,6 @@ export class FacetTreeItem {
                 this
                     .tree
                     .showLessValues(this.groupTreeitem);
-            }
-            if ( this.isLabel ) {
-                flag = false;
-                this
-                    .tree
-                    .handleLabelChange(this, event);
             }
         }
         if (flag) {
