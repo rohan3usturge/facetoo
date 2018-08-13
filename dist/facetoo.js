@@ -1733,6 +1733,9 @@ var FacetTreeItem = /** @class */ (function () {
             }
         };
         this.handleKeydown = function (event) {
+            if (!_this.isKeyCodeValid(event.keyCode)) {
+                return;
+            }
             var tgt = event.currentTarget;
             var flag = true;
             var char = event.key;
@@ -1910,6 +1913,16 @@ var FacetTreeItem = /** @class */ (function () {
         this.handleMouseOut = function (event) {
             var target = event.currentTarget;
             target.classList.remove("hover");
+        };
+        this.isKeyCodeValid = function (code) {
+            var valid = false;
+            for (var prop in KeyCodes_1.KeyCodes) {
+                if (KeyCodes_1.KeyCodes.hasOwnProperty(prop) && KeyCodes_1.KeyCodes[prop] === code) {
+                    valid = true;
+                    break;
+                }
+            }
+            return valid;
         };
         node.tabIndex = -1;
         this.tree = tree;
