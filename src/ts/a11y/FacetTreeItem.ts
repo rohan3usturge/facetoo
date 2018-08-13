@@ -163,6 +163,9 @@ export class FacetTreeItem {
         }
     }
     public handleKeydown = (event: HTMLElementEventMap["keydown"]) => {
+        if ( !this.isKeyCodeValid(event.keyCode) ) {
+            return;
+        }
         const tgt = event.currentTarget;
         const flag = true;
         const char = event.key;
@@ -345,5 +348,16 @@ export class FacetTreeItem {
     public handleMouseOut = (event: HTMLElementEventMap["mouseout"]) => {
         const target = event.currentTarget as HTMLElement;
         target.classList.remove("hover");
+    }
+
+    private isKeyCodeValid = (code: number) => {
+        let valid = false;
+        for (const prop in KeyCodes) {
+            if (KeyCodes.hasOwnProperty(prop) && KeyCodes[prop] === code) {
+                valid = true;
+                break;
+            }
+        }
+        return valid;
     }
 }
