@@ -827,9 +827,11 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + ((stack1 = __default(__webpack_require__(/*! ./src/hbs/helpers/SelectedFiltersCount.ts */ 6)).call(alias3,(depth0 != null ? depth0.facetValues : depth0),{"name":"SelectedFiltersCount","hash":{},"data":data})) != null ? stack1 : "")
     + "\r\n                </span>\r\n                <span>\r\n                    <i  data-attr-id=\""
     + alias2(alias1((depth0 != null ? depth0.id : depth0), depth0))
-    + "\" \r\n                        class=\"gui gui-icon selectable pin-unpin-selector gui-icon-unpin m-t-5 m-r-10 unpin-icon cursor-pointer\" \r\n                        aria-label=\"Press enter or space to unpin filter "
+    + "\" \r\n                        class=\"gui gui-icon selectable pin-unpin-selector gui-icon-unpin m-t-5 m-r-10 unpin-icon cursor-pointer\" \r\n                        title=\""
     + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
-    + "\"\r\n                        tabindex=\"0\"></i>\r\n"
+    + " unpinned filter. Press enter or space to pin filter\"\r\n                        title=\""
+    + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
+    + " unpinned filter. Press enter or space to pin filter\"\r\n                        tabindex=\"0\"></i>\r\n"
     + ((stack1 = helpers["if"].call(alias3,(depth0 != null ? depth0.collapsed : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "                </span>\r\n            </div>\r\n"
     + ((stack1 = container.invokePartial(__webpack_require__(/*! ./src/hbs/facet-label.hbs */ 7),depth0,{"name":"facet-label","data":data,"indent":"            ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
@@ -1035,9 +1037,11 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + ((stack1 = __default(__webpack_require__(/*! ./src/hbs/helpers/SelectedFiltersCount.ts */ 6)).call(alias3,(depth0 != null ? depth0.facetValues : depth0),{"name":"SelectedFiltersCount","hash":{},"data":data})) != null ? stack1 : "")
     + "\r\n                </span>\r\n                <span>\r\n                    <i  data-attr-id=\""
     + alias2(alias1((depth0 != null ? depth0.id : depth0), depth0))
-    + "\" \r\n                        class=\"gui gui-icon selectable pin-unpin-selector gui-icon-pin m-t-5 m-r-10 pin-icon cursor-pointer\" \r\n                        aria-label=\"Press enter or space to pin filter "
+    + "\" \r\n                        class=\"gui gui-icon selectable pin-unpin-selector gui-icon-pin m-t-5 m-r-10 pin-icon cursor-pointer\" \r\n                        aria-label=\""
     + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
-    + "\"\r\n                        tabindex=\"0\"></i>\r\n"
+    + " Pinned filter. Press enter or space to unpin filter\"\r\n                        title=\""
+    + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
+    + " Pinned filter. Press enter or space to unpin filter\"\r\n                        tabindex=\"0\"></i>\r\n"
     + ((stack1 = helpers["if"].call(alias3,(depth0 != null ? depth0.collapsed : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "                </span>\r\n            </div>\r\n"
     + ((stack1 = container.invokePartial(__webpack_require__(/*! ./src/hbs/facet-label.hbs */ 7),depth0,{"name":"facet-label","data":data,"indent":"            ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
