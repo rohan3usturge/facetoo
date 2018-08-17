@@ -95,6 +95,18 @@ export class FacetTree {
             this.searchBoxNode.focus();
         }
     }
+    public setFocusToNodeItem = (node: HTMLElement) => {
+        for (const ti of this.treeitems) {
+            if (ti.treeItemDomNode === node) {
+                ti.treeItemDomNode.tabIndex = 0;
+                ti
+                    .treeItemDomNode
+                    .focus();
+            } else {
+                ti.treeItemDomNode.tabIndex = -1;
+            }
+        }
+    }
     public setFocusToItem = (treeitem: FacetTreeItem, dontSetfocus?: boolean) => {
         for (const ti of this.treeitems) {
             if (ti === treeitem) {

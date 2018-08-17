@@ -696,10 +696,8 @@ var Facet = /** @class */ (function () {
                             return false;
                         }
                     });
+                    _this.facetTree.setFocusToNodeItem(newFocusable);
                 }
-            }
-            if (newFocusable) {
-                newFocusable.focus();
             }
             _this.focusableElement = null;
         };
@@ -1167,6 +1165,20 @@ var FacetTree = /** @class */ (function () {
             if (event.altKey && event.key === "f") {
                 event.preventDefault();
                 _this.searchBoxNode.focus();
+            }
+        };
+        this.setFocusToNodeItem = function (node) {
+            for (var _i = 0, _a = _this.treeitems; _i < _a.length; _i++) {
+                var ti = _a[_i];
+                if (ti.treeItemDomNode === node) {
+                    ti.treeItemDomNode.tabIndex = 0;
+                    ti
+                        .treeItemDomNode
+                        .focus();
+                }
+                else {
+                    ti.treeItemDomNode.tabIndex = -1;
+                }
             }
         };
         this.setFocusToItem = function (treeitem, dontSetfocus) {
