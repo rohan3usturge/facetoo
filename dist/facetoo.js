@@ -696,7 +696,7 @@ var Facet = /** @class */ (function () {
                             return false;
                         }
                     });
-                    _this.facetTree.setFocusToNodeItem(newFocusable);
+                    _this.facetTree.setFocusToNodeItem(newFocusable[0]);
                 }
             }
             _this.focusableElement = null;

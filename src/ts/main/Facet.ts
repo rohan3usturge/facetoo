@@ -89,7 +89,7 @@ export class Facet {
                         return false;
                     }
                 });
-                this.facetTree.setFocusToNodeItem(newFocusable);
+                this.facetTree.setFocusToNodeItem(newFocusable[0]);
             }
         }
         this.focusableElement = null;
