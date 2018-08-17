@@ -1434,7 +1434,7 @@ var FacetTree = /** @class */ (function () {
             var checked = input.checked;
             var action = checked ? FilterActionType_1.FilterActionType.Add : FilterActionType_1.FilterActionType.Minus;
             currentItem.treeItemDomNode.setAttribute("aria-selected", checked.toString());
-            _this.facet.setFocusableElement(event.target);
+            _this.facet.setFocusableElement(currentItem.treeItemDomNode);
             _this.configStore.Options.onFilterChange(currentItem.id, currentItem.label, action, currentItem.dataType, currentItem.isRange);
             event.stopPropagation();
             event.preventDefault();

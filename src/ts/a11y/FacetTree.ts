@@ -360,7 +360,7 @@ export class FacetTree {
         const checked = input.checked;
         const action = checked ? FilterActionType.Add : FilterActionType.Minus;
         currentItem.treeItemDomNode.setAttribute("aria-selected", checked.toString());
-        this.facet.setFocusableElement(event.target);
+        this.facet.setFocusableElement(currentItem.treeItemDomNode);
         this.configStore.Options.onFilterChange(currentItem.id,
                                                 currentItem.label,
                                                 action,
