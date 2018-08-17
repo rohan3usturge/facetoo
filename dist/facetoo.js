@@ -266,7 +266,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + alias2(alias3((depth0 != null ? depth0.count : depth0), depth0))
     + " records. Press spacebar to "
     + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/ApplyRemove.ts */ 20)).call(alias1,(depth0 != null ? depth0.selected : depth0),{"name":"ApplyRemove","hash":{},"data":data}))
-    + " this filter.\"\r\n                class=\"gui cursor-pointer gui-subheading-1 no-wrap text-shorten m-0\">\r\n            <input  class=\"gui facet-value-checkbox cursor-pointer m-l-0\" \r\n                    id=\""
+    + " this filter.\"\r\n                class=\"gui cursor-pointer filter-label gui-subheading-1 no-wrap text-shorten m-0\">\r\n            <input  class=\"gui facet-value-checkbox cursor-pointer m-l-0\" \r\n                    id=\""
     + alias2(alias3((depth0 != null ? depth0.idPrefix : depth0), depth0))
     + "-"
     + alias2(alias3((depths[1] != null ? depths[1].id : depths[1]), depth0))
@@ -668,25 +668,38 @@ var Facet = /** @class */ (function () {
             _this.facetTree.destroy();
         };
         this.setFocusToLastElement = function () {
+            var newFocusable;
             if (_this.focusableElement) {
                 if (_this.focusableElement.classList.contains("pin-unpin-selector")) {
                     var id_1 = $(_this.focusableElement).attr("data-attr-id");
                     var tree = $("[role=tree]");
                     var pinSelectors = tree.find(".pin-unpin-selector");
-                    var newFocusable_1;
                     pinSelectors.each(function (index, element) {
                         var eachI = $(element);
                         var eachIattr = eachI.attr("data-attr-id");
                         if (eachIattr === id_1) {
-                            newFocusable_1 = eachI;
+                            newFocusable = eachI;
                             return false;
                         }
                     });
-                    newFocusable_1.focus();
+                    newFocusable.focus();
                 }
                 else {
-                    _this.focusableElement.focus();
+                    var id_2 = $(_this.focusableElement).attr("data-attr-id");
+                    var value_1 = $(_this.focusableElement).attr("data-attr-value");
+                    $(".filter-label").each(function (index, element) {
+                        var eachLabel = $(element);
+                        var eachLabelId = eachLabel.attr("data-attr-id");
+                        var eachLabelValue = eachLabel.attr("data-attr-value");
+                        if (eachLabelId === id_2 && eachLabelValue === value_1) {
+                            newFocusable = eachLabel;
+                            return false;
+                        }
+                    });
                 }
+            }
+            if (newFocusable) {
+                newFocusable.focus();
             }
             _this.focusableElement = null;
         };

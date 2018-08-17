@@ -62,12 +62,12 @@ export class Facet {
         this.facetTree.destroy();
     }
     public setFocusToLastElement = (): void => {
+        let newFocusable;
         if ( this.focusableElement ) {
             if ( this.focusableElement.classList.contains("pin-unpin-selector")) {
                 const id = $(this.focusableElement).attr("data-attr-id");
                 const tree = $("[role=tree]");
                 const pinSelectors = tree.find(".pin-unpin-selector");
-                let newFocusable;
                 pinSelectors.each((index: number, element: HTMLElement) => {
                     const eachI = $(element);
                     const eachIattr = eachI.attr("data-attr-id");
@@ -78,8 +78,21 @@ export class Facet {
                 });
                 newFocusable.focus();
             } else {
-                this.focusableElement.focus();
+                const id = $(this.focusableElement).attr("data-attr-id");
+                const value = $(this.focusableElement).attr("data-attr-value");
+                $(".filter-label").each((index: number, element: HTMLElement) => {
+                    const eachLabel = $(element);
+                    const eachLabelId = eachLabel.attr("data-attr-id");
+                    const eachLabelValue = eachLabel.attr("data-attr-value");
+                    if ( eachLabelId === id && eachLabelValue === value ) {
+                        newFocusable = eachLabel;
+                        return false;
+                    }
+                });
             }
+        }
+        if ( newFocusable ) {
+            newFocusable.focus();
         }
         this.focusableElement = null;
     }
