@@ -5,7 +5,9 @@ export class Facet {
     bind: (facets: IFacet[]) => void;
     reRender: () => void;
     setFacetConfig: (facetConfig: IFacetConfig[]) => void;
+    setFocusableElement: (element: HTMLElement) => void;
     destroy: () => void;
+    setFocusToLastElement: () => void;
 }
 
 export class Filter {

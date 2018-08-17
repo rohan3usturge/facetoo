@@ -652,13 +652,43 @@ var Facet = /** @class */ (function () {
                 var trees = document.querySelectorAll('[role="tree"]');
                 _this.facetTree = new FacetTree_1.FacetTree(_this.configStore.Options.containerElement, _this, _this.configStore);
                 _this.facetTree.init();
+                _this.setFocusToLastElement();
             }, 1);
         };
         this.setFacetConfig = function (facetConfig) {
             _this.configStore.Options.facetConfig = facetConfig;
         };
+        this.setFocusableElement = function (element) {
+            if (!element) {
+                return;
+            }
+            _this.focusableElement = element;
+        };
         this.destroy = function () {
             _this.facetTree.destroy();
+        };
+        this.setFocusToLastElement = function () {
+            if (_this.focusableElement) {
+                if (_this.focusableElement.classList.contains("pin-unpin-selector")) {
+                    var id_1 = $(_this.focusableElement).attr("data-attr-id");
+                    var tree = $("[role=tree]");
+                    var pinSelectors = tree.find(".pin-unpin-selector");
+                    var newFocusable_1;
+                    pinSelectors.each(function (index, element) {
+                        var eachI = $(element);
+                        var eachIattr = eachI.attr("data-attr-id");
+                        if (eachIattr === id_1) {
+                            newFocusable_1 = eachI;
+                            return false;
+                        }
+                    });
+                    newFocusable_1.focus();
+                }
+                else {
+                    _this.focusableElement.focus();
+                }
+            }
+            _this.focusableElement = null;
         };
         this.configStore = new FacetConfigStore_1.FacetConfigStore(options);
         this.facetElement = options.containerElement;
@@ -1379,6 +1409,7 @@ var FacetTree = /** @class */ (function () {
             var checked = input.checked;
             var action = checked ? FilterActionType_1.FilterActionType.Add : FilterActionType_1.FilterActionType.Minus;
             currentItem.treeItemDomNode.setAttribute("aria-selected", checked.toString());
+            _this.facet.setFocusableElement(event.target);
             _this.configStore.Options.onFilterChange(currentItem.id, currentItem.label, action, currentItem.dataType, currentItem.isRange);
             event.stopPropagation();
             event.preventDefault();
@@ -1410,6 +1441,7 @@ var FacetTree = /** @class */ (function () {
                     break;
                 }
             }
+            _this.facet.setFocusableElement(event.target);
             _this.facet.reRender();
             _this.configStore.Options.onPinUnpin(id, pin);
             event.stopPropagation();
