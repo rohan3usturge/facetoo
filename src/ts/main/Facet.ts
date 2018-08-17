@@ -16,6 +16,7 @@ export class Facet {
     private facetElement: HTMLElement;
     private handlerChain: IEventHandler[] = [];
     private facetTree: FacetTree;
+    private focusableElement: HTMLElement;
     constructor(options: IFacetOptions) {
         this.configStore =  new FacetConfigStore(options);
         this.facetElement = options.containerElement;
@@ -45,12 +46,41 @@ export class Facet {
             const trees = document.querySelectorAll('[role="tree"]');
             this.facetTree = new FacetTree(this.configStore.Options.containerElement, this, this.configStore);
             this.facetTree.init();
+            this.setFocusToLastElement();
         }, 1 );
     }
     public setFacetConfig = (facetConfig: IFacetConfig[]): void => {
         this.configStore.Options.facetConfig = facetConfig;
     }
+    public setFocusableElement = (element: HTMLElement): void => {
+        if ( !element ) {
+            return;
+        }
+        this.focusableElement = element;
+    }
     public destroy =  (): void => {
         this.facetTree.destroy();
+    }
+    public setFocusToLastElement = (): void => {
+        if ( this.focusableElement ) {
+            if ( this.focusableElement.classList.contains("pin-unpin-selector")) {
+                const id = $(this.focusableElement).attr("data-attr-id");
+                const tree = $("[role=tree]");
+                const pinSelectors = tree.find(".pin-unpin-selector");
+                let newFocusable;
+                pinSelectors.each((index: number, element: HTMLElement) => {
+                    const eachI = $(element);
+                    const eachIattr = eachI.attr("data-attr-id");
+                    if ( eachIattr === id ) {
+                        newFocusable = eachI;
+                        return false;
+                    }
+                });
+                newFocusable.focus();
+            } else {
+                this.focusableElement.focus();
+            }
+        }
+        this.focusableElement = null;
     }
 }

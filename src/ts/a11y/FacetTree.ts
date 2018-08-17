@@ -348,6 +348,7 @@ export class FacetTree {
         const checked = input.checked;
         const action = checked ? FilterActionType.Add : FilterActionType.Minus;
         currentItem.treeItemDomNode.setAttribute("aria-selected", checked.toString());
+        this.facet.setFocusableElement(event.target);
         this.configStore.Options.onFilterChange(currentItem.id,
                                                 currentItem.label,
                                                 action,
@@ -380,6 +381,7 @@ export class FacetTree {
                 break;
             }
         }
+        this.facet.setFocusableElement(event.target);
         this.facet.reRender();
         this.configStore.Options.onPinUnpin(id, pin);
         event.stopPropagation();
