@@ -20,6 +20,7 @@ export class FacetConfigStore {
         onPinUnpin: (key: string, pin: boolean): void => {
             // Ignore
         },
+        showCount: true,
     };
     constructor(options: IFacetOptions) {
         this.extendOptions(options);
