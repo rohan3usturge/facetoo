@@ -41,6 +41,7 @@ export interface IFacetOptions {
     onCollapseToggle: IExpandCollapseDelegate;
     noOfFacetToShow?: number;
     idPrefix?: string;
+    showCount?: boolean;
 }
 
 export interface IFilterOptions {

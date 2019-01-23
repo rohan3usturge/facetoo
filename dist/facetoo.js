@@ -139,18 +139,18 @@ module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,"
 
   return "<div class=\"gui of-hidden min-w-50 w-auto fluid-h flex column container\" id=\""
     + alias2(alias1((depth0 != null ? depth0.idPrefix : depth0), depth0))
-    + "-facet-container\">\n    <section class=\"gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10\">\n        <button class=\"gui cursor-pointer expand-all\" \n                aria-label=\"Expand All Filters\">\n            <i  class=\"gui-icon special rotate-left gui-icon-chevdouble\"></i>\n            Expand All\n        </button>\n        <button class=\"gui cursor-pointer collapse-all\" \n                aria-label=\"Collapse All Filters\">\n            <i class=\"gui-icon special rotate-right gui-icon-chevdouble\"></i>\n            Collapse All\n        </button>\n    </section>\n    <section class=\"gui border-bottom light p-r-10 p-t-5 p-b-5 p-l-10\">\n        <div class=\"gui gui-icon input fluid-w h-30\">\n            <input class=\"gui input fluid-w gui-subheading-2 filter-search-input\"\n                   role=\"search\"\n                   aria-label=\"Search Filters\"\n                   aria-controls=\""
+    + "-facet-container\">\r\n    <section class=\"gui h-auto gui-subheading-1 m-0 border-bottom light p-r-10 p-t-5 p-b-5 p-l-10\">\r\n        <button class=\"gui cursor-pointer expand-all\" \r\n                aria-label=\"Expand All Filters\">\r\n            <i  class=\"gui-icon special rotate-left gui-icon-chevdouble\"></i>\r\n            Expand All\r\n        </button>\r\n        <button class=\"gui cursor-pointer collapse-all\" \r\n                aria-label=\"Collapse All Filters\">\r\n            <i class=\"gui-icon special rotate-right gui-icon-chevdouble\"></i>\r\n            Collapse All\r\n        </button>\r\n    </section>\r\n    <section class=\"gui border-bottom light p-r-10 p-t-5 p-b-5 p-l-10\">\r\n        <div class=\"gui gui-icon input fluid-w h-30\">\r\n            <input class=\"gui input fluid-w gui-subheading-2 filter-search-input\"\r\n                   role=\"search\"\r\n                   aria-label=\"Search Filters\"\r\n                   aria-controls=\""
     + alias2(alias1((depth0 != null ? depth0.idPrefix : depth0), depth0))
     + "-filter-tree "
     + alias2(alias1((depth0 != null ? depth0.idPrefix : depth0), depth0))
     + "-pinned-filter-tree "
     + alias2(alias1((depth0 != null ? depth0.idPrefix : depth0), depth0))
-    + "-unpinned-filter-tree\"\n                   placeholder=\"Search Filters. Shortcut Alt + F \" />\n            <i class=\"gui gui-icon gui-icon-search gui-hidden\"></i>\n        </div>\n    </section>\n    <ul class=\"gui fluid-h facet-list of-auto ofx-hidden m-0 p-0\" \n        role=\"tree\"\n        id=\""
+    + "-unpinned-filter-tree\"\r\n                   placeholder=\"Search Filters. Shortcut Alt + F \" />\r\n            <i class=\"gui gui-icon gui-icon-search gui-hidden\"></i>\r\n        </div>\r\n    </section>\r\n    <ul class=\"gui fluid-h facet-list of-auto ofx-hidden m-0 p-0\" \r\n        role=\"tree\"\r\n        id=\""
     + alias2(alias1((depth0 != null ? depth0.idPrefix : depth0), depth0))
-    + "-filter-tree\"\n        aria-relevant=\"all\"\n        aria-live=\"assertive\">\n"
+    + "-filter-tree\"\r\n        aria-relevant=\"all\"\r\n        aria-live=\"assertive\">\r\n"
     + ((stack1 = container.invokePartial(__webpack_require__(/*! ./src/hbs/facet-pinned.hbs */ 18),depth0,{"name":"facet-pinned","data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
     + ((stack1 = container.invokePartial(__webpack_require__(/*! ./src/hbs/facet-unpinned.hbs */ 25),depth0,{"name":"facet-unpinned","data":data,"indent":"        ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "    </ul>\n</div>";
+    + "    </ul>\r\n</div>";
 },"usePartial":true,"useData":true});
 
 /***/ }),
@@ -236,7 +236,7 @@ exports.default = selectedFiltersCount;
 var Handlebars = __webpack_require__(/*! handlebars */ 0);
 function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.escapeExpression, alias3=container.lambda;
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.escapeExpression, alias3=container.lambda;
 
   return "    <li class=\"gui item "
     + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/CheckLength.ts */ 19)).call(alias1,(data && data.index),5,{"name":"CheckLength","hash":{},"data":data}))
@@ -284,9 +284,13 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + alias2(alias3((depths[1] != null ? depths[1].type : depths[1]), depth0))
     + "\" \r\n                    type=\"checkbox\" />\r\n                    "
     + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/FormatLabelByType.ts */ 8)).call(alias1,(depths[1] != null ? depths[1].type : depths[1]),(depth0 != null ? depth0.label : depth0),{"name":"FormatLabelByType","hash":{},"data":data}))
-    + "\r\n            <span class=\"gui gui-subheading-1 m-0\">("
-    + alias2(alias3((depth0 != null ? depth0.count : depth0), depth0))
-    + ")</span>\r\n        </label>\r\n    </li>\r\n";
+    + "\r\n"
+    + ((stack1 = helpers["if"].call(alias1,((stack1 = (data && data.root)) && stack1.showCount),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "        </label>\r\n    </li>\r\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    return "                <span class=\"gui gui-subheading-1 m-0\">("
+    + container.escapeExpression(container.lambda((depth0 != null ? depth0.count : depth0), depth0))
+    + ")</span>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -788,7 +792,8 @@ var FacetTemplateService = /** @class */ (function () {
         nonFavorites.sort(this.compareFn);
         var noOfFacetToShow = this.configStore.Options.noOfFacetToShow;
         var idPrefix = this.configStore.Options.idPrefix;
-        return this.tempateFunctionForFacetMain({ idPrefix: idPrefix, favorites: favorites, nonFavorites: nonFavorites, noOfFacetToShow: noOfFacetToShow });
+        var showCount = this.configStore.Options.showCount;
+        return this.tempateFunctionForFacetMain({ idPrefix: idPrefix, favorites: favorites, nonFavorites: nonFavorites, noOfFacetToShow: noOfFacetToShow, showCount: showCount });
     };
     return FacetTemplateService;
 }());
@@ -811,17 +816,17 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 
   return "    <div class=\"facet-body gui fluid-h of-hidden gui-hidden\">"
     + ((stack1 = container.invokePartial(__webpack_require__(/*! ./src/hbs/facet-body.hbs */ 3),depth0,{"name":"facet-body","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "</div>\n";
+    + "</div>\r\n";
 },"3":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "    <div class=\"facet-body gui fluid-h of-hidden\">"
     + ((stack1 = container.invokePartial(__webpack_require__(/*! ./src/hbs/facet-body.hbs */ 3),depth0,{"name":"facet-body","data":data,"helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
-    + "</div>\n";
+    + "</div>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"gui fluid-h \">\n"
+  return "<div class=\"gui fluid-h \">\r\n"
     + ((stack1 = helpers["if"].call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.collapsed : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data})) != null ? stack1 : "")
     + "</div>";
 },"usePartial":true,"useData":true});
@@ -2073,6 +2078,7 @@ var FacetConfigStore = /** @class */ (function () {
             onPinUnpin: function (key, pin) {
                 // Ignore
             },
+            showCount: true,
         };
         this.extendOptions = function (inputOptions) {
             return _this.options = jQuery.extend({}, _this.defaultFacetOptions, inputOptions);
@@ -2246,18 +2252,18 @@ function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj);
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return "<section class=\"content facet-subheader gui fluid-w basic curved p-5\" aria-label=\"Applied Filters\">\n    <span class=\"gui gui-subheading-2 caps\">Applied Filters</span>\n    <button class=\"gui m-l-5 remove-all\" aria-label=\"Clear All Filters\">\n        <i class=\"gui-icon gui-icon-cancel\"></i>\n        <span>Clear All</span>\n    </button>\n    <span class=\"gui m-l-10\">\n"
+  return "<section class=\"content facet-subheader gui fluid-w basic curved p-5\" aria-label=\"Applied Filters\">\r\n    <span class=\"gui gui-subheading-2 caps\">Applied Filters</span>\r\n    <button class=\"gui m-l-5 remove-all\" aria-label=\"Clear All Filters\">\r\n        <i class=\"gui-icon gui-icon-cancel\"></i>\r\n        <span>Clear All</span>\r\n    </button>\r\n    <span class=\"gui m-l-10\">\r\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.filters : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </span>\n</section>\n";
+    + "    </span>\r\n</section>\r\n";
 },"2":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
-  return "        <span class=\"gui m-r-5\">\n            <span class=\"gui large labels facet-labels\">\n                <span class=\"gui gui-subheading-1\">"
+  return "        <span class=\"gui m-r-5\">\r\n            <span class=\"gui large labels facet-labels\">\r\n                <span class=\"gui gui-subheading-1\">"
     + container.escapeExpression(container.lambda((depth0 != null ? depth0.name : depth0), depth0))
-    + "</span>\n"
+    + "</span>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.facetValues : depth0),{"name":"each","hash":{},"fn":container.program(3, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.facetRanges : depth0),{"name":"each","hash":{},"fn":container.program(5, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "            </span>\n        </span>\n";
+    + "            </span>\r\n        </span>\r\n";
 },"3":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
@@ -2265,29 +2271,29 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + alias2(alias1((depth0 != null ? depth0.label : depth0), depth0))
     + " of "
     + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
-    + "\"\n                        class=\"gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover\" \n                        data-filter-entry=\""
+    + "\"\r\n                        class=\"gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover\" \r\n                        data-filter-entry=\""
     + alias2(alias1((depths[1] != null ? depths[1].id : depths[1]), depth0))
     + ":::"
     + alias2(alias1((depth0 != null ? depth0.label : depth0), depth0))
     + ":::"
     + alias2(alias1((depths[1] != null ? depths[1].type : depths[1]), depth0))
-    + "\">\n                    "
+    + "\">\r\n                    "
     + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/FormatLabelByType.ts */ 8)).call(depth0 != null ? depth0 : (container.nullContext || {}),(depths[1] != null ? depths[1].type : depths[1]),(depth0 != null ? depth0.label : depth0),{"name":"FormatLabelByType","hash":{},"data":data}))
-    + "\n                    <i class=\"gui-icon gui-icon-cancel\"></i>\n                </button>\n";
+    + "\r\n                    <i class=\"gui-icon gui-icon-cancel\"></i>\r\n                </button>\r\n";
 },"5":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
   return "                <button aria-label=\"Clear Range for filter "
     + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
-    + "\"\n                        class=\"gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover\" \n                        data-filter-entry=\""
+    + "\"\r\n                        class=\"gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover\" \r\n                        data-filter-entry=\""
     + alias2(alias1((depths[1] != null ? depths[1].id : depths[1]), depth0))
     + ":::"
     + alias2(alias1((depth0 != null ? depth0.label : depth0), depth0))
     + ":::"
     + alias2(alias1((depths[1] != null ? depths[1].type : depths[1]), depth0))
-    + ":::true\">\n                    "
+    + ":::true\">\r\n                    "
     + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/Range.ts */ 34)).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.min : depth0),(depth0 != null ? depth0.max : depth0),(depths[1] != null ? depths[1].type : depths[1]),{"name":"Range","hash":{},"data":data}))
-    + "\n                    <i class=\"gui-icon gui-icon-cancel\"></i>\n                </button>\n";
+    + "\r\n                    <i class=\"gui-icon gui-icon-cancel\"></i>\r\n                </button>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
