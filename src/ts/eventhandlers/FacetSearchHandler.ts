@@ -6,12 +6,12 @@ import {IEventHandler} from "./IEventHandler";
 import {ShowHide} from "./ShowHide";
 
 export class FacetSearchHandler implements IEventHandler {
-    constructor(private element: JQuery, private configStore: FacetConfigStore) {}
+    constructor(private element: any, private configStore: FacetConfigStore) {}
 
     public RegisterDomHandler(): void {
         this
             .element
-            .on("keyup", ".filter-search-input", debounce(250, this.handleSearch));
+            .on("keyup", ".filter-search-input", debounce(250, true, this.handleSearch));
 
     }
     public onResize(): void {

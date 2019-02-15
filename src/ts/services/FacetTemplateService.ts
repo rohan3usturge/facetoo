@@ -18,8 +18,8 @@ export class FacetTemplateService implements IFacetTemplateService {
     const mergedFacets = this.mergeWithFacetConfig(facets);
     const favorites = mergedFacets.filter((f) => f.pinned !== undefined && f.pinned);
     const nonFavorites = mergedFacets.filter((f) => f.pinned === undefined || !f.pinned);
-    favorites.sort(this.compareFn);
-    nonFavorites.sort(this.compareFn);
+    favorites.sort(this.configStore.Options.facetSortingFn);
+    nonFavorites.sort(this.configStore.Options.facetSortingFn);
     const noOfFacetToShow = this.configStore.Options.noOfFacetToShow;
     const idPrefix = this.configStore.Options.idPrefix;
     const showCount = this.configStore.Options.showCount;
@@ -30,15 +30,6 @@ export class FacetTemplateService implements IFacetTemplateService {
   }
   public getData = (): IFacet[] => {
     return this.data;
-  }
-  private compareFn = (prev: any, next: any) => {
-    if (prev.order === undefined) {
-      return -1;
-    }
-    if (next.order === undefined) {
-      return 1;
-    }
-    return prev.order - next.order;
   }
   private mergeWithFacetConfig = (facets: IFacet[]) => {
     const mergedArray: any[] = [];

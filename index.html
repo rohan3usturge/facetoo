@@ -14,13 +14,18 @@
             letter-spacing: 40px;
             /* arbitrarily large letter-spacing for safety */
         }
+
         :-webkit-scrollbar {
             width: 14px;
         }
-        .nav, .nav-tabs {
+
+        .nav,
+        .nav-tabs {
             list-style: none;
         }
-        .nav > li, .nav-tabs > li {
+
+        .nav>li,
+        .nav-tabs>li {
             display: inline-block;
         }
     </style>
@@ -60,14 +65,14 @@
                     { "min": "2015", "max": "" }
                 ]
             }];
-            // {
-            //     "id": "Facet2",
-            //     "name": "Facet 2 Name",
-            //     "type": "Edm.DateTimeOffset",
-            //     "facetRange": [
-            //         { "min": "2016-04-17T15:49:05.381Z", "max": "2018-04-17T15:49:05.381Z" }
-            //     ]
-            // }];
+        // {
+        //     "id": "Facet2",
+        //     "name": "Facet 2 Name",
+        //     "type": "Edm.DateTimeOffset",
+        //     "facetRange": [
+        //         { "min": "2016-04-17T15:49:05.381Z", "max": "2018-04-17T15:49:05.381Z" }
+        //     ]
+        // }];
 
         const facets = [];
         const facetValues = [];
@@ -84,7 +89,7 @@
                 "type": index === 2 ? "Edm.Int32" : "Edm.String",
                 "pinned": index % 5 == 0,
                 "collapsed": index % 8 == 0,
-                "order" : index
+                "order": index
             });
 
         }
@@ -113,7 +118,7 @@
     <button onclick="addFilters()">Add Filters</button>
     <button onclick="destroy()">Destroy Facete</button>
     <div style="display: flex;">
-        <div class="gui facet-container" style="height: 90%; width:30%;overflow: hidden;margin-top: 50px;" >
+        <div class="gui facet-container" style="height: 90%; width:30%;overflow: hidden;margin-top: 50px;">
             <div id="hi">
 
             </div>
@@ -127,18 +132,34 @@
             showCount: false,
             facetConfig: facetConfig,
             containerElement: document.getElementById("hi"),
-            onFilterChange: function(column, value, actionType, type, range){
+            onFilterChange: function (column, value, actionType, type, range) {
                 alert(column + value + actionType + type + range);
             },
-            onCollapseToggle: function(collapseSettings) {
+            onCollapseToggle: function (collapseSettings) {
                 console.log(collapseSettings);
+            },
+            facetSortingFn: function (prev, next) {
+                if (prev.name === undefined) {
+                    return -1;
+                }
+                if (next.name  === undefined) {
+                    return 1;
+                }
+                const prevName = prev.name.toLowerCase();
+                const nextName = next.name.toLowerCase();
+                if (prevName < nextName) {
+                    return -1;
+                }
+                if ( prevName > nextName) {
+                    return 1;
+                }
             }
         };
         var filterOptions = {
             filterConfig: facetConfig,
             containerElement: document.getElementById("hi1"),
-            onFilterChange: function(column, value, actionType, type, range){
-                alert(column + value + actionType + type +range);
+            onFilterChange: function (column, value, actionType, type, range) {
+                alert(column + value + actionType + type + range);
             }
         };
         var facet = new Facetoo.Facet(facetoptions);
