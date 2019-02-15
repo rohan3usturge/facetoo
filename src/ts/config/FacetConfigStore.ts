@@ -8,6 +8,15 @@ export class FacetConfigStore {
         collapsed: false,
         containerElement: null,
         facetConfig: [],
+        facetSortingFn: (prev: any, next: any) => {
+            if (prev.order === undefined) {
+              return -1;
+            }
+            if (next.order === undefined) {
+              return 1;
+            }
+            return prev.order - next.order;
+        },
         idPrefix: Math.floor((1 + Math.random()) * 0x1000000).toString(),
         noOfFacetToShow: 5,
         // facets: [],

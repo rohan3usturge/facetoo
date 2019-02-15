@@ -1,12 +1,12 @@
 export const KeyCodes = Object.freeze({
-    RETURN: 13,
-    SPACE: 32,
-    PAGEUP: 33,
-    PAGEDOWN: 34,
+    DOWN: 40,
     END: 35,
     HOME: 36,
     LEFT: 37,
-    UP: 38,
+    PAGEDOWN: 34,
+    PAGEUP: 33,
+    RETURN: 13,
     RIGHT: 39,
-    DOWN: 40,
+    SPACE: 32,
+    UP: 38,
 });
