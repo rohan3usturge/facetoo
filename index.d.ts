@@ -42,6 +42,7 @@ export interface IFacetOptions {
     noOfFacetToShow?: number;
     idPrefix?: string;
     showCount?: boolean;
+    facetSortingFn: (prev: any, next: any) => number;
 }
 
 export interface IFilterOptions {

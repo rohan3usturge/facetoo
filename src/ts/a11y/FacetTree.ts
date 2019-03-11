@@ -543,12 +543,6 @@ export class FacetTree {
                     groupItemMatched = true;
                 }
             }
-            // If group is matching expand the group
-            if ( groupItemMatched || childItemMatched ) {
-                groupItem.isVisible = true;
-                DomUtils.setAriaExpanded(groupItem.treeItemDomNode, "true");
-                DomUtils.show(groupItem.treeItemDomNode);
-            }
             // For Child Links
             if ( !ti.isExpandable && ti.groupTreeitem === groupItem ) {
                 // check if group matches set the visiblity to true except show more or less links
@@ -566,6 +560,12 @@ export class FacetTree {
                         DomUtils.hide(ti.treeItemDomNode.parentElement);
                     }
                 }
+            }
+            // If group is matching expand the group
+            if ( groupItemMatched || childItemMatched ) {
+                groupItem.isVisible = true;
+                DomUtils.setAriaExpanded(groupItem.treeItemDomNode, "true");
+                DomUtils.show(groupItem.treeItemDomNode);
             }
         }
     }

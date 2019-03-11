@@ -749,15 +749,6 @@ var FacetTemplateService = /** @class */ (function () {
         this.getData = function () {
             return _this.data;
         };
-        this.compareFn = function (prev, next) {
-            if (prev.order === undefined) {
-                return -1;
-            }
-            if (next.order === undefined) {
-                return 1;
-            }
-            return prev.order - next.order;
-        };
         this.mergeWithFacetConfig = function (facets) {
             var mergedArray = [];
             for (var _i = 0, facets_1 = facets; _i < facets_1.length; _i++) {
@@ -788,8 +779,8 @@ var FacetTemplateService = /** @class */ (function () {
         var mergedFacets = this.mergeWithFacetConfig(facets);
         var favorites = mergedFacets.filter(function (f) { return f.pinned !== undefined && f.pinned; });
         var nonFavorites = mergedFacets.filter(function (f) { return f.pinned === undefined || !f.pinned; });
-        favorites.sort(this.compareFn);
-        nonFavorites.sort(this.compareFn);
+        favorites.sort(this.configStore.Options.facetSortingFn);
+        nonFavorites.sort(this.configStore.Options.facetSortingFn);
         var noOfFacetToShow = this.configStore.Options.noOfFacetToShow;
         var idPrefix = this.configStore.Options.idPrefix;
         var showCount = this.configStore.Options.showCount;
@@ -1621,12 +1612,6 @@ var FacetTree = /** @class */ (function () {
                         groupItemMatched = true;
                     }
                 }
-                // If group is matching expand the group
-                if (groupItemMatched || childItemMatched) {
-                    groupItem.isVisible = true;
-                    DomUtils_1.DomUtils.setAriaExpanded(groupItem.treeItemDomNode, "true");
-                    DomUtils_1.DomUtils.show(groupItem.treeItemDomNode);
-                }
                 // For Child Links
                 if (!ti.isExpandable && ti.groupTreeitem === groupItem) {
                     // check if group matches set the visiblity to true except show more or less links
@@ -1646,6 +1631,12 @@ var FacetTree = /** @class */ (function () {
                             DomUtils_1.DomUtils.hide(ti.treeItemDomNode.parentElement);
                         }
                     }
+                }
+                // If group is matching expand the group
+                if (groupItemMatched || childItemMatched) {
+                    groupItem.isVisible = true;
+                    DomUtils_1.DomUtils.setAriaExpanded(groupItem.treeItemDomNode, "true");
+                    DomUtils_1.DomUtils.show(groupItem.treeItemDomNode);
                 }
             }
         };
@@ -2033,16 +2024,16 @@ exports.FacetTreeItem = FacetTreeItem;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KeyCodes = Object.freeze({
-    RETURN: 13,
-    SPACE: 32,
-    PAGEUP: 33,
-    PAGEDOWN: 34,
+    DOWN: 40,
     END: 35,
     HOME: 36,
     LEFT: 37,
-    UP: 38,
+    PAGEDOWN: 34,
+    PAGEUP: 33,
+    RETURN: 13,
     RIGHT: 39,
-    DOWN: 40,
+    SPACE: 32,
+    UP: 38,
 });
 
 
@@ -2066,6 +2057,15 @@ var FacetConfigStore = /** @class */ (function () {
             collapsed: false,
             containerElement: null,
             facetConfig: [],
+            facetSortingFn: function (prev, next) {
+                if (prev.order === undefined) {
+                    return -1;
+                }
+                if (next.order === undefined) {
+                    return 1;
+                }
+                return prev.order - next.order;
+            },
             idPrefix: Math.floor((1 + Math.random()) * 0x1000000).toString(),
             noOfFacetToShow: 5,
             // facets: [],
@@ -2793,7 +2793,7 @@ var FacetSearchHandler = /** @class */ (function () {
     FacetSearchHandler.prototype.RegisterDomHandler = function () {
         this
             .element
-            .on("keyup", ".filter-search-input", throttle_debounce_1.debounce(250, this.handleSearch));
+            .on("keyup", ".filter-search-input", throttle_debounce_1.debounce(250, true, this.handleSearch));
     };
     FacetSearchHandler.prototype.onResize = function () {
         // Ignore
