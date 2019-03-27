@@ -45,10 +45,14 @@ export class ShowMoreLessFiltersHandler implements IEventHandler {
     }
     public onBind(): void {
         const facetContainer = this.element.find(this.facetContainerClass);
+        const oneButton = facetContainer.find(".filter-button").first();
+        if ( oneButton.length ) {
+            this.maxHeightForContainer = oneButton.outerHeight(true);
+        }
         const showLessLink = this.element.find(this.showLessLinkClass);
         const showMoreLink = this.element.find(this.showMoreLinkClass);
         const currentHeight = facetContainer.height();
-        if ( currentHeight > this.maxHeightForContainer) {
+        if ( currentHeight > this.maxHeightForContainer ) {
             facetContainer.css("max-height", `${this.maxHeightForContainer}px`);
             showLessLink.addClass("gui-hidden");
             showMoreLink.removeClass("gui-hidden");

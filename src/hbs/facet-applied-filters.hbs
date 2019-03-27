@@ -1,6 +1,11 @@
 {{#if filters.length}}
-<section class="content facet-subheader facet-applied-filters gui flex fluid-w basic curved p-5" aria-label="Applied Filters">
-    <div class="gui m-0 m-l-5 gui-subheading-2 caps no-wrap">Applied Filters</div>
+<section class="content facet-subheader facet-applied-filters gui flex fluid-w basic curved"
+    aria-label="Applied Filters">
+    <div class="gui m-0 m-l-5 no-wrap">
+        <span class="gui-subheading-2 caps gui">
+            Applied Filters
+        </span>
+    </div>
     <div class="gui m-l-5 no-wrap">
         <button class="gui remove-all" aria-label="Clear All Filters">
             <i class="gui-icon gui-icon-cancel"></i>
@@ -14,16 +19,16 @@
                 <span class="gui gui-subheading-1">{{name}}</span>
                 {{#each facetValues}}
                 <button aria-label="Clear filter {{this.label}} of {{name}}"
-                        class="gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover" 
-                        data-filter-entry="{{../id}}:::{{this.label}}:::{{../type}}">
+                    class="gui m-0 m-t-2 m-r-2 p-4 label filter-button cursor-pointer strikethrough-hover"
+                    data-filter-entry="{{../id}}:::{{this.label}}:::{{../type}}">
                     {{FormatLabelByType ../type label}}
                     <i class="gui-icon gui-icon-cancel"></i>
                 </button>
                 {{/each}}
                 {{#each facetRanges}}
                 <button aria-label="Clear Range for filter {{name}}"
-                        class="gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover" 
-                        data-filter-entry="{{../id}}:::{{this.label}}:::{{../type}}:::true">
+                    class="gui m-0 m-t-2 m-r-2 p-4 label filter-button cursor-pointer strikethrough-hover"
+                    data-filter-entry="{{../id}}:::{{this.label}}:::{{../type}}:::true">
                     {{Range min max ../type}}
                     <i class="gui-icon gui-icon-cancel"></i>
                 </button>
@@ -33,20 +38,12 @@
         {{/each}}
     </div>
     <div class="gui no-wrap m-l-2">
-        <a
-            tabindex="0"
-            data-attr-value="Show More"
-            aria-label="Press enter to show more values"
-            class="gui caps gui-body-2 simple show-more-filters-link cursor-pointer p-0 m-t-3"
-        >
+        <a tabindex="0" data-attr-value="Show More" aria-label="Press enter to show more values"
+            class="gui caps gui-body-2 simple show-more-filters-link cursor-pointer p-0 m-t-3">
             Show More
         </a>
-        <a
-            tabindex="0"
-            data-attr-value="Show Less"
-            aria-label="Press enter to show less values"
-            class="gui caps gui-body-2 simple show-less-filters-link cursor-pointer p-0 m-t-3"
-        >
+        <a tabindex="0" data-attr-value="Show Less" aria-label="Press enter to show less values"
+            class="gui caps gui-body-2 simple show-less-filters-link cursor-pointer p-0 m-t-3">
             Show Less
         </a>
     </div>

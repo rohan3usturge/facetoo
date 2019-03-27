@@ -2239,6 +2239,10 @@ var ShowMoreLessFiltersHandler = /** @class */ (function () {
     };
     ShowMoreLessFiltersHandler.prototype.onBind = function () {
         var facetContainer = this.element.find(this.facetContainerClass);
+        var oneButton = facetContainer.find(".filter-button").first();
+        if (oneButton.length) {
+            this.maxHeightForContainer = oneButton.outerHeight(true);
+        }
         var showLessLink = this.element.find(this.showLessLinkClass);
         var showMoreLink = this.element.find(this.showMoreLinkClass);
         var currentHeight = facetContainer.height();
@@ -2327,9 +2331,9 @@ function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj);
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return "<section class=\"content facet-subheader facet-applied-filters gui flex fluid-w basic curved p-5\" aria-label=\"Applied Filters\">\r\n    <div class=\"gui m-0 m-l-5 gui-subheading-2 caps no-wrap\">Applied Filters</div>\r\n    <div class=\"gui m-l-5 no-wrap\">\r\n        <button class=\"gui remove-all\" aria-label=\"Clear All Filters\">\r\n            <i class=\"gui-icon gui-icon-cancel\"></i>\r\n            <span>Clear All</span>\r\n        </button>\r\n    </div>\r\n    <div class=\"gui m-l-5 of-hidden\">\r\n"
+  return "<section class=\"content facet-subheader facet-applied-filters gui flex fluid-w basic curved\"\r\n    aria-label=\"Applied Filters\">\r\n    <div class=\"gui m-0 m-l-5 no-wrap\">\r\n        <span class=\"gui-subheading-2 caps gui\">\r\n            Applied Filters\r\n        </span>\r\n    </div>\r\n    <div class=\"gui m-l-5 no-wrap\">\r\n        <button class=\"gui remove-all\" aria-label=\"Clear All Filters\">\r\n            <i class=\"gui-icon gui-icon-cancel\"></i>\r\n            <span>Clear All</span>\r\n        </button>\r\n    </div>\r\n    <div class=\"gui m-l-5 of-hidden\">\r\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.filters : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </div>\r\n    <div class=\"gui no-wrap m-l-2\">\r\n        <a\r\n            tabindex=\"0\"\r\n            data-attr-value=\"Show More\"\r\n            aria-label=\"Press enter to show more values\"\r\n            class=\"gui caps gui-body-2 simple show-more-filters-link cursor-pointer p-0 m-t-3\"\r\n        >\r\n            Show More\r\n        </a>\r\n        <a\r\n            tabindex=\"0\"\r\n            data-attr-value=\"Show Less\"\r\n            aria-label=\"Press enter to show less values\"\r\n            class=\"gui caps gui-body-2 simple show-less-filters-link cursor-pointer p-0 m-t-3\"\r\n        >\r\n            Show Less\r\n        </a>\r\n    </div>\r\n</section>\r\n";
+    + "    </div>\r\n    <div class=\"gui no-wrap m-l-2\">\r\n        <a tabindex=\"0\" data-attr-value=\"Show More\" aria-label=\"Press enter to show more values\"\r\n            class=\"gui caps gui-body-2 simple show-more-filters-link cursor-pointer p-0 m-t-3\">\r\n            Show More\r\n        </a>\r\n        <a tabindex=\"0\" data-attr-value=\"Show Less\" aria-label=\"Press enter to show less values\"\r\n            class=\"gui caps gui-body-2 simple show-less-filters-link cursor-pointer p-0 m-t-3\">\r\n            Show Less\r\n        </a>\r\n    </div>\r\n</section>\r\n";
 },"2":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -2346,7 +2350,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + alias2(alias1((depth0 != null ? depth0.label : depth0), depth0))
     + " of "
     + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
-    + "\"\r\n                        class=\"gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover\" \r\n                        data-filter-entry=\""
+    + "\"\r\n                    class=\"gui m-0 m-t-2 m-r-2 p-4 label filter-button cursor-pointer strikethrough-hover\"\r\n                    data-filter-entry=\""
     + alias2(alias1((depths[1] != null ? depths[1].id : depths[1]), depth0))
     + ":::"
     + alias2(alias1((depth0 != null ? depth0.label : depth0), depth0))
@@ -2360,7 +2364,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 
   return "                <button aria-label=\"Clear Range for filter "
     + alias2(alias1((depth0 != null ? depth0.name : depth0), depth0))
-    + "\"\r\n                        class=\"gui m-0 m-t-2 m-r-2 p-4 label cursor-pointer strikethrough-hover\" \r\n                        data-filter-entry=\""
+    + "\"\r\n                    class=\"gui m-0 m-t-2 m-r-2 p-4 label filter-button cursor-pointer strikethrough-hover\"\r\n                    data-filter-entry=\""
     + alias2(alias1((depths[1] != null ? depths[1].id : depths[1]), depth0))
     + ":::"
     + alias2(alias1((depth0 != null ? depth0.label : depth0), depth0))
