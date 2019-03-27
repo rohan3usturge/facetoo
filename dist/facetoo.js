@@ -643,7 +643,6 @@ var FacetConfigStore_1 = __webpack_require__(/*! ./../config/FacetConfigStore */
 var Facet = /** @class */ (function () {
     function Facet(options) {
         var _this = this;
-        this.handlerChain = [];
         this.bind = function (facets) {
             _this.templateService.setData(facets);
             _this.reRender();
@@ -653,7 +652,6 @@ var Facet = /** @class */ (function () {
                 var data = _this.templateService.getData();
                 var fullFacet = _this.templateService.bind(data);
                 _this.facetElement.innerHTML = fullFacet;
-                var trees = document.querySelectorAll('[role="tree"]');
                 _this.facetTree = new FacetTree_1.FacetTree(_this.configStore.Options.containerElement, _this, _this.configStore);
                 _this.facetTree.init();
                 _this.setFocusToLastElement();
@@ -708,18 +706,6 @@ var Facet = /** @class */ (function () {
         this.configStore = new FacetConfigStore_1.FacetConfigStore(options);
         this.facetElement = options.containerElement;
         this.templateService = new FacetTemplateService_1.FacetTemplateService(this.configStore);
-        // this.handlerChain.push(new ExpandCollapseFacetsHandler(this.facetElement,
-        //     this.configStore, this.templateService));
-        // this.handlerChain.push(new FacetActionHandler(this.facetElement, this.configStore));
-        // this.handlerChain.push(new FacetSearchHandler(this.facetElement, this.configStore));
-        // this.handlerChain.push(new HideFacetSectionHandler(this.facetElement, this.configStore));
-        // this.handlerChain.push(new HotKeysFacetHandler());
-        // this.handlerChain.push(new PinUnpinEventHandler(this.facetElement, this.configStore, this.templateService));
-        // // this.handlerChain.push(new ShowMoreLessHandler(this.facetElement, this.configStore));
-        // // this.handlerChain.push(new FacetKeyBoardNavigationHandler(this.facetElement));
-        // this.handlerChain.forEach((handler) => {
-        //     handler.RegisterDomHandler();
-        // });
     }
     return Facet;
 }());
@@ -1005,23 +991,7 @@ exports.default = hidden;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ShowMoreLessLink = function (index, v2, options) {
     if (index.length > v2) {
-        return "<li class=\"gui m-b-5 m-t-5\">"
-            + "<a tabindex=\"0\" role=\"treeitem\" "
-            + "data-attr-id=\"{{id}}\" "
-            + "data-attr-value=\"Show More\" "
-            + "aria-label=\"Press enter to show " + (index.length - v2) + " more values\" "
-            + "class=\"gui caps gui-body-2 simple show-more-link cursor-pointer p-0 m-t-3\">"
-            + (index.length - v2) + " More"
-            + "</a>"
-            + "</li>"
-            + "<li class=\"gui m-b-5 m-t-5 gui-hidden\">"
-            + "<a tabindex=\"0\" role=\"treeitem\" "
-            + "data-attr-value=\"Show Less\" "
-            + "aria-label=\"Press enter to show less values\" "
-            + "class=\"gui caps gui-body-2 simple show-less-link cursor-pointer p-0 m-t-3\">"
-            + "Show Less" +
-            "</a>"
-            + "</li>";
+        return "<li class=\"gui m-b-5 m-t-5\">\n                <a  tabindex=\"0\" role=\"treeitem\"\n                    data-attr-id=\"{{id}}\"\n                    data-attr-value=\"Show More\"\n                    aria-label=\"Press enter to show " + (index.length - v2) + " more values\"\n                    class=\"gui caps gui-body-2 simple show-more-link cursor-pointer p-0 m-t-3\"\n                >\n                    " + (index.length - v2) + " More\n                </a>\n            </li>\n            <li class=\"gui m-b-5 m-t-5 gui-hidden\">\n                <a  tabindex=\"0\"\n                    role=\"treeitem\"\n                    data-attr-value=\"Show Less\"\n                    aria-label=\"Press enter to show less values\"\n                    class=\"gui caps gui-hidden gui-body-2 simple show-less-link cursor-pointer p-0 m-t-3\"\n                >\n                     Show Less\n                </a>\n            </li>";
     }
     else {
         return "";
@@ -2111,9 +2081,10 @@ exports.FacetConfigStore = FacetConfigStore;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var HotKeysFiltersHandler_1 = __webpack_require__(/*! ../eventhandlers/HotKeysFiltersHandler */ 31);
-var FilterTemplateService_1 = __webpack_require__(/*! ../services/FilterTemplateService */ 32);
-var FilterConfigStore_1 = __webpack_require__(/*! ./../config/FilterConfigStore */ 35);
-var eventhandlers_1 = __webpack_require__(/*! ./../eventhandlers */ 36);
+var ShowMoreLessFiltersHandler_1 = __webpack_require__(/*! ../eventhandlers/ShowMoreLessFiltersHandler */ 32);
+var FilterTemplateService_1 = __webpack_require__(/*! ../services/FilterTemplateService */ 33);
+var FilterConfigStore_1 = __webpack_require__(/*! ./../config/FilterConfigStore */ 36);
+var eventhandlers_1 = __webpack_require__(/*! ./../eventhandlers */ 37);
 var Filter = /** @class */ (function () {
     function Filter(options) {
         var _this = this;
@@ -2122,6 +2093,11 @@ var Filter = /** @class */ (function () {
             setTimeout(function () {
                 var facetSubHeader = _this.templateService.bind(filters);
                 _this.filterElement.html(facetSubHeader);
+                _this.handlerChain.forEach(function (handler) {
+                    if (handler !== undefined && handler.onBind !== undefined) {
+                        handler.onBind();
+                    }
+                });
             }, 1);
         };
         this.destroy = function () {
@@ -2138,6 +2114,7 @@ var Filter = /** @class */ (function () {
         this.filterElement = jQuery(options.containerElement);
         this.templateService = new FilterTemplateService_1.FilterTemplateService(this.configStore);
         this.handlerChain.push(new eventhandlers_1.FilterActionHandler(this.filterElement, this.configStore));
+        this.handlerChain.push(new ShowMoreLessFiltersHandler_1.ShowMoreLessFiltersHandler(this.filterElement));
         this.handlerChain.push(new HotKeysFiltersHandler_1.HotKeysFiltersHandler());
         this.handlerChain.forEach(function (handler) {
             handler.RegisterDomHandler();
@@ -2189,6 +2166,104 @@ exports.HotKeysFiltersHandler = HotKeysFiltersHandler;
 
 /***/ }),
 /* 32 */
+/*!************************************************************!*\
+  !*** ./src/ts/eventhandlers/ShowMoreLessFiltersHandler.ts ***!
+  \************************************************************/
+/*! dynamic exports provided */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ShowMoreLessFiltersHandler = /** @class */ (function () {
+    function ShowMoreLessFiltersHandler(element) {
+        var _this = this;
+        this.element = element;
+        this.showLessLinkClass = ".show-less-filters-link";
+        this.showMoreLinkClass = ".show-more-filters-link";
+        this.facetContainerClass = ".facet-applied-filters";
+        this.maxHeightForContainer = 37;
+        this.toggleFacetSection = function (show) {
+            var showLessLink = _this.element.find(_this.showLessLinkClass);
+            var showMoreLink = _this.element.find(_this.showMoreLinkClass);
+            var facetContainer = _this.element.find(_this.facetContainerClass);
+            if (show) {
+                facetContainer.css("max-height", "");
+                showLessLink.removeClass("gui-hidden");
+                showMoreLink.addClass("gui-hidden");
+            }
+            else {
+                facetContainer.css("max-height", _this.maxHeightForContainer + "px");
+                showLessLink.addClass("gui-hidden");
+                showMoreLink.removeClass("gui-hidden");
+            }
+        };
+    }
+    ShowMoreLessFiltersHandler.prototype.RegisterDomHandler = function () {
+        var _this = this;
+        this
+            .element
+            .on("click", this.showMoreLinkClass, function (event) {
+            _this.showMoreLessFilters(event, true);
+        });
+        this
+            .element
+            .on("click", this.showLessLinkClass, function (event) {
+            _this.showMoreLessFilters(event, false);
+        });
+        this
+            .element
+            .on("keyup", this.showMoreLinkClass, function (event) {
+            var code = event.keyCode || event.which;
+            if (code !== 13 && code !== 32) {
+                return;
+            }
+            _this.showMoreLessFilters(event, true);
+        });
+        this
+            .element
+            .on("keyup", this.showLessLinkClass, function (event) {
+            var code = event.keyCode || event.which;
+            if (code !== 13 && code !== 32) {
+                return;
+            }
+            _this.showMoreLessFilters(event, false);
+        });
+    };
+    ShowMoreLessFiltersHandler.prototype.onResize = function () {
+        // Ignore
+    };
+    ShowMoreLessFiltersHandler.prototype.onDocumentClick = function (event) {
+        // Ignore
+    };
+    ShowMoreLessFiltersHandler.prototype.onBind = function () {
+        var facetContainer = this.element.find(this.facetContainerClass);
+        var showLessLink = this.element.find(this.showLessLinkClass);
+        var showMoreLink = this.element.find(this.showMoreLinkClass);
+        var currentHeight = facetContainer.height();
+        if (currentHeight > this.maxHeightForContainer) {
+            facetContainer.css("max-height", this.maxHeightForContainer + "px");
+            showLessLink.addClass("gui-hidden");
+            showMoreLink.removeClass("gui-hidden");
+        }
+        else {
+            facetContainer.css("max-height", "");
+            showLessLink.addClass("gui-hidden");
+            showMoreLink.addClass("gui-hidden");
+        }
+    };
+    ShowMoreLessFiltersHandler.prototype.showMoreLessFilters = function (event, showMore) {
+        this.toggleFacetSection(showMore);
+        event.stopPropagation();
+    };
+    return ShowMoreLessFiltersHandler;
+}());
+exports.ShowMoreLessFiltersHandler = ShowMoreLessFiltersHandler;
+
+
+/***/ }),
+/* 33 */
 /*!**************************************************!*\
   !*** ./src/ts/services/FilterTemplateService.ts ***!
   \**************************************************/
@@ -2199,7 +2274,7 @@ exports.HotKeysFiltersHandler = HotKeysFiltersHandler;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var FacetSubHeader = __webpack_require__(/*! ./../../hbs/facet-applied-filters.hbs */ 33);
+var FacetSubHeader = __webpack_require__(/*! ./../../hbs/facet-applied-filters.hbs */ 34);
 var FilterTemplateService = /** @class */ (function () {
     function FilterTemplateService(configStore) {
         var _this = this;
@@ -2239,7 +2314,7 @@ exports.FilterTemplateService = FilterTemplateService;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /*!*******************************************!*\
   !*** ./src/hbs/facet-applied-filters.hbs ***!
   \*******************************************/
@@ -2252,9 +2327,9 @@ function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj);
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
 
-  return "<section class=\"content facet-subheader gui fluid-w basic curved p-5\" aria-label=\"Applied Filters\">\r\n    <span class=\"gui gui-subheading-2 caps\">Applied Filters</span>\r\n    <button class=\"gui m-l-5 remove-all\" aria-label=\"Clear All Filters\">\r\n        <i class=\"gui-icon gui-icon-cancel\"></i>\r\n        <span>Clear All</span>\r\n    </button>\r\n    <span class=\"gui m-l-10\">\r\n"
+  return "<section class=\"content facet-subheader facet-applied-filters gui flex fluid-w basic curved p-5\" aria-label=\"Applied Filters\">\r\n    <div class=\"gui m-0 m-l-5 gui-subheading-2 caps no-wrap\">Applied Filters</div>\r\n    <div class=\"gui m-l-5 no-wrap\">\r\n        <button class=\"gui remove-all\" aria-label=\"Clear All Filters\">\r\n            <i class=\"gui-icon gui-icon-cancel\"></i>\r\n            <span>Clear All</span>\r\n        </button>\r\n    </div>\r\n    <div class=\"gui m-l-5 of-hidden\">\r\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.filters : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    </span>\r\n</section>\r\n";
+    + "    </div>\r\n    <div class=\"gui no-wrap m-l-2\">\r\n        <a\r\n            tabindex=\"0\"\r\n            data-attr-value=\"Show More\"\r\n            aria-label=\"Press enter to show more values\"\r\n            class=\"gui caps gui-body-2 simple show-more-filters-link cursor-pointer p-0 m-t-3\"\r\n        >\r\n            Show More\r\n        </a>\r\n        <a\r\n            tabindex=\"0\"\r\n            data-attr-value=\"Show Less\"\r\n            aria-label=\"Press enter to show less values\"\r\n            class=\"gui caps gui-body-2 simple show-less-filters-link cursor-pointer p-0 m-t-3\"\r\n        >\r\n            Show Less\r\n        </a>\r\n    </div>\r\n</section>\r\n";
 },"2":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
 
@@ -2292,7 +2367,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
     + ":::"
     + alias2(alias1((depths[1] != null ? depths[1].type : depths[1]), depth0))
     + ":::true\">\r\n                    "
-    + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/Range.ts */ 34)).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.min : depth0),(depth0 != null ? depth0.max : depth0),(depths[1] != null ? depths[1].type : depths[1]),{"name":"Range","hash":{},"data":data}))
+    + alias2(__default(__webpack_require__(/*! ./src/hbs/helpers/Range.ts */ 35)).call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.min : depth0),(depth0 != null ? depth0.max : depth0),(depths[1] != null ? depths[1].type : depths[1]),{"name":"Range","hash":{},"data":data}))
     + "\r\n                    <i class=\"gui-icon gui-icon-cancel\"></i>\r\n                </button>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
     var stack1;
@@ -2301,7 +2376,7 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 },"useData":true,"useDepths":true});
 
 /***/ }),
-/* 34 */
+/* 35 */
 /*!**********************************!*\
   !*** ./src/hbs/helpers/Range.ts ***!
   \**********************************/
@@ -2337,7 +2412,7 @@ exports.default = range;
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /*!********************************************!*\
   !*** ./src/ts/config/FilterConfigStore.ts ***!
   \********************************************/
@@ -2383,7 +2458,7 @@ exports.FilterConfigStore = FilterConfigStore;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /*!***************************************!*\
   !*** ./src/ts/eventhandlers/index.ts ***!
   \***************************************/
@@ -2397,18 +2472,18 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(/*! ./ExpandCollapseFacetsHandler */ 37));
-__export(__webpack_require__(/*! ./FacetActionHandler */ 38));
-__export(__webpack_require__(/*! ./FacetSearchHandler */ 39));
-__export(__webpack_require__(/*! ./FilterActionHandler */ 42));
-__export(__webpack_require__(/*! ./HideFacetSectionHandler */ 43));
-__export(__webpack_require__(/*! ./PinUnpinEventHandler */ 44));
-__export(__webpack_require__(/*! ./ShowMoreLessHandler */ 45));
-__export(__webpack_require__(/*! ../eventhandlers/FacetKeyBoardNavigationHandler */ 46));
+__export(__webpack_require__(/*! ./ExpandCollapseFacetsHandler */ 38));
+__export(__webpack_require__(/*! ./FacetActionHandler */ 39));
+__export(__webpack_require__(/*! ./FacetSearchHandler */ 40));
+__export(__webpack_require__(/*! ./FilterActionHandler */ 43));
+__export(__webpack_require__(/*! ./HideFacetSectionHandler */ 44));
+__export(__webpack_require__(/*! ./PinUnpinEventHandler */ 45));
+__export(__webpack_require__(/*! ./ShowMoreLessHandler */ 46));
+__export(__webpack_require__(/*! ../eventhandlers/FacetKeyBoardNavigationHandler */ 47));
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /*!*************************************************************!*\
   !*** ./src/ts/eventhandlers/ExpandCollapseFacetsHandler.ts ***!
   \*************************************************************/
@@ -2619,7 +2694,7 @@ exports.ExpandCollapseFacetsHandler = ExpandCollapseFacetsHandler;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /*!****************************************************!*\
   !*** ./src/ts/eventhandlers/FacetActionHandler.ts ***!
   \****************************************************/
@@ -2660,7 +2735,7 @@ exports.FacetActionHandler = FacetActionHandler;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /*!****************************************************!*\
   !*** ./src/ts/eventhandlers/FacetSearchHandler.ts ***!
   \****************************************************/
@@ -2671,7 +2746,7 @@ exports.FacetActionHandler = FacetActionHandler;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var throttle_debounce_1 = __webpack_require__(/*! throttle-debounce */ 40);
+var throttle_debounce_1 = __webpack_require__(/*! throttle-debounce */ 41);
 var ExpandCollapseManager_1 = __webpack_require__(/*! ./ExpandCollapseManager */ 12);
 var ShowHide_1 = __webpack_require__(/*! ./ShowHide */ 2);
 var FacetSearchHandler = /** @class */ (function () {
@@ -2807,7 +2882,7 @@ exports.FacetSearchHandler = FacetSearchHandler;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /*!*************************************************!*\
   !*** ./node_modules/throttle-debounce/index.js ***!
   \*************************************************/
@@ -2816,7 +2891,7 @@ exports.FacetSearchHandler = FacetSearchHandler;
 /***/ (function(module, exports, __webpack_require__) {
 
 var throttle = __webpack_require__(/*! ./throttle */ 13);
-var debounce = __webpack_require__(/*! ./debounce */ 41);
+var debounce = __webpack_require__(/*! ./debounce */ 42);
 
 module.exports = {
 	throttle: throttle,
@@ -2825,7 +2900,7 @@ module.exports = {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /*!****************************************************!*\
   !*** ./node_modules/throttle-debounce/debounce.js ***!
   \****************************************************/
@@ -2857,7 +2932,7 @@ module.exports = function ( delay, atBegin, callback ) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /*!*****************************************************!*\
   !*** ./src/ts/eventhandlers/FilterActionHandler.ts ***!
   \*****************************************************/
@@ -2907,7 +2982,7 @@ exports.FilterActionHandler = FilterActionHandler;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /*!*********************************************************!*\
   !*** ./src/ts/eventhandlers/HideFacetSectionHandler.ts ***!
   \*********************************************************/
@@ -2966,7 +3041,7 @@ exports.HideFacetSectionHandler = HideFacetSectionHandler;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /*!******************************************************!*\
   !*** ./src/ts/eventhandlers/PinUnpinEventHandler.ts ***!
   \******************************************************/
@@ -3036,7 +3111,7 @@ exports.PinUnpinEventHandler = PinUnpinEventHandler;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /*!*****************************************************!*\
   !*** ./src/ts/eventhandlers/ShowMoreLessHandler.ts ***!
   \*****************************************************/
@@ -3117,7 +3192,7 @@ exports.ShowMoreLessHandler = ShowMoreLessHandler;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /*!****************************************************************!*\
   !*** ./src/ts/eventhandlers/FacetKeyBoardNavigationHandler.ts ***!
   \****************************************************************/

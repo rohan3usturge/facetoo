@@ -1,10 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-  .BundleAnalyzerPlugin;
-const DashboardPlugin = require("webpack-dashboard/plugin");
-const Dashboard = require("webpack-dashboard");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const PORT = 8081;
 
 const libraryName = "Facetoo";
@@ -154,14 +149,6 @@ module.exports = (env = {}) => {
           NODE_ENV: JSON.stringify(isDev ? "development" : "production")
         }
       }),
-      ...(isDashboard
-        ? [
-            new DashboardPlugin({
-              port: PORT,
-              handler: new Dashboard().setData
-            })
-          ]
-        : []),
       ...(isDev
         ? [
             new webpack.HotModuleReplacementPlugin({
@@ -186,7 +173,6 @@ module.exports = (env = {}) => {
             })
           ]
         : []),
-      ...(isAnalyze ? [new BundleAnalyzerPlugin()] : []),
       ...(isBuild ? [new DtsBundlePlugin()] : [])
     ]
   };

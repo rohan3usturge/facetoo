@@ -1,14 +1,10 @@
-import * as Handlebars from "handlebars";
 import { IFacet } from "../models/IFacet";
 import * as FacetSubHeader from "./../../hbs/facet-applied-filters.hbs";
 import { FilterConfigStore } from "./../config/FilterConfigStore";
 import { IFilterTemplateService } from "./IFilterTemplateService";
 
 export class FilterTemplateService implements IFilterTemplateService {
-    private tempateFunctionForFacetMain: any;
-    private tempateFunctionForFacetHeader: any;
     private tempateFunctionForFacetSubHeader: any;
-    private tempateFunctionForFacetBody: any;
     constructor(private configStore: FilterConfigStore) {
         this.tempateFunctionForFacetSubHeader = FacetSubHeader;
     }

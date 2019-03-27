@@ -1,9 +1,5 @@
 import {FacetConfigStore} from "./../config/FacetConfigStore";
-import {IFacetTemplateService} from "./../services/IFacetTemplateService";
-import {ExpandCollapseFacetsHandler} from "./ExpandCollapseFacetsHandler";
-import {ExpandCollapseManager} from "./ExpandCollapseManager";
 import {IEventHandler} from "./IEventHandler";
-import {ShowHide} from "./ShowHide";
 
 export class ShowMoreLessHandler implements IEventHandler {
     constructor(private element: JQuery, private configStore: FacetConfigStore) {}

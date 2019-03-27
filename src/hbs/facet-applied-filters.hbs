@@ -1,11 +1,13 @@
 {{#if filters.length}}
-<section class="content facet-subheader gui fluid-w basic curved p-5" aria-label="Applied Filters">
-    <span class="gui gui-subheading-2 caps">Applied Filters</span>
-    <button class="gui m-l-5 remove-all" aria-label="Clear All Filters">
-        <i class="gui-icon gui-icon-cancel"></i>
-        <span>Clear All</span>
-    </button>
-    <span class="gui m-l-10">
+<section class="content facet-subheader facet-applied-filters gui flex fluid-w basic curved p-5" aria-label="Applied Filters">
+    <div class="gui m-0 m-l-5 gui-subheading-2 caps no-wrap">Applied Filters</div>
+    <div class="gui m-l-5 no-wrap">
+        <button class="gui remove-all" aria-label="Clear All Filters">
+            <i class="gui-icon gui-icon-cancel"></i>
+            <span>Clear All</span>
+        </button>
+    </div>
+    <div class="gui m-l-5 of-hidden">
         {{#each filters}}
         <span class="gui m-r-5">
             <span class="gui large labels facet-labels">
@@ -29,6 +31,24 @@
             </span>
         </span>
         {{/each}}
-    </span>
+    </div>
+    <div class="gui no-wrap m-l-2">
+        <a
+            tabindex="0"
+            data-attr-value="Show More"
+            aria-label="Press enter to show more values"
+            class="gui caps gui-body-2 simple show-more-filters-link cursor-pointer p-0 m-t-3"
+        >
+            Show More
+        </a>
+        <a
+            tabindex="0"
+            data-attr-value="Show Less"
+            aria-label="Press enter to show less values"
+            class="gui caps gui-body-2 simple show-less-filters-link cursor-pointer p-0 m-t-3"
+        >
+            Show Less
+        </a>
+    </div>
 </section>
 {{/if}}
