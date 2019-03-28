@@ -1,11 +1,11 @@
 {{#if filters.length}}
-<section class="content facet-subheader facet-applied-filters gui flex fluid-w basic curved"
+<section class="content facet-subheader facet-applied-filters gui flex fluid-w h-auto basic curved"
     aria-label="Applied Filters">
-    <div class="gui m-0 m-l-5 no-wrap">
+    {{!-- <div class="gui m-0 m-l-5 no-wrap">
         <span class="gui-subheading-2 caps gui">
             Applied Filters
         </span>
-    </div>
+    </div> --}}
     <div class="gui m-l-5 no-wrap">
         <button class="gui remove-all" aria-label="Clear All Filters">
             <i class="gui-icon gui-icon-cancel"></i>
@@ -37,7 +37,7 @@
         </span>
         {{/each}}
     </div>
-    <div class="gui no-wrap m-l-2">
+    <div class="gui no-wrap m-l-2 m-r-10">
         <a tabindex="0" data-attr-value="Show More" aria-label="Press enter to show more values"
             class="gui caps gui-body-2 simple show-more-filters-link cursor-pointer p-0 m-t-3">
             Show More
