@@ -1,186 +1,194 @@
 <html>
-
-<head>
-    <script src="lib/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="http://localhost:8080/assignment-search/asgn-search.min.css" />
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="asgn-search.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
-    <script src="lib/handlebars.min.js"></script>
     <script src="facetoo.js"></script>
     <style>
-        .breaked {
-            width: 1em;
-            font-size: 40px;
-            letter-spacing: 40px;
-            /* arbitrarily large letter-spacing for safety */
-        }
+      .breaked {
+        width: 1em;
+        font-size: 40px;
+        letter-spacing: 40px;
+        /* arbitrarily large letter-spacing for safety */
+      }
 
-        :-webkit-scrollbar {
-            width: 14px;
-        }
+      :-webkit-scrollbar {
+        width: 14px;
+      }
 
-        .nav,
-        .nav-tabs {
-            list-style: none;
-        }
+      .nav,
+      .nav-tabs {
+        list-style: none;
+      }
 
-        .nav>li,
-        .nav-tabs>li {
-            display: inline-block;
-        }
+      .nav > li,
+      .nav-tabs > li {
+        display: inline-block;
+      }
     </style>
     <script>
-        function makeid() {
-            var text = "";
-            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      function makeid() {
+        var text = "";
+        var possible =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-            for (var i = 0; i < 10; i++)
-                text += possible.charAt(Math.floor(Math.random() * possible.length));
+        for (var i = 0; i < 10; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-            return text;
-        }
-        const filters = [
+        return text;
+      }
+      const filters = [
+        {
+          id: "Facet1",
+          name: null,
+          type: "Edm.String",
+          facetValues: [
+            { label: "377887", count: 10 },
+            { label: "377890", count: 10 },
+            { label: "377881", count: 5 },
+            { label: "377888", count: 5 },
+            { label: "377895", count: 5 },
+            { label: "377892", count: 3 },
+            { label: "377894", count: 3 },
+            { label: "377902", count: 3 },
+            { label: "377904", count: 3 },
+          ],
+        },
+        {
+          id: "Facet1",
+          name: null,
+          type: "Edm.String",
+          facetValues: [
+            { label: "377887", count: 10 },
+            { label: "377890", count: 10 },
+            { label: "377881", count: 5 },
+            { label: "377888", count: 5 },
+            { label: "377895", count: 5 },
+            { label: "377892", count: 3 },
+            { label: "377894", count: 3 },
+            { label: "377902", count: 3 },
+            { label: "377904", count: 3 },
+          ],
+        },
+      ];
+      // {
+      //     "id": "Facet2",
+      //     "name": "Facet 2 Name",
+      //     "type": "Edm.DateTimeOffset",
+      //     "facetRange": [
+      //         { "min": "2016-04-17T15:49:05.381Z", "max": "2018-04-17T15:49:05.381Z" }
+      //     ]
+      // }];
+
+      const facets = [];
+      const facetValues = [];
+      const facetConfig = [];
+      for (let index = 0; index < 15; index++) {
+        facetValues.push({
+          label: "Label" + makeid(),
+          count: 23 * index,
+          selected: index % 5 == 2,
+        });
+      }
+      for (let index = 0; index < 10; index++) {
+        facetConfig.push({
+          id: "Facet" + index,
+          name: makeid(),
+          type: index === 2 ? "Edm.Int32" : "Edm.String",
+          pinned: index % 5 == 0,
+          collapsed: index % 8 == 0,
+          order: index,
+        });
+      }
+      for (let index = 0; index < 30; index++) {
+        facets.push({
+          id: "Facet" + index,
+          facetValues: facetValues,
+          facetRanges: [
             {
-                "id": "Facet1",
-                "name": null,
-                "type": "Edm.String",
-                "facetValues": [
-                    { "label": "377887", "count": 10 },
-                    { "label": "377890", "count": 10 },
-                    { "label": "377881", "count": 5 },
-                    { "label": "377888", "count": 5 },
-                    { "label": "377895", "count": 5 },
-                    { "label": "377892", "count": 3 },
-                    { "label": "377894", "count": 3 },
-                    { "label": "377902", "count": 3 },
-                    { "label": "377904", "count": 3 }
-                ]
+              min: null,
+              max: null,
+              isMinIncluded: false,
+              isMaxIncluded: false,
             },
-            {
-                "id": "Facet1",
-                "name": null,
-                "type": "Edm.String",
-                "facetValues": [
-                    { "label": "377887", "count": 10 },
-                    { "label": "377890", "count": 10 },
-                    { "label": "377881", "count": 5 },
-                    { "label": "377888", "count": 5 },
-                    { "label": "377895", "count": 5 },
-                    { "label": "377892", "count": 3 },
-                    { "label": "377894", "count": 3 },
-                    { "label": "377902", "count": 3 },
-                    { "label": "377904", "count": 3 }
-                ]
-            }];
-        // {
-        //     "id": "Facet2",
-        //     "name": "Facet 2 Name",
-        //     "type": "Edm.DateTimeOffset",
-        //     "facetRange": [
-        //         { "min": "2016-04-17T15:49:05.381Z", "max": "2018-04-17T15:49:05.381Z" }
-        //     ]
-        // }];
-
-        const facets = [];
-        const facetValues = [];
-        const facetConfig = [];
-        for (let index = 0; index < 15; index++) {
-            facetValues.push({
-                "label": "Label" + makeid(), "count": 23 * index, "selected": index % 5 == 2
-            });
-        }
-        for (let index = 0; index < 10; index++) {
-            facetConfig.push({
-                "id": "Facet" + index,
-                "name": makeid(),
-                "type": index === 2 ? "Edm.Int32" : "Edm.String",
-                "pinned": index % 5 == 0,
-                "collapsed": index % 8 == 0,
-                "order": index
-            });
-
-        }
-        for (let index = 0; index < 30; index++) {
-            facets.push({
-                "id": "Facet" + index,
-                "facetValues": facetValues,
-                "facetRanges": [
-                    {
-                        "min": null,
-                        "max": null,
-                        "isMinIncluded": false,
-                        "isMaxIncluded": false
-                    }
-                ]
-            });
-
-        }
-
+          ],
+        });
+      }
     </script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <button onclick="addFacets()">Add Facets</button>
     <button onclick="addFilters()">Add Filters</button>
     <button onclick="destroy()">Destroy Facete</button>
     <div style="display: flex;">
-        <div class="gui facet-container" style="height: 90%; width:30%;overflow: hidden;margin-top: 50px;">
-            <div id="hi">
-
-            </div>
-        </div>
-        <div class="gui container" style="height: 90%; width:70%;float:right;    margin-top: 50px;" id="hi1"></div>
+      <div
+        class="gui facet-container"
+        style="height: 90%; width: 30%; overflow: hidden; margin-top: 50px;"
+      >
+        <div id="hi"></div>
+      </div>
+      <div
+        class="gui container"
+        style="height: 90%; width: 70%; float: right; margin-top: 50px;"
+        id="hi1"
+      ></div>
     </div>
-    <input tabindex="0" type="text" width="50">
+    <input tabindex="0" type="text" width="50" />
     <script>
-
-        var facetoptions = {
-            showCount: false,
-            facetConfig: facetConfig,
-            containerElement: document.getElementById("hi"),
-            onFilterChange: function (column, value, actionType, type, range) {
-                alert(column + value + actionType + type + range);
-            },
-            onCollapseToggle: function (collapseSettings) {
-                console.log(collapseSettings);
-            },
-            facetSortingFn: function (prev, next) {
-                if (prev.name === undefined) {
-                    return -1;
-                }
-                if (next.name  === undefined) {
-                    return 1;
-                }
-                const prevName = prev.name.toLowerCase();
-                const nextName = next.name.toLowerCase();
-                if (prevName < nextName) {
-                    return -1;
-                }
-                if ( prevName > nextName) {
-                    return 1;
-                }
-            }
-        };
-        var filterOptions = {
-            filterConfig: facetConfig,
-            containerElement: document.getElementById("hi1"),
-            onFilterChange: function (column, value, actionType, type, range) {
-                alert(column + value + actionType + type + range);
-            }
-        };
-        var facet = new Facetoo.Facet(facetoptions);
-        var filter = new Facetoo.Filter(filterOptions);
-        function addFacets() {
-            facet.bind(facets);
-        }
-        function addFilters() {
-            filter.bind(filters);
-        }
-        function destroy() {
-            facet.destroy();
-        }
+      var facetoptions = {
+        showCount: false,
+        facetConfig: facetConfig,
+        containerElement: document.getElementById("hi"),
+        onFilterChange: function (column, value, actionType, type, range) {
+          alert(column + value + actionType + type + range);
+        },
+        onCollapseToggle: function (collapseSettings) {
+          console.log(collapseSettings);
+        },
+        facetSortingFn: function (prev, next) {
+          if (prev.name === undefined) {
+            return -1;
+          }
+          if (next.name === undefined) {
+            return 1;
+          }
+          const prevName = prev.name.toLowerCase();
+          const nextName = next.name.toLowerCase();
+          if (prevName < nextName) {
+            return -1;
+          }
+          if (prevName > nextName) {
+            return 1;
+          }
+        },
+      };
+      var filterOptions = {
+        filterConfig: facetConfig,
+        containerElement: document.getElementById("hi1"),
+        onFilterChange: function (column, value, actionType, type, range) {
+          alert(column + value + actionType + type + range);
+        },
+      };
+      var facet = new Facetoo.Facet(facetoptions);
+      var filter = new Facetoo.Filter(filterOptions);
+      function addFacets() {
+        facet.bind(facets);
+      }
+      function addFilters() {
+        filter.bind(filters);
+      }
+      function destroy() {
+        facet.destroy();
+      }
     </script>
-</body>
-
+  </body>
 </html>
