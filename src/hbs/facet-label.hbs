@@ -2,12 +2,12 @@
     role="group">
     {{#each facetValues}}
     <li class="gui item {{CheckLength @index 5}}"
-        aria-label="{{label}}"
-        role="treeitem">
+        aria-label="{{label}}">
         <label  data-attr-value="{{label}}" 
                 data-attr-id="{{../id}}"
                 data-attr-type="{{../type}}"
-                tabindex="0"                
+                tabindex="0"
+                role="treeitem"
                 title="{{label}}({{count}})"
                 for="{{idPrefix}}-{{../id}}-{{@index}}-checkbox"
                 aria-label="Filter {{label}} in {{../name}} has {{count}} records. Press spacebar to {{ApplyRemove selected}} this filter."
