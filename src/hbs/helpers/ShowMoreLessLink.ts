@@ -1,6 +1,6 @@
 const ShowMoreLessLink = (index, v2, options): string => {
   if (index.length > v2) {
-    return `<li class="gui m-b-5 m-t-5">
+    return `<li class="gui m-b-5 m-t-5" role="group">
                 <a  tabindex="0" role="treeitem"
                     data-attr-id="{{id}}"
                     data-attr-value="Show More"
@@ -10,7 +10,7 @@ const ShowMoreLessLink = (index, v2, options): string => {
                     ${index.length - v2} More
                 </a>
             </li>
-            <li class="gui m-b-5 m-t-5 gui-hidden">
+            <li class="gui m-b-5 m-t-5 gui-hidden" role="group">
                 <a  tabindex="0"
                     role="treeitem"
                     data-attr-value="Show Less"
