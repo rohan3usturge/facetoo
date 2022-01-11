@@ -49,7 +49,7 @@ export class FacetTreeItem {
         let elem = node.firstElementChild;
         while (elem) {
             if (elem.tagName.toLowerCase() === "ul") {
-                elem.setAttribute("role", "group");
+                elem.setAttribute("role", "tree");
                 this.isExpandable = true;
                 break;
             }
