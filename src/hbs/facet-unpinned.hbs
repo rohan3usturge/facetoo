@@ -22,7 +22,7 @@
             data-attr-id="{{id}}" 
             data-attr-value="{{name}}">
             <div class="facet-item-header fluid gui item flex jc-sb">
-                <span class="gui primary gui-subheading-1 caps m-0 cursor-pointer" title="{{name}}">
+                <span tabindex="0" class="gui primary gui-subheading-1 caps m-0 cursor-pointer" title="{{name}}">
                     {{name}} {{{SelectedFiltersCount facetValues}}}
                 </span>
                 <span>
@@ -33,9 +33,9 @@
                         role="button"
                         tabindex="0"></i>
                     {{#if collapsed}}
-                        <i class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
+                        <i tabindex="0" class="gui gui-icon selectable gui-icon-chevron-down expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
                     {{else}}
-                        <i class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
+                        <i tabindex="0" class="gui gui-icon selectable gui-icon-chevron-up expansion-icon m-t-5 m-r-10 cursor-pointer"></i>
                     {{/if}}
                 </span>
             </div>
