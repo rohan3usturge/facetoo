@@ -23,7 +23,7 @@ export class FacetTreeItem {
     public ignoreForSearch: boolean;
 
     constructor(node: HTMLElement, tree: FacetTree, group: FacetTreeItem) {
-        node.tabIndex = -1;
+        node.tabIndex = 0;
         this.tree = tree;
         this.groupTreeitem = group;
         this.treeItemDomNode = node;
@@ -58,7 +58,7 @@ export class FacetTreeItem {
     }
 
     public init = () => {
-        this.treeItemDomNode.tabIndex = -1;
+        this.treeItemDomNode.tabIndex = 0;
         if (!this.treeItemDomNode.getAttribute("role")) {
             this
                 .treeItemDomNode
